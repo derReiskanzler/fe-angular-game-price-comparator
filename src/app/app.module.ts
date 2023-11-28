@@ -18,7 +18,7 @@ import { AuthInterceptor } from './shared/utils/interceptors/auth.interceptor';
   ],
   providers: [
     // TODO: where to put http interceptors? In Auth Module?
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useValue: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
