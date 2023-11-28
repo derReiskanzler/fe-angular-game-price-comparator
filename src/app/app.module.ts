@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './shared/ui/header/header.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/utils/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,10 @@ import { HeaderModule } from './shared/ui/header/header.module';
     AppRoutingModule,
     HeaderModule,
   ],
-  providers: [],
+  providers: [
+    // TODO: where to put http interceptors? In Auth Module?
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
