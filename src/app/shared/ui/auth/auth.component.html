@@ -1,0 +1,115 @@
+<div class="flex flex-column align-items-center">
+    <p-tabView [(activeIndex)]="activeIndex" styleClass="flex flex-column align-items-center">
+        <!-- Login Panel -->
+        <p-tabPanel header="Login">
+            <form
+                class="flex flex-column gap-2"
+                [formGroup]="loginFormGroup"
+                (keydown.enter)="onSubmit()"
+            >
+                <input
+                    type="email"
+                    pInputText
+                    formControlName="email"
+                    placeholder="Email"
+                    pAutofocus
+                    [autofocus]="loginIsSelected"
+                />
+                <small
+                    class="text-red-500"
+                    *ngIf="
+                        !loginFormGroup.get('email')?.valid &&
+                        loginFormGroup.get('email')?.touched &&
+                        loginFormGroup.get('email')?.errors?.['email']
+                    "
+                >Email needs '@' and something like '.com'.</small>
+                <small
+                    class="text-red-500"
+                    *ngIf="
+                        !loginFormGroup.get('email')?.valid &&
+                        loginFormGroup.get('email')?.touched &&
+                        !loginFormGroup.get('email')?.errors?.['email']
+                    "
+                >Email is required.</small>
+
+                <input
+                    type="password"
+                    pInputText
+                    formControlName="password"
+                    placeholder="Password"
+                />
+                <small
+                    class="text-red-500"
+                    *ngIf="
+                        !loginFormGroup.get('password')?.valid &&
+                        loginFormGroup.get('password')?.touched
+                    "
+                >Password is required.</small>
+            </form>
+        </p-tabPanel>
+
+        <!-- Register Panel -->
+        <p-tabPanel header="Register">
+            <form
+                class="flex flex-column gap-2"
+                [formGroup]="registerFormGroup"
+                (keydown.enter)="onSubmit()"
+            >
+                <input
+                    email
+                    type="email"
+                    pInputText
+                    formControlName="email"
+                    placeholder="Email"
+                    pAutofocus
+                    [autofocus]="!loginIsSelected"
+                />
+                <small
+                    class="text-red-500"
+                    *ngIf="
+                        !registerFormGroup.get('email')?.valid &&
+                        registerFormGroup.get('email')?.touched &&
+                        registerFormGroup.get('email')?.errors?.['email']
+                    "
+                >Email needs '@' and something like '.com'.</small>
+                <small
+                    class="text-red-500"
+                    *ngIf="
+                        !registerFormGroup.get('email')?.valid &&
+                        registerFormGroup.get('email')?.touched &&
+                        !registerFormGroup.get('email')?.errors?.['email']
+                    "
+                >Email is required.</small>
+
+                <input
+                    type="text"
+                    pInputText
+                    formControlName="nickname"
+                    placeholder="Nickname"
+                />
+                <small
+                    class="text-red-500"
+                    *ngIf="!registerFormGroup.get('nickname')?.valid && registerFormGroup.get('nickname')?.touched"
+                >Nickname is required.</small>
+
+                <input
+                    type="password"
+                    pInputText
+                    formControlName="password"
+                    placeholder="Password"
+                />
+                <small
+                    class="text-red-500"
+                    *ngIf="!registerFormGroup.get('password')?.valid && registerFormGroup.get('password')?.touched"
+                >Password is required.</small>
+            </form>
+        </p-tabPanel>
+    </p-tabView>
+
+    <!-- Submit Button -->
+    <p-button
+        [label]="loginIsSelected ? 'Login' : 'Register'"
+        (click)="onSubmit()"
+        [disabled]="loginIsSelected ? !loginFormGroup.valid : !registerFormGroup.valid"
+    ></p-button>
+</div>

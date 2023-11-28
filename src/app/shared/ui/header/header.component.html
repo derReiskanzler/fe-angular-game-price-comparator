@@ -1,1 +1,37 @@
-<p>header works!</p>
+<p-menubar>
+    <ng-template pTemplate="start">
+        <img src="../../../../assets/video-game-controller.png" height="60"/>
+    </ng-template>
+    <ng-template pTemplate="end">
+
+        <!-- User not logged in -->
+        <div *ngIf="auth.currentUserSig() === null">
+            <div
+                class="p-1 flex gap-2 align-items-center border-round cursor-pointer hover:surface-200"
+                pRipple
+                (click)="showAuthDialog()"
+            >
+                <i class="pi pi-sign-in text-2xl"></i>
+                <span class="underline">Login/Register</span>
+            </div>
+        </div>
+
+        <!-- User logged in -->
+        <div *ngIf="auth.currentUserSig()" class="flex align-items-center">
+            <p-avatar
+                class="mr-2"
+                icon="pi pi-user"
+                shape="circle"
+                size="large"
+                [pTooltip]="auth.currentUserSig()?.nickname"
+                tooltipPosition="bottom"
+            ></p-avatar>
+            <i
+                class="px-1 py-2 pi pi-sign-out text-2xl border-round cursor-pointer hover:surface-200"
+                pRipple
+                (click)="logout()"
+            >
+            </i>
+        </div>
+    </ng-template>
+</p-menubar>
