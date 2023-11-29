@@ -9,6 +9,7 @@ import { AuthModule } from '../auth/auth.module';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { RippleModule } from 'primeng/ripple';
     AvatarModule,
     TooltipModule,
     RippleModule,
+    ToastModule,
   ],
   declarations: [ HeaderComponent ],
   exports: [ HeaderComponent ],

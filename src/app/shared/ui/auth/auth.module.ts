@@ -6,7 +6,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import { ToastModule } from 'primeng/toast';
     TabViewModule,
     ButtonModule,
     AutoFocusModule,
-    ToastModule,
   ],
   declarations: [ AuthComponent ],
   exports: [ AuthComponent ],
