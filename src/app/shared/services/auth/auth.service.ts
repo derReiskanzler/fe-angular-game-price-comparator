@@ -39,7 +39,6 @@ export class AuthService {
   }
 
   public logout(): void {
-    // TODO: implement logout
     localStorage.removeItem('token');
     this.currentUserSig.set(null);
   }

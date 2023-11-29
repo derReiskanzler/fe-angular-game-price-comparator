@@ -15,14 +15,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public loggedInUser: User|null = null;
   private ref: DynamicDialogRef | undefined;
 
+  public auth = inject(AuthService);
   private dialogService = inject(DialogService);
-  private authService = inject(AuthService);
   private messageService = inject(MessageService);
 
   public ngOnInit(): void {
-    this.loggedInUser = this.authService.currentUserSig();
-    // TODO: to show nickname in header - get logged in user from BE and set user signal in auth service and on error set user signal to null
-    // or set nickname in localstorage when logging in/registering and set user signal with nickname from local storage here
+    // TODO: to show nickname in header - get logged in user from BE (check if I am logged in) and set user signal in auth service and on error set user signal to null
+    // or set expiry date, nickname in local storage when trying to use already logged in user here and set user signal with nickname from local storage here
+
+    // what if I'm logged in but close the tab and create new tab
   }
 
   public showAuthDialog(): void {
@@ -44,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public logout(): void {
-    this.authService.logout();
+    this.auth.logout();
   }
 
   public ngOnDestroy(): void {
