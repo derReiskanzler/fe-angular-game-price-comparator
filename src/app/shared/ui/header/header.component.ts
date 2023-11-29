@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthComponent } from '../auth/auth.component';
 import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ import { AuthService } from '../../services/auth/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  public loggedInUser: User|null = null;
   private ref: DynamicDialogRef | undefined;
 
   constructor(
@@ -18,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
+    this.loggedInUser = this.auth.currentUserSig();
     // TODO: to show nickname in header - get logged in user from BE and set user signal in auth service and on error set user signal to null
     // or set nickname in localstorage when logging in/registering and set user signal with nickname from local storage here
   }

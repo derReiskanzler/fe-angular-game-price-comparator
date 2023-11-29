@@ -5,7 +5,7 @@
     <ng-template pTemplate="end">
 
         <!-- User not logged in -->
-        <div *ngIf="auth.currentUserSig() === null">
+        <div *ngIf="loggedInUser === null">
             <div
                 class="p-1 flex gap-2 align-items-center border-round cursor-pointer hover:surface-200"
                 pRipple
@@ -17,13 +17,13 @@
         </div>
 
         <!-- User logged in -->
-        <div *ngIf="auth.currentUserSig()" class="flex align-items-center">
+        <div *ngIf="loggedInUser" class="flex align-items-center">
             <p-avatar
                 class="mr-2"
                 icon="pi pi-user"
                 shape="circle"
                 size="large"
-                [pTooltip]="auth.currentUserSig()?.nickname"
+                [pTooltip]="loggedInUser.nickname"
                 tooltipPosition="bottom"
             ></p-avatar>
             <i
