@@ -6,7 +6,6 @@ import { AuthService } from '../../services/auth/auth.service';
 import { LoginUserDto } from '../../dtos/login-user.dto';
 import { RegisterUserDto } from '../../dtos/register-user.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NEVER, catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
