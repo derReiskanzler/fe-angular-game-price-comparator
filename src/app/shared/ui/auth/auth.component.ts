@@ -6,8 +6,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { LoginUserDto } from '../../dtos/login-user.dto';
 import { RegisterUserDto } from '../../dtos/register-user.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NEVER, catchError } from 'rxjs';
-import { User } from '../../models/user.interface';
+import { NEVER, catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +22,7 @@ export class AuthComponent implements OnInit {
 
   private destroyRef = inject(DestroyRef);
   private dialogRef = inject(DynamicDialogRef);
-  private authService = inject(AuthService);
+  public auth = inject(AuthService);
 
   public ngOnInit(): void {
     this.loginFormGroup = new FormGroup({
@@ -48,35 +47,22 @@ export class AuthComponent implements OnInit {
         return;
       }
 
-      this.authService.login(this.loginFormGroup.value as LoginUserDto)
-        .pipe(
-          takeUntilDestroyed(this.destroyRef),
-          catchError(err => {
-            this.dialogRef.close(err);
-            return NEVER;
-          }),
-        )
+      this.auth.login(this.loginFormGroup.value as LoginUserDto)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(user => {
           this.dialogRef.close(user);
         });
     } else {
-
       if (this.registerFormGroup.invalid) {
         this.registerFormGroup.markAllAsTouched();
         return;
       }
-      this.authService.register(this.registerFormGroup.value as RegisterUserDto)
-        .pipe(
-          takeUntilDestroyed(this.destroyRef),
-          catchError(err => {
-            this.dialogRef.close(err);
-            return NEVER;
-          }),
-        )
-        .subscribe((user: User) => {
+
+      this.auth.register(this.registerFormGroup.value as RegisterUserDto)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(user => {
           this.dialogRef.close(user);
         });
     }
-
   }
 }
