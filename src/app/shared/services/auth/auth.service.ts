@@ -2,40 +2,50 @@ import { Injectable, signal, inject } from '@angular/core';
 import { LoginUserDto } from '../../dtos/login-user.dto';
 import { RegisterUserDto } from '../../dtos/register-user.dto';
 import { User } from '../../models/user.interface';
-import { Observable, of, throwError } from 'rxjs';
+import { NEVER, Observable, catchError, map, tap } from 'rxjs';
+import { AuthWebService } from '../../api/services/auth/auth.web.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public currentUserSig = signal<User | null>(null);
+  public currentUserSig = signal<Partial<User> | null>(null);
+  public isLoadingSig = signal<boolean>(false);
+  public errorMessage = signal<string|null>(null);
 
-  // private httpClient = inject(HttpClientService);
+  private api = inject(AuthWebService);
 
-  public login(dto: LoginUserDto): Observable<User> {
-    // TODO: implement login (return something, so it can be reacted on in FE) & set token in storage & set user as signal
-    const mockUser = {
-      email: 'test@email.com',
-      token: 'rfddafsvd',
-      nickname: 'nickname',
-    };
-    localStorage.setItem('token', dto.email);
-    this.currentUserSig.set(mockUser);
-    console.log('login', dto);
-    return of(mockUser);
-    // return this.httpClient.login();
+  public login({ email, password }: LoginUserDto): Observable<User> {
+    this.isLoadingSig.set(true);
+    
+    return this.api.login(email, password)
+      .pipe(
+        map(({ token, nickname }) => ({ email, token, nickname})),
+        tap(user => {
+          localStorage.setItem('token', user.token);
+          this.currentUserSig.set(user);
+          this.isLoadingSig.set(false);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this.errorMessage.set(err.error?.errorMessage);
+          return NEVER;
+        }),
+      );
   }
   
-  public register(dto: RegisterUserDto): Observable<User> {
-    // TODO: implement register (return something, so it can be reacted on in FE) & set token in storage & set user as signal
-    const mockUser = {
-      email: 'test@email.com',
-      token: 'rfddafsvd',
-      nickname: 'nickname',
-    };
-    localStorage.setItem('token', dto.email);
-    this.currentUserSig.set(mockUser);
-    console.log('register', dto);
-    return of(mockUser);
-    // return this.httpClient.register();
+  public register({ email, nickname, password }: RegisterUserDto): Observable<User> {
+    return this.api.register(email, nickname, password)
+      .pipe(
+        map(({ token }) => ({ email, token, nickname})),
+        tap(user => {
+          localStorage.setItem('token', user.token);
+          this.currentUserSig.set(user);
+          this.isLoadingSig.set(false);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this.errorMessage.set(err.error?.errorMessage);
+          return NEVER;
+        }),
+      );
   }
 
   public logout(): void {
