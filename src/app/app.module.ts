@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './features/header/header.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptor } from './shared/utils/interceptors/auth.interceptor';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { AuthInterceptor } from './shared/utils/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,8 +19,7 @@ import { MessageService } from 'primeng/api';
     HttpClientModule,
   ],
   providers: [
-    // TODO: where to put http interceptors? In Auth Module?
-    // { provide: HTTP_INTERCEPTORS, useValue: AuthInterceptor, multi: true },
+    provideHttpClient(withInterceptors([ AuthInterceptor ])),
     MessageService,
   ],
   bootstrap: [AppComponent]
