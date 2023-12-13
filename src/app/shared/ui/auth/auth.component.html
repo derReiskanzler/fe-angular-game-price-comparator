@@ -109,7 +109,7 @@
     <!-- Submit Button -->
     <p-button
         [label]="loginIsSelected ? 'Login' : 'Register'"
-        [icon]="auth.isLoadingSig() ? 'pi pi-spin pi-spinner' : ''"
+        [icon]="isLoading() ? 'pi pi-spin pi-spinner' : ''"
         (click)="onSubmit()"
         [disabled]="loginIsSelected ? !loginFormGroup.valid : !registerFormGroup.valid"
     ></p-button>

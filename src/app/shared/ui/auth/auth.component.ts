@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, ViewEncapsulation, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthType } from '../../models/auth-type.enum';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -6,22 +6,24 @@ import { AuthService } from '../../services/auth/auth.service';
 import { LoginUserDto } from '../../dtos/login-user.dto';
 import { RegisterUserDto } from '../../dtos/register-user.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class AuthComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
+  private dialogRef = inject(DynamicDialogRef);
+  private messageService = inject(MessageService);
+  private auth = inject(AuthService);
+
   public activeIndex: number = AuthType.LOGIN;
   public loginFormGroup!: FormGroup;
   public registerFormGroup!: FormGroup;
-
-  private destroyRef = inject(DestroyRef);
-  private dialogRef = inject(DynamicDialogRef);
-  public auth = inject(AuthService);
+  public isLoading = this.auth.isLoadingSig;
 
   public ngOnInit(): void {
     this.loginFormGroup = new FormGroup({
@@ -40,6 +42,8 @@ export class AuthComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.messageService.clear();
+
     if (this.loginIsSelected) {
       if (this.loginFormGroup.invalid) {
         this.loginFormGroup.markAllAsTouched();
