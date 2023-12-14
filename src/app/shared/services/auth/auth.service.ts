@@ -6,7 +6,6 @@ import { NEVER, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { AuthWebService } from '../../api/services/auth/auth.web.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { UserWebService } from '../../api/services/user/user.web.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,14 +13,13 @@ export class AuthService {
   public isLoadingSig = signal<boolean>(false);
   public errorMessage = signal<string|null>(null);
 
-  private authApi = inject(AuthWebService);
-  private userApi = inject(UserWebService);
+  private api = inject(AuthWebService);
   private messageService = inject(MessageService);
 
   public login({ email, password }: LoginUserDto): Observable<User> {
     this.isLoadingSig.set(true);
     
-    return this.authApi.login(email, password)
+    return this.api.login(email, password)
       .pipe(
         map(({ token, nickname }) => ({ email, token, nickname})),
         tap(user => {
@@ -46,7 +44,7 @@ export class AuthService {
   public register({ email, nickname, password }: RegisterUserDto): Observable<User> {
     this.isLoadingSig.set(true);
 
-    return this.authApi.register(email, nickname, password)
+    return this.api.register(email, nickname, password)
       .pipe(
         map(({ token }) => ({ email, token, nickname})),
         tap(user => {
@@ -71,7 +69,7 @@ export class AuthService {
   public getLoggedInUser(): Observable<User> {
     this.isLoadingSig.set(true);
 
-    return this.userApi.getLoggedInUser()
+    return this.api.getLoggedInUser()
       .pipe(
         map(({ email, nickname }) => ({
           email,

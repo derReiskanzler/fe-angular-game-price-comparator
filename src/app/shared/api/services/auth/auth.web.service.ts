@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginApiResponse } from '../../models/login-api-response.model';
 import { RegisterApiResponse } from '../../models/reigster-api-response.model';
+import { UserResponse } from '../../models/user-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthWebService {
@@ -15,5 +16,9 @@ export class AuthWebService {
   
   public register(email: string, nickname: string, password: string): Observable<RegisterApiResponse> {
     return this.http.post<RegisterApiResponse>(`${this.basePath}/v1/auth/register`, { email, nickname, password });
+  }
+  
+  public getLoggedInUser(): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.basePath}/v1/auth/user`);
   }
 }
