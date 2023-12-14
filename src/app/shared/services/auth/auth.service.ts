@@ -2,7 +2,7 @@ import { Injectable, signal, inject } from '@angular/core';
 import { LoginUserDto } from '../../dtos/login-user.dto';
 import { RegisterUserDto } from '../../dtos/register-user.dto';
 import { User } from '../../models/user.interface';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { NEVER, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { AuthWebService } from '../../api/services/auth/auth.web.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
@@ -86,7 +86,7 @@ export class AuthService {
           this.currentUserSig.set(null);
           this.errorMessage.set(err.error?.message);
           
-          return throwError(() => err);
+          return NEVER;
         }),
       );
   }

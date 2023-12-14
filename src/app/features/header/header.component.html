@@ -9,6 +9,7 @@
         <!-- User not logged in -->
         <div *ngIf="isLoggedIn() === null">
             <div
+                *ngIf="!isLoading(); else loading"
                 class="p-1 flex gap-2 align-items-center border-round cursor-pointer hover:surface-200"
                 pRipple
                 (click)="showAuthDialog()"
@@ -16,6 +17,12 @@
                 <i class="pi pi-sign-in text-2xl"></i>
                 <span class="underline">Login/Register</span>
             </div>
+            
+            <ng-template #loading>
+                <div class="p-2">
+                    <i class="pi pi-spin pi-spinner text-2xl"></i>
+                </div>
+            </ng-template>
         </div>
 
         <!-- User logged in -->

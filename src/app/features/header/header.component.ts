@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   
   private dialogRef: DynamicDialogRef|undefined;
   public isLoggedIn = this.auth.currentUserSig;
+  public isLoading = this.auth.isLoadingSig;
 
   public ngOnInit(): void {
     // what if I'm logged in but close the tab and create new tab
