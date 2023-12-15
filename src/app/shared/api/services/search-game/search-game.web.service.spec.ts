@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthWebService } from './auth.web.service';
+import { SearchGameWebService } from './search-game.web.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('AuthWebService', () => {
-  let service: AuthWebService;
+describe('SearchGameWebService', () => {
+  let service: SearchGameWebService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +12,7 @@ describe('AuthWebService', () => {
         HttpClientTestingModule,
       ],
     });
-    service = TestBed.inject(AuthWebService);
+    service = TestBed.inject(SearchGameWebService);
   });
 
   it('should be created', () => {
