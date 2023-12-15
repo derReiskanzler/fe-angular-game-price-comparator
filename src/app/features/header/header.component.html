@@ -2,45 +2,20 @@
 
 <p-menubar>
     <ng-template pTemplate="start">
-        <img src="../../../../assets/video-game-controller.png" height="60"/>
+        <div class="flex align-items-center gap-4">
+            <img src="../../../../assets/video-game-controller.png" height="60"/>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                    [formControl]="searchControl"
+                    type="text"
+                    placeholder="Title of a game..."
+                    pInputText
+                />
+            </span>
+        </div>
     </ng-template>
     <ng-template pTemplate="end">
-
-        <!-- User not logged in -->
-        <div *ngIf="isLoggedIn() === null">
-            <div
-                *ngIf="!isLoading(); else loading"
-                class="p-1 flex gap-2 align-items-center border-round cursor-pointer hover:surface-200"
-                pRipple
-                (click)="showAuthDialog()"
-            >
-                <i class="pi pi-sign-in text-2xl"></i>
-                <span class="underline">Login/Register</span>
-            </div>
-            
-            <ng-template #loading>
-                <div class="p-2">
-                    <i class="pi pi-spin pi-spinner text-2xl"></i>
-                </div>
-            </ng-template>
-        </div>
-
-        <!-- User logged in -->
-        <div *ngIf="isLoggedIn()" class="flex align-items-center">
-            <p-avatar
-                class="mr-2"
-                icon="pi pi-user"
-                shape="circle"
-                size="large"
-                [pTooltip]="isLoggedIn()?.nickname"
-                tooltipPosition="bottom"
-            ></p-avatar>
-            <i
-                class="px-1 py-2 pi pi-sign-out text-2xl border-round cursor-pointer hover:surface-200"
-                pRipple
-                (click)="logout()"
-            >
-            </i>
-        </div>
+        <app-auth></app-auth>
     </ng-template>
 </p-menubar>
