@@ -93,7 +93,4 @@ export class AuthService {
     localStorage.removeItem('token');
     this.currentUserSig.set(null);
   }
-
-  // TODO: implement method to check if token is expired or add expiry date in currentUserSig
-  // for auth guard use case/profile page
 }
