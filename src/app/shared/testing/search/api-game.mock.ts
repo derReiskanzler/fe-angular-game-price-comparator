@@ -31,7 +31,7 @@ export const apiGameMock: ApiGame = {
         mac: false,
         linux: false,
     },
-    shortDescription: 'short description',
-    detailedDescription: 'detailed description',
-    aboutTheGame: 'about the game',
+    short_description: 'short description',
+    detailed_description: 'detailed description',
+    about_the_game: 'about the game',
 };

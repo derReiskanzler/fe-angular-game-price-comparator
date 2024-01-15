@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   public ngOnInit(): void {
     this.searchControl.valueChanges.pipe(
       takeUntilDestroyed(this.destroyRef),
-      debounceTime(350),
+      debounceTime(500),
       map(value => {
         if (!value) {
           this.facade.resetSearch();

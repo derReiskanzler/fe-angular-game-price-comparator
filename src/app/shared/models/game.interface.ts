@@ -1,6 +1,6 @@
 export interface Game {
     name: string;
-    type: GameType;
+    type?: GameType;
     steam?: GameInfo;
     gog?: GameInfo;
     image: string;

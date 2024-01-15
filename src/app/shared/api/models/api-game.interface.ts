@@ -1,13 +1,13 @@
 export interface ApiGame {
     name: string;
-    type: ApiGameType;
+    type?: ApiGameType;
     steam?: ApiGameInfo;
     gog?: ApiGameInfo;
     image: string;
     platforms: ApiGamePlatforms;
-    shortDescription: string;
-    detailedDescription: string;
-    aboutTheGame: string;
+    short_description: string;
+    detailed_description: string;
+    about_the_game: string;
 }
 
 export type ApiGameType = 'game' | 'dlc';
@@ -23,11 +23,11 @@ export interface ApiGameInfo {
 }
 
 export interface ApiGamePrice {
-    intital: number;
-    final: number;
-    discountPercent: number;
+    intital_value: number;
+    final_value: number;
+    discount_percent: number;
     currency: string;
-    isFree: boolean;
+    is_free: boolean;
 }
 
 export interface ApiGamePlatforms {
