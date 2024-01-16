@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../models/user.interface';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -16,6 +17,7 @@ export class AuthComponent {
   private auth = inject(AuthService);
   private dialogService = inject(DialogService);
   private messageService = inject(MessageService);
+  private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
   private dialogRef: DynamicDialogRef|undefined;
@@ -59,12 +61,18 @@ export class AuthComponent {
       {
         label: 'Favourites',
         icon: 'pi pi-heart-fill',
-        routerLink: ['/favourites'],
+        command: () => {
+          console.log('favourites route call')
+          this.router.navigate(['/favourites']);
+        },
       },
       {
         label: 'Settings',
         icon: 'pi pi-cog',
-        routerLink: ['/settings'],
+        command: () => {
+          console.log('favourites route call')
+          this.router.navigate(['/settings']);
+        },
       },
     ];
   }
