@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthType } from '../../models/auth-type.enum';
+import { AuthType } from '../../../models/auth-type.enum';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AuthService } from '../../services/auth/auth.service';
-import { LoginUserDto } from '../../dtos/login-user.dto';
-import { RegisterUserDto } from '../../dtos/register-user.dto';
+import { AuthService } from '../../../services/auth/auth.service';
+import { LoginUserDto } from '../../../dtos/login-user.dto';
+import { RegisterUserDto } from '../../../dtos/register-user.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from 'primeng/api';
 

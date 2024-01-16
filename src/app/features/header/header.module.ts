@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from './header.component';
-import { AuthModule } from '../../shared/ui/auth-dialog/auth.module';
+import { AuthModule } from '../../shared/ui/auth/auth.module';
 
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';

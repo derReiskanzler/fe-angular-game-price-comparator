@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthDialogComponent } from './auth-dialog.component';
-import { AuthComponent } from '../auth/auth.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { AuthComponent } from './auth.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { AvatarModule } from 'primeng/avatar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { MessageService } from 'primeng/api';
     TooltipModule,
     RippleModule,
     ToastModule,
+    MenuModule,
   ],
   declarations: [ AuthComponent, AuthDialogComponent ],
   exports: [ AuthComponent, AuthDialogComponent ],

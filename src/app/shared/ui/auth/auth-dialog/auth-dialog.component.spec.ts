@@ -6,11 +6,11 @@ import { ButtonModule } from 'primeng/button';
 import { DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
-import { AuthWebService } from '../../api/services/auth/auth.web.service';
-import { MockAuthWebService } from '../../testing/auth/auth.web.service.mock';
+import { AuthWebService } from '../../../api/services/auth/auth.web.service';
+import { MockAuthWebService } from '../../../testing/auth/auth.web.service.mock';
 import { MessageService } from 'primeng/api';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('AuthDialogComponent', () => {

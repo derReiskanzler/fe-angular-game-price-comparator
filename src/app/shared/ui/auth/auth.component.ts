@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthService } from '../../services/auth/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../models/user.interface';
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 @Component({
   selector: 'app-auth',
@@ -54,4 +54,18 @@ export class AuthComponent {
     }
   }
 
+  public get menuItems(): MenuItem[] {
+    return [
+      {
+        label: 'Favourites',
+        icon: 'pi pi-heart-fill',
+        routerLink: ['/favourites'],
+      },
+      {
+        label: 'Settings',
+        icon: 'pi pi-cog',
+        routerLink: ['/settings'],
+      },
+    ];
+  }
 }
