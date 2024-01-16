@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { SearchGameFacadeService } from '../../../../shared/state/facade/search-game.facade.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Game } from '../../../../shared/models/game.interface';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
@@ -13,14 +14,25 @@ export class HomeComponent implements OnInit {
   public results$!: Observable<Game[]>;
   public isLoading$!: Observable<boolean>;
   public selectedGame$!: Observable<Game>;
+  public error$!: Observable<string>;
 
   private facade = inject(SearchGameFacadeService);
   private router = inject(Router);
+  private messageService = inject(MessageService);
 
   public ngOnInit(): void {
       this.results$ = this.facade.results$;
       this.isLoading$ = this.facade.isLoading$;
       this.selectedGame$ = this.facade.selectedGame$;
+      this.error$ = this.facade.error$.pipe(
+        tap(error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error,
+          })
+        })
+      );
   }
 
   public openGameOverview(game: Game, selectedGameName?: string): void {

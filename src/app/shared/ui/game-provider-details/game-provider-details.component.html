@@ -1,21 +1,19 @@
-<div class="">
-    <div class="flex flex-column gap-3">
-        <div *ngIf="price?.isFree; else priceOverview" class="">
-            <span>Is Free</span>
-        </div>
-    
-        <div *ngIf="link" class="flex justify-content-between">
-            <a [href]="link" target="_blank" class="flex gap-2 align-items-center text-blue-600">
-                <i class="pi pi-window-maximize"></i>
-                <span>Zur Webseite</span>
-            </a>
-        </div>
+<div *ngIf="id" [class]="styleClass">
+    <img *ngIf="imagePath" [src]="imagePath" [alt]="(imagePath | split: '/')[1]" width="25" height="25">
+
+    <div *ngIf="!price?.isFree; else isFree" class="flex gap-4 justify-content-between">
+        <span *ngIf="showPriceLabel" class="">Price</span>
+        <span class="">{{ price?.final | currency: price?.currency }}</span>
     </div>
 
-    <ng-template #priceOverview>
-        <div class="flex justify-content-between">
-            <span class="">Price</span>
-            <span class="">{{ price?.final | currency: price?.currency }}</span>
-        </div>
+    <div *ngIf="link" class="flex justify-content-between">
+        <a (click)="$event.stopPropagation()" [href]="link" target="_blank" class="p-2 flex gap-2 align-items-center text-blue-600 border-round hover:surface-300">
+            <i class="pi pi-window-maximize"></i>
+            <span *ngIf="showWebsiteLabel">To website</span>
+        </a>
+    </div>
+
+    <ng-template #isFree>
+        <span>For Free</span>
     </ng-template>
 </div>

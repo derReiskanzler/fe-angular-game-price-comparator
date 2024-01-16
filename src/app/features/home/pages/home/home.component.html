@@ -2,18 +2,52 @@
     *ngIf="{
         isLoading: isLoading$ | async,
         results: results$ | async,
-        selectedGame: selectedGame$ | async
+        selectedGame: selectedGame$ | async,
+        error: error$ | async
     } as obs"
     class="py-4"
 >
         <div *ngIf="!obs.isLoading; else loadingResults" class="flex flex-column gap-3">
             <div
                 *ngFor="let game of obs.results"
-                class="flex align-items-center gap-2 border-round border-0 border-1 surface-100 hover:border-2 hover:border-400 cursor-pointer"
+                class="flex align-items-center gap-2 border-round shadow-2 border-0 border-1 surface-100 hover:border-2 hover:border-400 hover:shadow-4 cursor-pointer"
                 (click)="openGameOverview(game, obs.selectedGame?.name)"
             >
                 <img [src]="game.image" [alt]="game.name" width="250"/>
-                <span>{{ game.name }}</span>
+                <div class="w-full h-full p-3 flex flex-column gap-4 justify-content-between">
+                    <span>{{ game.name }}</span>
+                    <div class="flex justify-content-between">
+                        <div class="flex">
+                            <app-game-provider-details
+                                [id]="game?.steam?.id"
+                                [link]="game?.steam?.link"
+                                [price]="game?.steam?.price"
+                                imagePath="/assets/steam.png"
+                                [showPriceLabel]="false"
+                                [showWebsiteLabel]="false"
+                                styleClass="mr-4 flex gap-1 align-items-center"
+                            ></app-game-provider-details>
+                            <app-game-provider-details
+                                [id]="game?.gog?.id"
+                                [link]="game?.gog?.link"
+                                [price]="game?.gog?.price"
+                                imagePath="/assets/gog.png"
+                                [showPriceLabel]="false"
+                                [showWebsiteLabel]="false"
+                                styleClass="mr-4 flex gap-1 align-items-center"
+                            ></app-game-provider-details>
+                        </div>
+                        <div>
+                            <app-game-os-supported
+                                [windows]="game.platforms.windows"
+                                [mac]="game.platforms.mac"
+                                [linux]="game.platforms.linux"
+                                styleClass="flex gap-2 align-items-center"
+                            ></app-game-os-supported>
+                        </div>
+                    </div>
+                </div>
+
                 
             </div>
         </div>

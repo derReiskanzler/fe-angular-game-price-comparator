@@ -18,8 +18,8 @@
                         <!-- Steam Panel -->
                         <p-tabPanel *ngIf="game?.steam">
                             <ng-template pTemplate="header">
-                                <div class="flex gap-2">
-                                    <i class="pi pi-calendar"></i>
+                                <div class="flex gap-2 align-items-center">
+                                    <img src="/assets/steam.png" alt="steam icon" width="25">
                                     <span>Steam</span>
                                 </div>
                             </ng-template>
@@ -33,8 +33,8 @@
                         <!-- GoG Panel -->
                         <p-tabPanel *ngIf="game?.gog">
                             <ng-template pTemplate="header">
-                                <div class="flex gap-2">
-                                    <i class="pi pi-calendar"></i>
+                                <div class="flex gap-2 align-items-center">
+                                    <img src="/assets/gog.png" alt="gog icon" width="25">
                                     <span>GoG</span>
                                 </div>
                             </ng-template>
@@ -46,11 +46,11 @@
                         </p-tabPanel>
                     </p-tabView>
                 
-                    <div class="px-1 py-2 flex gap-2 align-items-center">
-                        <img *ngIf="game.platforms.windows" src="/assets/windows.png" alt="image" width="25">
-                        <img *ngIf="game.platforms.mac" src="/assets/mac.png" alt="image" width="25">
-                        <img *ngIf="game.platforms.linux" src="/assets/linux.png" alt="image" width="25">
-                    </div>
+                    <app-game-os-supported
+                        [windows]="game.platforms.windows"
+                        [mac]="game.platforms.mac"
+                        [linux]="game.platforms.linux"
+                    ></app-game-os-supported>
                 </div>
 
                 <div class="flex flex-column align-items-center">

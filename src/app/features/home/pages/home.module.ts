@@ -7,6 +7,7 @@ import { GameProviderDetailsModule } from '../../../shared/ui/game-provider-deta
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { GameDetailsComponent } from './game-details/game-details.component';
+import { GameOsSupportedModule } from '../../../shared/ui/game-os-supported/game-os-supported.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { GameDetailsComponent } from './game-details/game-details.component';
     SkeletonModule,
     
     GameProviderDetailsModule,
+    GameOsSupportedModule,
   ],
   declarations: [ HomeComponent, GameDetailsComponent ],
 })
