@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { provideMockStore } from '@ngrx/store/testing';
-import { initialSearchGameState } from '../../../shared/state/reducers/search-game.reducer';
-import { GameDetailsComponent } from '../../../shared/ui/game-details/game-details.component';
-import { GameProviderDetailsComponent } from '../../../shared/ui/game-provider-details/game-provider-details.component';
+import { initialSearchGameState } from '../../../../shared/state/reducers/search-game.reducer';
+import { GameDetailsComponent } from '../game-details/game-details.component';
+import { GameProviderDetailsComponent } from '../../../../shared/ui/game-provider-details/game-provider-details.component';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
