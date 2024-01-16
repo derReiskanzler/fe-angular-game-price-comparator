@@ -39,7 +39,7 @@ export class SearchGameService {
 
   private transformGamePrice(apiGamePrice: ApiGamePrice): GamePrice {
     return {
-      intital: apiGamePrice.intital_value,
+      intital: apiGamePrice.initial_value,
       final: apiGamePrice.final_value,
       discountPercent: apiGamePrice.discount_percent,
       currency: apiGamePrice.currency,

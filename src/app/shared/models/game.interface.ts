@@ -1,13 +1,13 @@
 export interface Game {
     name: string;
-    type?: GameType;
-    steam?: GameInfo;
-    gog?: GameInfo;
+    type: GameType|null;
+    steam: GameInfo|null;
+    gog: GameInfo|null;
     image: string;
     platforms: GamePlatforms;
-    shortDescription: string;
-    detailedDescription: string;
-    aboutTheGame: string;
+    shortDescription: string|null;
+    detailedDescription: string|null;
+    aboutTheGame: string|null;
 }
 
 export type GameType = 'game' | 'dlc';
