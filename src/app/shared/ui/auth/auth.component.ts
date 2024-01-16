@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthType } from '../../models/auth-type.enum';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthService } from '../../services/auth/auth.service';
-import { LoginUserDto } from '../../dtos/login-user.dto';
-import { RegisterUserDto } from '../../dtos/register-user.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MessageService } from 'primeng/api';
+import { User } from '../../models/user.interface';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -14,58 +13,67 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
-  private dialogRef = inject(DynamicDialogRef);
-  private messageService = inject(MessageService);
+export class AuthComponent {
   private auth = inject(AuthService);
+  private dialogService = inject(DialogService);
+  private messageService = inject(MessageService);
+  private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
-  public activeIndex: number = AuthType.LOGIN;
-  public loginFormGroup!: FormGroup;
-  public registerFormGroup!: FormGroup;
+  private dialogRef: DynamicDialogRef|undefined;
+  public isLoggedIn = this.auth.currentUserSig;
   public isLoading = this.auth.isLoadingSig;
 
   public ngOnInit(): void {
-    this.loginFormGroup = new FormGroup({
-      email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-      password: new FormControl<string | null>(null, [Validators.required])
+    // what if I'm logged in but close the tab and create new tab
+    this.auth.getLoggedInUser().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  }
+
+  public showAuthDialog(): void {
+    this.dialogRef = this.dialogService.open(AuthDialogComponent, {
+        width: '30%',
+        contentStyle: { overflow: 'auto' },
+        baseZIndex: 10000,
+        maximizable: true,
     });
-    this.registerFormGroup = new FormGroup({
-      email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-      nickname: new FormControl<string | null>(null,[Validators.required]),
-      password: new FormControl<string | null>(null, [Validators.required]),
+
+    this.dialogRef.onClose.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe((user: User) => {
+      if (user?.token) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'You are logged in now!' });
+      }
     });
   }
 
-  public get loginIsSelected(): boolean {
-    return this.activeIndex === AuthType.LOGIN;
+  public logout(): void {
+    this.auth.logout();
   }
 
-  public onSubmit(): void {
-    this.messageService.clear();
-
-    if (this.loginIsSelected) {
-      if (this.loginFormGroup.invalid) {
-        this.loginFormGroup.markAllAsTouched();
-        return;
-      }
-
-      this.auth.login(this.loginFormGroup.value as LoginUserDto)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(user => {
-          this.dialogRef.close(user);
-        });
-    } else {
-      if (this.registerFormGroup.invalid) {
-        this.registerFormGroup.markAllAsTouched();
-        return;
-      }
-
-      this.auth.register(this.registerFormGroup.value as RegisterUserDto)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(user => {
-          this.dialogRef.close(user);
-        });
+  public ngOnDestroy(): void {
+    if (this.dialogRef) {
+        this.dialogRef.close();
     }
+  }
+
+  public get menuItems(): MenuItem[] {
+    return [
+      {
+        label: 'Favourites',
+        icon: 'pi pi-heart-fill',
+        command: () => {
+          console.log('favourites route call')
+          this.router.navigate(['/favourites']);
+        },
+      },
+      {
+        label: 'Settings',
+        icon: 'pi pi-cog',
+        command: () => {
+          console.log('favourites route call')
+          this.router.navigate(['/settings']);
+        },
+      },
+    ];
   }
 }

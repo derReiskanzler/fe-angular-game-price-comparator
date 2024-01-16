@@ -1,116 +1,38 @@
-<div class="flex flex-column align-items-center">
-    <p-tabView [(activeIndex)]="activeIndex" styleClass="flex flex-column align-items-center">
-        <!-- Login Panel -->
-        <p-tabPanel header="Login">
-            <form
-                class="flex flex-column gap-2"
-                [formGroup]="loginFormGroup"
-                (keydown.enter)="onSubmit()"
-            >
-                <input
-                    type="email"
-                    pInputText
-                    formControlName="email"
-                    placeholder="Email"
-                    pAutofocus
-                    [autofocus]="loginIsSelected"
-                />
-                <small
-                    class="text-red-500"
-                    *ngIf="
-                        !loginFormGroup.get('email')?.valid &&
-                        loginFormGroup.get('email')?.touched &&
-                        loginFormGroup.get('email')?.errors?.['email']
-                    "
-                >Email needs '@' and something like '.com'.</small>
-                <small
-                    class="text-red-500"
-                    *ngIf="
-                        !loginFormGroup.get('email')?.valid &&
-                        loginFormGroup.get('email')?.touched &&
-                        !loginFormGroup.get('email')?.errors?.['email']
-                    "
-                >Email is required.</small>
+<!-- User not logged in -->
+<div *ngIf="isLoggedIn() === null">
+    <div
+        *ngIf="!isLoading(); else loading"
+        class="p-1 flex gap-2 align-items-center border-round cursor-pointer hover:surface-200"
+        pRipple
+        (click)="showAuthDialog()"
+    >
+        <i class="pi pi-sign-in text-2xl"></i>
+        <span class="underline">Login/Register</span>
+    </div>
+    
+    <ng-template #loading>
+        <div class="p-2">
+            <i class="pi pi-spin pi-spinner text-2xl"></i>
+        </div>
+    </ng-template>
+</div>
 
-                <input
-                    type="password"
-                    pInputText
-                    formControlName="password"
-                    placeholder="Password"
-                />
-                <small
-                    class="text-red-500"
-                    *ngIf="
-                        !loginFormGroup.get('password')?.valid &&
-                        loginFormGroup.get('password')?.touched
-                    "
-                >Password is required.</small>
-            </form>
-        </p-tabPanel>
-
-        <!-- Register Panel -->
-        <p-tabPanel header="Register">
-            <form
-                class="flex flex-column gap-2"
-                [formGroup]="registerFormGroup"
-                (keydown.enter)="onSubmit()"
-            >
-                <input
-                    email
-                    type="email"
-                    pInputText
-                    formControlName="email"
-                    placeholder="Email"
-                    pAutofocus
-                    [autofocus]="!loginIsSelected"
-                />
-                <small
-                    class="text-red-500"
-                    *ngIf="
-                        !registerFormGroup.get('email')?.valid &&
-                        registerFormGroup.get('email')?.touched &&
-                        registerFormGroup.get('email')?.errors?.['email']
-                    "
-                >Email needs '@' and something like '.com'.</small>
-                <small
-                    class="text-red-500"
-                    *ngIf="
-                        !registerFormGroup.get('email')?.valid &&
-                        registerFormGroup.get('email')?.touched &&
-                        !registerFormGroup.get('email')?.errors?.['email']
-                    "
-                >Email is required.</small>
-
-                <input
-                    type="text"
-                    pInputText
-                    formControlName="nickname"
-                    placeholder="Nickname"
-                />
-                <small
-                    class="text-red-500"
-                    *ngIf="!registerFormGroup.get('nickname')?.valid && registerFormGroup.get('nickname')?.touched"
-                >Nickname is required.</small>
-
-                <input
-                    type="password"
-                    pInputText
-                    formControlName="password"
-                    placeholder="Password"
-                />
-                <small
-                    class="text-red-500"
-                    *ngIf="!registerFormGroup.get('password')?.valid && registerFormGroup.get('password')?.touched"
-                >Password is required.</small>
-            </form>
-        </p-tabPanel>
-    </p-tabView>
-
-    <!-- Submit Button -->
-    <p-button
-        [label]="loginIsSelected ? 'Login' : 'Register'"
-        [icon]="isLoading() ? 'pi pi-spin pi-spinner' : ''"
-        (click)="onSubmit()"
-        [disabled]="loginIsSelected ? !loginFormGroup.valid : !registerFormGroup.valid"
-    ></p-button>
+<!-- User logged in -->
+<div *ngIf="isLoggedIn()" class="flex align-items-center">
+    <p-avatar
+        class="mr-2"
+        icon="pi pi-user"
+        shape="circle"
+        size="large"
+        [pTooltip]="isLoggedIn()?.nickname"
+        tooltipPosition="bottom"
+        (click)="menu.toggle($event)"
+    ></p-avatar>
+    <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
+    <i
+        class="px-1 py-2 pi pi-sign-out text-2xl border-round cursor-pointer hover:surface-200"
+        pRipple
+        (click)="logout()"
+    >
+    </i>
 </div>

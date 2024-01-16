@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { LoginApiResponse } from '../../models/login-api-response.model';
-import { RegisterApiResponse } from '../../models/reigster-api-response.model';
-import { UserResponse } from '../../models/user-response.model';
+import { LoginApiResponse } from '../../models/login-api-response.interface';
+import { RegisterApiResponse } from '../../models/reigster-api-response.interface';
+import { UserResponse } from '../../models/user-response.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthWebService {
