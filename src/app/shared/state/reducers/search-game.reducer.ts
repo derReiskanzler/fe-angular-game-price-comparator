@@ -13,7 +13,7 @@ export interface SearchGameFeatureState {
     error: string;
 }
 
-export const intialSearchGameState: SearchGameFeatureState = {
+export const initialSearchGameState: SearchGameFeatureState = {
     search: '',
     results: [
         // gameMock
@@ -25,7 +25,7 @@ export const intialSearchGameState: SearchGameFeatureState = {
 };
 
 export const searchGameReducer = createReducer(
-    intialSearchGameState,
+    initialSearchGameState,
     on(Actions.searchGameAction, (state, { search }) => ({
         ...state,
         search,

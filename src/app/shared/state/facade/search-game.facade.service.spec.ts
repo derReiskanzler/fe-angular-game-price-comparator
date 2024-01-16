@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { SearchGameFacadeService } from './search-game.facade.service';
-import { SearchGameFeatureState, intialSearchGameState } from '../reducers/search-game.reducer';
+import { SearchGameFeatureState, initialSearchGameState } from '../reducers/search-game.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import * as Actions from '../actions/search-game.actions';
 import { gameMock } from '../../testing/search/game.mock';
@@ -13,7 +13,7 @@ describe('SearchGameFacadeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideMockStore({ initialState: intialSearchGameState }),
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
     });
 

@@ -18,6 +18,9 @@ export const searchGameFailAction = createAction(
 
 export const resetSearchAction = createAction('[SEARCH] reset search');
 
-export const selectGameAction = createAction('[SEARCH] select game', props<{ game: Game }>());
+export const selectGameAction = createAction(
+    '[SEARCH] select game',
+    props<{ game: Game }>(),
+);
 
 export const resetSelectedGameAction = createAction('[GAME PAGE] reset selected game');

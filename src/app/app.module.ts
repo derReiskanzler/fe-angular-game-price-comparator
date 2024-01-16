@@ -13,6 +13,8 @@ import { SearchGameEffects } from './shared/state/effects/search-game.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import { favouritesReducer, favouritesReducerKey } from './shared/state/reducers/favourites.reducer';
+import { FavouritesEffects } from './shared/state/effects/favourites.effects';
 
 registerLocaleData(localeDe);
 
@@ -25,9 +27,10 @@ registerLocaleData(localeDe);
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({
-      [searchGameReducerKey]: searchGameReducer
+      [searchGameReducerKey]: searchGameReducer,
+      [favouritesReducerKey]: favouritesReducer,
     }),
-    EffectsModule.forRoot([SearchGameEffects]),
+    EffectsModule.forRoot([SearchGameEffects, FavouritesEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),

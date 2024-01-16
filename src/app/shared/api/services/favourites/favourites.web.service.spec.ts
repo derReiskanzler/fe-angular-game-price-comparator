@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { SearchGameWebService } from './search-game.web.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FavouriteWebService } from './favourites.web.service';
 
-describe('SearchGameWebService', () => {
-  let service: SearchGameWebService;
+describe('FavouriteWebService', () => {
+  let service: FavouriteWebService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -11,7 +11,7 @@ describe('SearchGameWebService', () => {
         HttpClientTestingModule,
       ],
     });
-    service = TestBed.inject(SearchGameWebService);
+    service = TestBed.inject(FavouriteWebService);
   });
 
   it('should be created', () => {

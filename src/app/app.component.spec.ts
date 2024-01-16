@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './features/header/header.module';
-import { intialSearchGameState } from './shared/state/reducers/search-game.reducer';
+import { initialSearchGameState } from './shared/state/reducers/search-game.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AppComponent', () => {
@@ -11,7 +11,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         HeaderModule,
-        provideMockStore({ initialState: intialSearchGameState }),
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
       declarations: [
         AppComponent

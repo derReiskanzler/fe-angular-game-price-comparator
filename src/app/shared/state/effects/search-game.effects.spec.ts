@@ -9,7 +9,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { SearchGameService } from '../../services/search-game/search-game.service';
 import { SearchGameEffects } from './search-game.effects';
 import { MockSearchGameService } from '../../testing/search/search-game.service.mock';
-import { intialSearchGameState } from '../reducers/search-game.reducer';
+import { initialSearchGameState } from '../reducers/search-game.reducer';
 import { Game } from '../../models/game.interface';
 import { gameMock } from '../../testing/search/game.mock';
 
@@ -31,7 +31,7 @@ describe('SearchGame Effects', () => {
                     useClass: MockSearchGameService,
                 },
                 provideMockActions(() => actions$),
-                provideMockStore({ initialState: intialSearchGameState }),
+                provideMockStore({ initialState: initialSearchGameState }),
             ],
         });
         api = TestBed.inject(SearchGameService);
