@@ -18,6 +18,11 @@ export const selectIsLoading = createSelector(
     (state: SearchGameFeatureState) => state.isLoading
 );
 
+export const selectSelectedGame = createSelector(
+    selectSearchGameFeature,
+    (state: SearchGameFeatureState) => state.selectedGame
+);
+
 export const selectError = createSelector(
     selectSearchGameFeature,
     (state: SearchGameFeatureState) => state.error

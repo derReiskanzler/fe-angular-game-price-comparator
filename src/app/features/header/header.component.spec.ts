@@ -6,6 +6,9 @@ import { intialSearchGameState } from '../../shared/state/reducers/search-game.r
 import { AuthModule } from '../../shared/ui/auth-dialog/auth.module';
 import { AuthWebService } from '../../shared/api/services/auth/auth.web.service';
 import { MockAuthWebService } from '../../shared/testing/auth/auth.web.service.mock';
+import { ToastModule } from 'primeng/toast';
+import { MenubarModule } from 'primeng/menubar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -20,6 +23,9 @@ describe('HeaderComponent', () => {
       ],
       imports: [
         AuthModule,
+        ToastModule,
+        MenubarModule,
+        ReactiveFormsModule,
       ],
     })
     .compileComponents();

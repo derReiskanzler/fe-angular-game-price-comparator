@@ -1,0 +1,62 @@
+<div class="flex flex-column gap-3">
+    <div>
+        <button pButton class="flex gap-2 shadow-4" (click)="back.emit()">
+            <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
+            <span>Back</span>
+        </button>
+    </div>
+
+    <div class="border-round surface-200 shadow-6">
+        <img class="w-full" [src]="game?.image" [alt]="game?.name"/>
+
+        <div class="px-6 pb-8 flex flex-column gap-4">
+            <h1>{{ game?.name }}</h1>
+
+            <div class="flex gap-4">
+                <p-tabView [(activeIndex)]="activeIndex" class="flex-1" styleClass="tabview flex flex-column">
+                    <!-- Steam Panel -->
+                    <p-tabPanel *ngIf="game?.steam">
+                        <ng-template pTemplate="header">
+                            <div class="flex gap-2">
+                                <i class="pi pi-calendar"></i>
+                                <span>Steam</span>
+                            </div>
+                        </ng-template>
+                        <app-game-provider-details
+                            [id]="game?.steam?.id"
+                            [link]="game?.steam?.link"
+                            [price]="game?.steam?.price"
+                        ></app-game-provider-details>
+                    </p-tabPanel>
+            
+                    <!-- GoG Panel -->
+                    <p-tabPanel *ngIf="game?.gog">
+                        <ng-template pTemplate="header">
+                            <div class="flex gap-2">
+                                <i class="pi pi-calendar"></i>
+                                <span>GoG</span>
+                            </div>
+                        </ng-template>
+                        <app-game-provider-details
+                            [id]="game?.gog?.id"
+                            [link]="game?.gog?.link"
+                            [price]="game?.gog?.price"
+                        ></app-game-provider-details>
+                    </p-tabPanel>
+                </p-tabView>
+            
+                <!-- <p-button
+                    [label]="loginIsSelected ? 'Login' : 'Register'"
+                    [icon]="isLoading() ? 'pi pi-spin pi-spinner' : ''"
+                    (click)="onSubmit()"
+                    [disabled]="loginIsSelected ? !loginFormGroup.valid : !registerFormGroup.valid"
+                ></p-button> -->
+                <div class="flex-1 flex flex-column align-items-center">
+                    <span class="text-justify" [innerHTML]="game?.aboutTheGame"></span>
+                    <!-- <span [innerHTML]="game?.shortDescription"></span> -->
+                    <!-- <span [innerHTML]="game?.detailedDescription"></span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

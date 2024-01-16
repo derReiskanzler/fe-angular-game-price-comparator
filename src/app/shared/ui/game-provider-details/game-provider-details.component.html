@@ -1,0 +1,21 @@
+<div class="">
+    <div class="flex flex-column gap-3">
+        <div *ngIf="price?.isFree; else priceOverview" class="">
+            <span>Is Free</span>
+        </div>
+    
+        <div *ngIf="link" class="flex justify-content-between">
+            <a [href]="link" target="_blank" class="flex gap-2 align-items-center text-blue-600">
+                <i class="pi pi-window-maximize"></i>
+                <span>Zur Webseite</span>
+            </a>
+        </div>
+    </div>
+
+    <ng-template #priceOverview>
+        <div class="flex justify-content-between">
+            <span class="">Price</span>
+            <span class="">{{ price?.final | currency: price?.currency }}</span>
+        </div>
+    </ng-template>
+</div>

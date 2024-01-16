@@ -27,4 +27,9 @@ describe('Search Feature Selectors', () => {
         expect(result).toEqual(searchGameFeatureStateMock.error);
     });
 
+    it('should select selected game', () => {
+        const result = Selectors.selectSelectedGame.projector(searchGameFeatureStateMock);
+    
+        expect(result).toEqual(searchGameFeatureStateMock.selectedGame);
+    });
 });  

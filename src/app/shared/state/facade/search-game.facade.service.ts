@@ -12,6 +12,7 @@ export class SearchGameFacadeService {
   public search$: Observable<string> = this.store.select(Selectors.selectSearch);
   public results$: Observable<Game[]> = this.store.select(Selectors.selectResults);
   public isLoading$: Observable<boolean> = this.store.select(Selectors.selectIsLoading);
+  public selectedGame$: Observable<Game> = this.store.select(Selectors.selectSelectedGame);
   public error$: Observable<string> = this.store.select(Selectors.selectError);
 
   public searchGame(search: string): void {
@@ -20,5 +21,13 @@ export class SearchGameFacadeService {
 
   public resetSearch(): void {
     this.store.dispatch(Actions.resetSearchAction());
+  }
+  
+  public selectGame(game: Game): void {
+    this.store.dispatch(Actions.selectGameAction({ game }));
+  }
+  
+  public resetSelectedGame(): void {
+    this.store.dispatch(Actions.resetSelectedGameAction());
   }
 }

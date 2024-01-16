@@ -8,5 +8,6 @@ export const searchGameFeatureStateMock: SearchGameFeatureState = {
   ],
   isLoading: false,
   error: 'error',
+  selectedGame: gameMock,
 };
 

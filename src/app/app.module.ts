@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { searchGameReducer, searchGameReducerKey } from './shared/state/reducers/search-game.reducer';
 import { SearchGameEffects } from './shared/state/effects/search-game.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+registerLocaleData(localeDe);
 
 @NgModule({
   declarations: [
@@ -33,6 +37,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   ],
   providers: [
     provideHttpClient(withInterceptors([ AuthInterceptor ])),
+    {
+      provide: LOCALE_ID,
+      useValue: 'de-DE'
+    }
   ],
   bootstrap: [AppComponent]
 })

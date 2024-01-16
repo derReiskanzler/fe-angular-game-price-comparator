@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Game } from '../../models/game.interface';
 import * as Actions from '../actions/search-game.actions';
+import { gameMock } from '../../testing/search/game.mock';
 
 export const searchGameReducerKey = 'searchGame';
 
@@ -8,12 +9,17 @@ export interface SearchGameFeatureState {
     search: string;
     results: Game[];
     isLoading: boolean;
+    selectedGame: Game;
     error: string;
 }
 
 export const intialSearchGameState: SearchGameFeatureState = {
     search: '',
-    results: [],
+    results: [
+        // gameMock
+    ],
+    // selectedGame: gameMock,
+    selectedGame: {} as Game,
     isLoading: false,
     error: '',
 };
@@ -38,5 +44,13 @@ export const searchGameReducer = createReducer(
     on(Actions.resetSearchAction, (state, _action) => ({
         ...state,
         search: '',
+    })),
+    on(Actions.selectGameAction, (state, { game }) => ({
+        ...state,
+        selectedGame: game,
+    })),
+    on(Actions.resetSelectedGameAction, (state, _action) => ({
+        ...state,
+        selectedGame: {} as Game,
     })),
 );

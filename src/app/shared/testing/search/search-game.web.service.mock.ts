@@ -1,8 +1,8 @@
 import { Observable, of } from 'rxjs';
-import { SearchGameApiResponse } from '../../api/models/search-game-api-response.interface';
+import { ApiGame } from '../../api/models/api-game.interface';
 
 export class MockSearchGameWebService {
-    public searchGame(search: string): Observable<SearchGameApiResponse> {
-        return of({ data: [] });
+    public searchGame(search: string): Observable<ApiGame[]> {
+        return of([]);
     }
 }

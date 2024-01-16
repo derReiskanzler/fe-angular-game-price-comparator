@@ -70,4 +70,28 @@ describe('search actions', () => {
     expect(state).toEqual(newState);
     expect(state).not.toBe(oldState);
   });
+
+  it('should select game on select game action', () => {
+    const newState: SearchGameFeatureState = {
+      ...intialSearchGameState,
+      selectedGame: gameMock,
+    };
+
+    const action = Actions.selectGameAction({ game: gameMock });
+    const state = searchGameReducer(intialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(intialSearchGameState);
+  });
+
+  it('should reset search on reset search action', () => {
+    const oldState = { ...intialSearchGameState, selectedGame: {...gameMock, name: 'Some Title'} };
+    const newState: SearchGameFeatureState = { ...intialSearchGameState };
+
+    const action = Actions.resetSelectedGameAction();
+    const state = searchGameReducer(oldState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(oldState);
+  });
 });
