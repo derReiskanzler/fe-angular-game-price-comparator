@@ -1,7 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FavouritesFacadeService } from '../../../../shared/state/facade/favourites.facade.service';
-import { Favourite } from '../../../../shared/models/favourite.interface';
-import { Observable } from 'rxjs';
+import { Game } from '../../../../shared/models/game.interface';
+import { Observable, tap } from 'rxjs';
+import { SearchGameFacadeService } from '../../../../shared/state/facade/search-game.facade.service';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-favourite-list',
@@ -9,15 +12,36 @@ import { Observable } from 'rxjs';
   styleUrls: ['./favourite-list.component.scss']
 })
 export class FavouriteListComponent implements OnInit {
-  public favourites$!: Observable<Favourite[]>;
+  public favourites$!: Observable<Game[]>;
   public isLoading$!: Observable<boolean>;
-
+  public selectedGame$!: Observable<Game>;
+  public error$!: Observable<string>;
+  
   private facade = inject(FavouritesFacadeService);
+  private searchFacade = inject(SearchGameFacadeService);
+  private router = inject(Router);
+  private messageService = inject(MessageService);
 
   public ngOnInit(): void {
-    console.log('works')
     this.facade.getFavouriteList();
     this.favourites$ = this.facade.favourites$;
     this.isLoading$ = this.facade.isLoading$;
+    this.selectedGame$ = this.searchFacade.selectedGame$;
+    this.error$ = this.facade.error$.pipe(
+      tap(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error,
+        })
+      })
+    );
+  }
+
+  public openGameOverview(game: Game, selectedGameName?: string): void {
+    if (game.name !== selectedGameName) {
+      this.searchFacade.selectGame(game);
+    }
+    this.router.navigate(['home','game-details']);
   }
 }

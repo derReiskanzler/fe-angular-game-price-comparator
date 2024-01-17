@@ -1,15 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ApiFavourite } from '../../models/api-favourite.interface';
+import { ApiGame } from '../../models/api-game.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FavouriteWebService {
   private basePath = 'http://localhost:8080/api';
   private http = inject(HttpClient);
 
-  public getFavouriteList(): Observable<ApiFavourite[]> {
-    return this.http.get<ApiFavourite[]>(`${this.basePath}/v1/favourite/get-list`);
+  public getFavouriteList(): Observable<ApiGame[]> {
+    return this.http.get<ApiGame[]>(`${this.basePath}/v1/favourite/get-list`);
   }
 
   public addToFavourites(name: string, steamId?: number, gogId?: number): Observable<void> {

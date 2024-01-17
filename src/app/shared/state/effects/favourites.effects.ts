@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as FavouritesActions from '../actions/favourites.actions';
 import { catchError, of, switchMap } from 'rxjs';
-import { Favourite } from '../../models/favourite.interface';
 import { FavouriteService } from '../../services/favourites/favourites.service';
+import { Game } from '../../models/game.interface';
 
 @Injectable()
 export class FavouritesEffects {
@@ -12,18 +12,18 @@ export class FavouritesEffects {
 
     public getFavouriteList$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(FavouritesActions.getFavouriteListAction),
+            ofType(FavouritesActions.loadFavouriteListAction),
             switchMap(() => {
                 return this.api.getFavouriteList().pipe(
-                    switchMap((favourites: Favourite[]) => {
+                    switchMap((favourites: Game[]) => {
                         return of(
-                            FavouritesActions.getFavouriteListSuccessAction({
+                            FavouritesActions.loadFavouriteListSuccessAction({
                                 favourites,
                             })
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.getFavouriteListFailAction());
+                        return of(FavouritesActions.loadFavouriteListFailAction({ error: error?.message }));
                     })
                 );
             })
@@ -33,15 +33,15 @@ export class FavouritesEffects {
     public addToFavourites$ = createEffect(() =>
         this.actions$.pipe(
             ofType(FavouritesActions.addToFavouritesAction),
-            switchMap(({ dto }) => {
-                return this.api.addToFavourites(dto.name, dto.steamId, dto.gogId).pipe(
+            switchMap(({ game }) => {
+                return this.api.addToFavourites(game.name, game.steam?.id, game.gog?.id).pipe(
                     switchMap(_success => {
                         return of(
                             FavouritesActions.addToFavouritesSuccessAction()
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.addToFavouritesFailAction());
+                        return of(FavouritesActions.addToFavouritesFailAction({ error: error?.message }));
                     })
                 );
             })
@@ -59,7 +59,7 @@ export class FavouritesEffects {
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.deleteFromFavouritesFailAction());
+                        return of(FavouritesActions.deleteFromFavouritesFailAction({ error: error?.message }));
                     })
                 );
             })

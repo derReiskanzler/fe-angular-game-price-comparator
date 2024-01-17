@@ -1,8 +1,9 @@
 import { FavouritesFeatureState } from '../../state/reducers/favourites.reducer';
-import { favouriteMock } from './favourite.mock';
+import { gameMock } from '../search/game.mock';
 
 export const favouritesFeatureStateMock: FavouritesFeatureState = {
-  favourites: [ favouriteMock ],
+  favourites: [ gameMock ],
   isLoading: false,
+  error: '',
 };
 

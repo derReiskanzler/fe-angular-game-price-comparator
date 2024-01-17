@@ -3,7 +3,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import * as Actions from '../actions/favourites.actions';
 import { FavouritesFacadeService } from './favourites.facade.service';
 import { FavouritesFeatureState, initialFavouritesState } from '../reducers/favourites.reducer';
-import { favouriteMock } from '../../testing/favourites/favourite.mock';
+import { gameMock } from '../../testing/search/game.mock';
 
 describe('FavouritesFacadeService', () => {
   let facade: FavouritesFacadeService;
@@ -26,22 +26,22 @@ describe('FavouritesFacadeService', () => {
     expect(facade).toBeTruthy();
   });
 
-  it('should dispatch a get favourite list action', () => {
+  it('should dispatch a load favourite list action', () => {
     facade.getFavouriteList();
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.getFavouriteListAction());
+    expect(storeSpy).toHaveBeenCalledWith(Actions.loadFavouriteListAction());
   });
 
   it('should dispatch a add to favourite action', () => {
-    facade.addToFavourite(favouriteMock);
+    facade.addToFavourite(gameMock);
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.addToFavouritesAction({dto: favouriteMock}));
+    expect(storeSpy).toHaveBeenCalledWith(Actions.addToFavouritesAction({game: gameMock}));
   });
 
   it('should dispatch a select game action', () => {
-    facade.deleteFromFavourites(favouriteMock.name);
+    facade.deleteFromFavourites(gameMock.name);
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.deleteFromFavouritesAction({ name: favouriteMock.name }));
+    expect(storeSpy).toHaveBeenCalledWith(Actions.deleteFromFavouritesAction({ name: gameMock.name }));
   });
 });
 

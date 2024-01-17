@@ -1,32 +1,45 @@
 import { createAction, props } from '@ngrx/store';
-import { AddToFavouritesDto } from '../../dtos/add-to-favourites.dto';
-import { Favourite } from '../../models/favourite.interface';
+import { Game } from '../../models/game.interface';
 
-export const getFavouriteListAction = createAction('[FAVOURITES] get favourite list');
 
-export const getFavouriteListSuccessAction = createAction(
-    '[FAVOURITES] get favourite list success',
-    props<{ favourites: Favourite[] }>(),
+export const loadFavouriteListAction = createAction(
+    '[FAVOURITES] load favourite list',
 );
 
-export const getFavouriteListFailAction = createAction('[FAVOURITES] get favourite list fail');
+export const loadFavouriteListSuccessAction = createAction(
+    '[FAVOURITES] load favourite list success',
+    props<{ favourites: Game[] }>(),
+);
 
+export const loadFavouriteListFailAction = createAction(
+    '[FAVOURITES] load favourite list fail',
+    props<{ error: string }>(),
+);
 
 export const addToFavouritesAction = createAction(
     '[FAVOURITES] add to favourites',
-    props<{ dto: AddToFavouritesDto }>()
+    props<{ game: Game }>()
 );
 
-export const addToFavouritesSuccessAction = createAction('[FAVOURITES] add to favourites success');
+export const addToFavouritesSuccessAction = createAction(
+    '[FAVOURITES] add to favourites success',
+);
 
-export const addToFavouritesFailAction = createAction('[FAVOURITES] add to favourites fail');
-
+export const addToFavouritesFailAction = createAction(
+    '[FAVOURITES] add to favourites fail',
+    props<{ error: string }>(),
+);
 
 export const deleteFromFavouritesAction = createAction(
     '[FAVOURITES] delete from favourites',
     props<{ name: string }>()
 );
 
-export const deleteFromFavouritesSuccessAction = createAction('[FAVOURITES] delete from favourites success');
+export const deleteFromFavouritesSuccessAction = createAction(
+    '[FAVOURITES] delete from favourites success',
+);
 
-export const deleteFromFavouritesFailAction = createAction('[FAVOURITES] delete from favourites fail');
+export const deleteFromFavouritesFailAction = createAction(
+    '[FAVOURITES] delete from favourites fail',
+    props<{ error: string }>(),
+);

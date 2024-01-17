@@ -2,11 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialSearchGameState } from '../../../../shared/state/reducers/search-game.reducer';
-import { GameDetailsComponent } from '../game-details/game-details.component';
-import { GameProviderDetailsComponent } from '../../../../shared/ui/game-provider-details/game-provider-details.component';
-import { SkeletonModule } from 'primeng/skeleton';
-import { ButtonModule } from 'primeng/button';
-import { TabViewModule } from 'primeng/tabview';
+import { GameListModule } from '../../../../shared/ui/game-list/game-list.module';
+import { MessageService } from 'primeng/api';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,14 +11,13 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent, GameDetailsComponent, GameProviderDetailsComponent ],
+      declarations: [ HomeComponent ],
       imports: [
-        SkeletonModule,
-        TabViewModule,
-        ButtonModule,
+        GameListModule,
       ],
       providers: [
         provideMockStore({ initialState: initialSearchGameState }),
+        MessageService,
       ],
     })
     .compileComponents();

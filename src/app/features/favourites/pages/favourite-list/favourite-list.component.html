@@ -1,1 +1,14 @@
-<p>favourite-list works!</p>
+<div
+*ngIf="{
+    isLoading: isLoading$ | async,
+    favourites: favourites$ | async,
+    selectedGame: selectedGame$ | async,
+    error: error$ | async
+} as obs"
+>
+    <app-game-list
+        [games]="obs.favourites"
+        [isLoading]="obs.isLoading"
+        (selectGame)="openGameOverview($event, obs.selectedGame?.name)"
+    ></app-game-list>
+</div>

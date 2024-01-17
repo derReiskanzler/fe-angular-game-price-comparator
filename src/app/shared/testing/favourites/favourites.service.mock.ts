@@ -1,17 +1,17 @@
 import { Observable, of } from 'rxjs';
-import { Favourite } from '../../models/favourite.interface';
+import { Game } from '../../models/game.interface';
 
 export class MockFavouriteService {
 
-    public getFavouriteList(): Observable<Favourite[]> {
+    public getFavouriteList(): Observable<Game[]> {
         return of([]);
     }
 
     public addToFavourites(name: string, steamId?: number, gogId?: number): Observable<void> {
-        return of();
+        return of(void 0);
     }
 
     public deleteFromFavourites(name: string): Observable<void> {
-        return of();
+        return of(void 0);
     }
 }

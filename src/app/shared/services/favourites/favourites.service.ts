@@ -1,16 +1,18 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { FavouriteWebService } from '../../api/services/favourites/favourites.web.service';
-import { Favourite } from '../../models/favourite.interface';
+import { Game } from '../../models/game.interface';
+import { GameTransformerService } from '../../api/transformer/game-transformer.service';
 
 @Injectable({ providedIn: 'root' })
 export class FavouriteService {
   private api = inject(FavouriteWebService);
+  private transformer = inject(GameTransformerService);
 
-  public getFavouriteList(): Observable<Favourite[]> {
+  public getFavouriteList(): Observable<Game[]> {
     return this.api.getFavouriteList()
       .pipe(
-        map(favourites => favourites.map(apiFavourite => apiFavourite as Favourite)),
+        map(apiGames => this.transformer.transform(apiGames)),
       );
   }
 

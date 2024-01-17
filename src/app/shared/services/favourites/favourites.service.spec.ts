@@ -3,7 +3,6 @@ import { FavouriteWebService } from '../../api/services/favourites/favourites.we
 import { FavouriteService } from './favourites.service';
 import { MockFavouriteWebService } from '../../testing/favourites/favourites.web.service.mock';
 
-
 describe('FavouriteService', () => {
   let service: FavouriteService;
 

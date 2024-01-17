@@ -1,7 +1,6 @@
 import * as Actions from '../actions/favourites.actions';
 import { gameMock } from '../../testing/search/game.mock';
 import { favouritesReducer, initialFavouritesState, FavouritesFeatureState } from './favourites.reducer';
-import { favouriteMock } from '../../testing/favourites/favourite.mock';
 
 describe('unknown action', () => {
   it('should return the default state', () => {
@@ -13,57 +12,76 @@ describe('unknown action', () => {
 });
 
 describe('favourites actions', () => {
-  it('should change state on get favourite list action', () => {
+  it('should change state on load favourite list action', () => {
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
       isLoading: true,
+      error: '',
     };
 
-    const action = Actions.getFavouriteListAction();
+    const action = Actions.loadFavouriteListAction();
     const state = favouritesReducer(initialFavouritesState, action);
 
     expect(state).toEqual(newState);
     expect(state).not.toBe(initialFavouritesState);
   });
 
-  it('should change state on get favourite list success action', () => {
-    const favourites = [ favouriteMock ];
+  it('should change state on load favourite list success action', () => {
+    const favourites = [ gameMock ];
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
       favourites,
       isLoading: false,
     };
 
-    const action = Actions.getFavouriteListSuccessAction({ favourites });
+    const action = Actions.loadFavouriteListSuccessAction({ favourites });
     const state = favouritesReducer(initialFavouritesState, action);
 
     expect(state).toEqual(newState);
     expect(state).not.toBe(initialFavouritesState);
   });
 
-  it('should change state on get favourite list fail action', () => {
+  it('should change state on load favourite list fail action', () => {
+    const error = 'some error';
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
       isLoading: false,
+      error,
     };
 
-    const action = Actions.getFavouriteListFailAction();
+    const action = Actions.loadFavouriteListFailAction({ error });
     const state = favouritesReducer(initialFavouritesState, action);
 
     expect(state).toEqual(newState);
     expect(state).not.toBe(initialFavouritesState);
   });
 
-  it('should change state on add to favourites action', () => {
-    const dto = favouriteMock;
+  it('should add a game to state on add to favourites action', () => {
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
-      favourites: [dto],
+      favourites: [...initialFavouritesState.favourites, gameMock],
       isLoading: true,
+      error: '',
     };
 
-    const action = Actions.addToFavouritesAction({ dto });
+    const action = Actions.addToFavouritesAction({ game: gameMock });
     const state = favouritesReducer(initialFavouritesState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialFavouritesState);
+  });
+
+  it('should add a game to state with existing games on add to favourites action', () => {
+    const existingGames = [ gameMock, gameMock ];
+    const newState: FavouritesFeatureState = {
+      ...initialFavouritesState,
+      favourites: [...existingGames, gameMock],
+      isLoading: true,
+      error: '',
+    };
+
+    const action = Actions.addToFavouritesAction({ game: gameMock });
+    const state = favouritesReducer({...initialFavouritesState, favourites: existingGames }, action);
 
     expect(state).toEqual(newState);
     expect(state).not.toBe(initialFavouritesState);
@@ -83,12 +101,14 @@ describe('favourites actions', () => {
   });
 
   it('should change state on add to favourites fail action', () => {
+    const error = 'some error';
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
       isLoading: false,
+      error,
     };
 
-    const action = Actions.addToFavouritesFailAction();
+    const action = Actions.addToFavouritesFailAction({ error });
     const state = favouritesReducer(initialFavouritesState, action);
 
     expect(state).toEqual(newState);
@@ -96,12 +116,13 @@ describe('favourites actions', () => {
   });
 
   it('should change state on delete from favourites action', () => {
-    const name = favouriteMock.name;
-    const oldState = { ...initialFavouritesState, favourites: [favouriteMock] };
+    const name = gameMock.name;
+    const oldState = { ...initialFavouritesState, favourites: [gameMock] };
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
       favourites: [],
       isLoading: true,
+      error: '',
     };
 
     const action = Actions.deleteFromFavouritesAction({ name });
@@ -125,12 +146,14 @@ describe('favourites actions', () => {
   });
 
   it('should change state on delete from favourites fail action', () => {
+    const error = 'some error';
     const newState: FavouritesFeatureState = {
       ...initialFavouritesState,
       isLoading: false,
+      error,
     };
 
-    const action = Actions.deleteFromFavouritesFailAction();
+    const action = Actions.deleteFromFavouritesFailAction({ error });
     const state = favouritesReducer(initialFavouritesState, action);
 
     expect(state).toEqual(newState);

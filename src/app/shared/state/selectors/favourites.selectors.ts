@@ -13,3 +13,8 @@ export const selectIsLoading = createSelector(
     (state: FavouritesFeatureState) => state.isLoading
 );
 
+export const selectError = createSelector(
+    selectFavouritesFeature,
+    (state: FavouritesFeatureState) => state.error
+);
+

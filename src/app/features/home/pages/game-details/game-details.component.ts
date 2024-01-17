@@ -3,7 +3,7 @@ import { Game } from '../../../../shared/models/game.interface';
 import { GameProviderTypes } from '../../../../shared/models/game-provider-types.enum';
 import { SearchGameFacadeService } from '../../../../shared/state/facade/search-game.facade.service';
 import { Observable, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-game-details',
@@ -16,7 +16,7 @@ export class GameDetailsComponent implements OnInit {
   public isLoading$!: Observable<boolean>;
 
   private facade = inject(SearchGameFacadeService);
-  private router = inject(Router);
+  private location = inject(Location);
 
   public ngOnInit(): void {
     this.isLoading$ = this.facade.isLoading$;
@@ -31,6 +31,6 @@ export class GameDetailsComponent implements OnInit {
   }
 
   public onBack(): void {
-    this.router.navigate(['home']);
+    this.location.back()
   }
 }

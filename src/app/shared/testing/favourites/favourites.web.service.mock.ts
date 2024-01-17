@@ -1,16 +1,16 @@
 import { Observable, of } from 'rxjs';
-import { ApiFavourite } from '../../api/models/api-favourite.interface';
+import { ApiGame } from '../../api/models/api-game.interface';
 
 export class MockFavouriteWebService {
-    public getFavouriteList(): Observable<ApiFavourite[]> {
+    public getFavouriteList(): Observable<ApiGame[]> {
         return of([]);
     }
 
     public addToFavourites(name: string, steamId?: number, gogId?: number): Observable<void> {
-        return of();
+        return of(void 0);
     }
 
     public deleteFromFavourites(name: string): Observable<void> {
-        return of();
+        return of(void 0);
     }
 }

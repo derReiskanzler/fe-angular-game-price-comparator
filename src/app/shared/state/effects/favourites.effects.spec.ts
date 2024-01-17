@@ -7,11 +7,11 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { FavouritesEffects } from './favourites.effects';
-import { Favourite } from '../../models/favourite.interface';
-import { favouriteMock } from '../../testing/favourites/favourite.mock';
 import { initialFavouritesState } from '../reducers/favourites.reducer';
 import { FavouriteService } from '../../services/favourites/favourites.service';
 import { MockFavouriteService } from '../../testing/favourites/favourites.service.mock';
+import { gameMock } from '../../testing/search/game.mock';
+import { Game } from '../../models/game.interface';
 
 describe('Favourite Effects', () => {
     let actions$ = new Observable<Action>();
@@ -19,7 +19,7 @@ describe('Favourite Effects', () => {
     let effects: FavouritesEffects;
     let store: Store;
 
-    const favourites: Favourite[] = [ favouriteMock ];
+    const favourites: Game[] = [ gameMock ];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -39,30 +39,30 @@ describe('Favourite Effects', () => {
         store = TestBed.inject(Store);
     });
 
-    describe('get favourite list effect', () => {
-        it('should trigger getFavouriteListSuccessAction on success', () => {
+    describe('load favourite list effect', () => {
+        it('should trigger loadFavouriteListSuccessAction on success', () => {
             jest.spyOn(api, 'getFavouriteList').mockReturnValue(of(favourites));
 
             actions$ = hot('-a', {
-                a: FavouriteActions.getFavouriteListAction(),
+                a: FavouriteActions.loadFavouriteListAction(),
             });
             const expected = cold('-b', {
-                b: FavouriteActions.getFavouriteListSuccessAction({ favourites }),
+                b: FavouriteActions.loadFavouriteListSuccessAction({ favourites }),
             });
             const result = effects.getFavouriteList$;
 
             expect(result).toBeObservable(expected);
         });
 
-        it('should trigger getFavouriteListFailAction on failure', () => {
+        it('should trigger loadFavouriteListFailAction on failure', () => {
             const error = 'error occurred';
 
             jest.spyOn(api, 'getFavouriteList').mockReturnValue(throwError(() => new Error(error)));
             actions$ = hot('-a', {
-                a: FavouriteActions.getFavouriteListAction(),
+                a: FavouriteActions.loadFavouriteListAction(),
             });
             const expected = cold('-b', {
-                b: FavouriteActions.getFavouriteListFailAction(),
+                b: FavouriteActions.loadFavouriteListFailAction({ error }),
             });
             const result = effects.getFavouriteList$;
 
@@ -72,10 +72,10 @@ describe('Favourite Effects', () => {
 
     describe('add to favourites effect', () => {
         it('should trigger addToFavouritesSuccessAction on success', () => {
-            jest.spyOn(api, 'addToFavourites').mockReturnValue(of());
+            jest.spyOn(api, 'addToFavourites').mockReturnValue(of(void 0));
 
             actions$ = hot('-a', {
-                a: FavouriteActions.addToFavouritesAction({ dto: favouriteMock }),
+                a: FavouriteActions.addToFavouritesAction({ game: gameMock }),
             });
             const expected = cold('-b', {
                 b: FavouriteActions.addToFavouritesSuccessAction(),
@@ -90,10 +90,10 @@ describe('Favourite Effects', () => {
 
             jest.spyOn(api, 'addToFavourites').mockReturnValue(throwError(() => new Error(error)));
             actions$ = hot('-a', {
-                a: FavouriteActions.addToFavouritesAction({ dto: favouriteMock }),
+                a: FavouriteActions.addToFavouritesAction({ game: gameMock }),
             });
             const expected = cold('-b', {
-                b: FavouriteActions.addToFavouritesFailAction(),
+                b: FavouriteActions.addToFavouritesFailAction({ error }),
             });
             const result = effects.addToFavourites$;
 
@@ -103,10 +103,10 @@ describe('Favourite Effects', () => {
 
     describe('delete from favourites effect', () => {
         it('should trigger deleteFromFavouritesSuccessAction on success', () => {
-            jest.spyOn(api, 'deleteFromFavourites').mockReturnValue(of());
+            jest.spyOn(api, 'deleteFromFavourites').mockReturnValue(of(void 0));
 
             actions$ = hot('-a', {
-                a: FavouriteActions.deleteFromFavouritesAction({ name: favouriteMock.name }),
+                a: FavouriteActions.deleteFromFavouritesAction({ name: gameMock.name }),
             });
             const expected = cold('-b', {
                 b: FavouriteActions.deleteFromFavouritesSuccessAction(),
@@ -121,10 +121,10 @@ describe('Favourite Effects', () => {
 
             jest.spyOn(api, 'deleteFromFavourites').mockReturnValue(throwError(() => new Error(error)));
             actions$ = hot('-a', {
-                a: FavouriteActions.deleteFromFavouritesAction({ name: favouriteMock.name }),
+                a: FavouriteActions.deleteFromFavouritesAction({ name: gameMock.name }),
             });
             const expected = cold('-b', {
-                b: FavouriteActions.deleteFromFavouritesFailAction(),
+                b: FavouriteActions.deleteFromFavouritesFailAction({ error }),
             });
             const result = effects.deleteFromFavourites$;
 
