@@ -40,4 +40,6 @@ export class GameDetailsComponent implements OnInit {
   public onBack(): void {
     this.location.back()
   }
+
+  //TODO: add/remove to favourites
 }

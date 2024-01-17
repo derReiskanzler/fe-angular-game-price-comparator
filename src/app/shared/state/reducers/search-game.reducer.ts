@@ -18,7 +18,7 @@ export interface SearchGameFeatureState {
 export const initialSearchGameState: SearchGameFeatureState = {
     search: '',
     results: [
-        // gameMock,
+        gameMock,
         // {...gameMock, name: 'Test', platforms: {windows: true, linux: true, mac: true} },
         // {...gameMock, steam: {...gameMock.steam, price: {...gameMock.steam?.price, isFree: true} as GamePrice} as GameInfo},
         // {...gameMock, steam: null},

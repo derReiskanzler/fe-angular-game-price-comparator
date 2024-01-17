@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
 
       this.searchControl.valueChanges.pipe(
         takeUntilDestroyed(this.destroyRef),
-        debounceTime(500),
+        debounceTime(1000),
         map(value => {
           if (!value) {
             this.facade.resetSearch();
@@ -79,6 +79,7 @@ export class HomeComponent implements OnInit {
     this.facade.resetSelectedGame();
   }
 
+  // TOOD: show message - cant add to favourite when user is not logged in
   public onFavourize(game: Game): void {
     if (game.isFavourite) {
       this.facade.deleteFromFavourites(game.name);

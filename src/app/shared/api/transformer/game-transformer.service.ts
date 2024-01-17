@@ -15,7 +15,7 @@ export class GameTransformerService {
       shortDescription: apiGame.short_description,
       detailedDescription: apiGame.detailed_description,
       aboutTheGame: apiGame.about_the_game,
-      isFavourite: apiGame.is_favorite,
+      isFavourite: apiGame.isFavorite,
     } as Game));
   }
 

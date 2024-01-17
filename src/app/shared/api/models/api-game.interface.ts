@@ -8,7 +8,7 @@ export interface ApiGame {
     short_description: string|null;
     detailed_description: string|null;
     about_the_game: string|null;
-    is_favorite: boolean;
+    isFavorite: boolean;
 }
 
 export type ApiGameType = 'game' | 'dlc';

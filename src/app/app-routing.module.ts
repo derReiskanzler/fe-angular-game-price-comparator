@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsLoggedIn } from './shared/utils/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'favourites',
+    canMatch: [IsLoggedIn],
     loadComponent: () =>
       import('./features/favourites/favourites.component').then((c) => c.FavouriteListComponent),
   },
