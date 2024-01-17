@@ -7,11 +7,11 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { FavouritesEffects } from './favourites.effects';
-import { initialFavouritesState } from '../reducers/favourites.reducer';
 import { FavouriteService } from '../../services/favourites/favourites.service';
 import { MockFavouriteService } from '../../testing/favourites/favourites.service.mock';
 import { gameMock } from '../../testing/search/game.mock';
 import { Game } from '../../models/game.interface';
+import { initialSearchGameState } from '../reducers/search-game.reducer';
 
 describe('Favourite Effects', () => {
     let actions$ = new Observable<Action>();
@@ -31,7 +31,7 @@ describe('Favourite Effects', () => {
                     useClass: MockFavouriteService,
                 },
                 provideMockActions(() => actions$),
-                provideMockStore({ initialState: initialFavouritesState }),
+                provideMockStore({ initialState: initialSearchGameState }),
             ],
         });
         api = TestBed.inject(FavouriteService);
@@ -78,7 +78,7 @@ describe('Favourite Effects', () => {
                 a: FavouriteActions.addToFavouritesAction({ game: gameMock }),
             });
             const expected = cold('-b', {
-                b: FavouriteActions.addToFavouritesSuccessAction(),
+                b: FavouriteActions.addToFavouritesSuccessAction({ game: gameMock }),
             });
             const result = effects.addToFavourites$;
 
@@ -109,7 +109,7 @@ describe('Favourite Effects', () => {
                 a: FavouriteActions.deleteFromFavouritesAction({ name: gameMock.name }),
             });
             const expected = cold('-b', {
-                b: FavouriteActions.deleteFromFavouritesSuccessAction(),
+                b: FavouriteActions.deleteFromFavouritesSuccessAction({ name: gameMock.name}),
             });
             const result = effects.deleteFromFavourites$;
 

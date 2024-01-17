@@ -9,14 +9,14 @@ export class FavouriteWebService {
   private http = inject(HttpClient);
 
   public getFavouriteList(): Observable<ApiGame[]> {
-    return this.http.get<ApiGame[]>(`${this.basePath}/v1/favourite/get-list`);
+    return this.http.get<ApiGame[]>(`${this.basePath}/v1/favorite/get-list`);
   }
 
   public addToFavourites(name: string, steamId?: number, gogId?: number): Observable<void> {
-    return this.http.post<void>(`${this.basePath}/v1/favourite/add`, { name, steamId, gogId });
+    return this.http.post<void>(`${this.basePath}/v1/favorite/add`, { name, steamId, gogId });
   }
 
   public deleteFromFavourites(name: string): Observable<void> {
-    return this.http.delete<void>(`${this.basePath}/v1/favourite/delete-game?name=${name}`);
+    return this.http.delete<void>(`${this.basePath}/v1/favorite/delete-game?name=${name}`);
   }
 }

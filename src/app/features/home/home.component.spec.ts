@@ -4,6 +4,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { initialSearchGameState } from '../../shared/state/reducers/search-game.reducer';
 import { GameListModule } from '../../shared/ui/game-list/game-list.module';
 import { MessageService } from 'primeng/api';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,11 +12,10 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
       imports: [
+        NgIf, AsyncPipe,
+        HomeComponent,
         GameListModule,
-      ],
-      providers: [
         provideMockStore({ initialState: initialSearchGameState }),
         MessageService,
       ],

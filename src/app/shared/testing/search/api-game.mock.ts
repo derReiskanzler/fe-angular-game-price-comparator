@@ -34,4 +34,5 @@ export const apiGameMock: ApiGame = {
     short_description: 'short description',
     detailed_description: 'detailed description',
     about_the_game: 'about the game',
+    is_favorite: false,
 };

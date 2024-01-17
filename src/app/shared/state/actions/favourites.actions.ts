@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Game } from '../../models/game.interface';
 
-
 export const loadFavouriteListAction = createAction(
     '[FAVOURITES] load favourite list',
 );
@@ -18,11 +17,12 @@ export const loadFavouriteListFailAction = createAction(
 
 export const addToFavouritesAction = createAction(
     '[FAVOURITES] add to favourites',
-    props<{ game: Game }>()
+    props<{ game: Game }>(),
 );
 
 export const addToFavouritesSuccessAction = createAction(
     '[FAVOURITES] add to favourites success',
+    props<{ game: Game }>(),
 );
 
 export const addToFavouritesFailAction = createAction(
@@ -32,11 +32,12 @@ export const addToFavouritesFailAction = createAction(
 
 export const deleteFromFavouritesAction = createAction(
     '[FAVOURITES] delete from favourites',
-    props<{ name: string }>()
+    props<{ name: string }>(),
 );
 
 export const deleteFromFavouritesSuccessAction = createAction(
     '[FAVOURITES] delete from favourites success',
+    props<{ name: string }>(),
 );
 
 export const deleteFromFavouritesFailAction = createAction(

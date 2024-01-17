@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Game } from '../../shared/models/game.interface';
 import { GameProviderTypes } from '../../shared/models/game-provider-types.enum';
 import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
@@ -13,6 +13,7 @@ import { GameOsSupportedModule } from '../../shared/ui/game-os-supported/game-os
   selector: 'app-game-details',
   templateUrl: './game-details.component.html',
   styleUrls: ['./game-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [ NgIf, AsyncPipe, TabViewModule, ButtonModule, GameProviderDetailsModule, GameOsSupportedModule, ],
 })

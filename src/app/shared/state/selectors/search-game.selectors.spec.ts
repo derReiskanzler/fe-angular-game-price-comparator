@@ -32,4 +32,10 @@ describe('Search Feature Selectors', () => {
     
         expect(result).toEqual(searchGameFeatureStateMock.selectedGame);
     });
+
+    it('should select favourites', () => {
+        const result = Selectors.selectFavourites.projector(searchGameFeatureStateMock);
+    
+        expect(result).toEqual(searchGameFeatureStateMock.favourites);
+    });
 });  

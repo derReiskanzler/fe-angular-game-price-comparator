@@ -23,7 +23,8 @@ export class FavouritesEffects {
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.loadFavouriteListFailAction({ error: error?.message }));
+                        return of(FavouritesActions.loadFavouriteListFailAction({ error: '' }));
+                        // return of(FavouritesActions.loadFavouriteListFailAction({ error: error?.message }));
                     })
                 );
             })
@@ -37,7 +38,7 @@ export class FavouritesEffects {
                 return this.api.addToFavourites(game.name, game.steam?.id, game.gog?.id).pipe(
                     switchMap(_success => {
                         return of(
-                            FavouritesActions.addToFavouritesSuccessAction()
+                            FavouritesActions.addToFavouritesSuccessAction({ game })
                         );
                     }),
                     catchError(error => {
@@ -55,7 +56,7 @@ export class FavouritesEffects {
                 return this.api.deleteFromFavourites(name).pipe(
                     switchMap(_success => {
                         return of(
-                            FavouritesActions.deleteFromFavouritesSuccessAction()
+                            FavouritesActions.deleteFromFavouritesSuccessAction({ name })
                         );
                     }),
                     catchError(error => {

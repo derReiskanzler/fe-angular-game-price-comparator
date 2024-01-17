@@ -1,19 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FavouritesFacadeService } from '../../shared/state/facade/favourites.facade.service';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Game } from '../../shared/models/game.interface';
 import { Observable, tap } from 'rxjs';
 import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
 import { GameListModule } from '../../shared/ui/game-list/game-list.module';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.component.html',
   styleUrls: ['./favourites.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, GameListModule, AsyncPipe],
+  imports: [NgIf, AsyncPipe, NgTemplateOutlet, GameListModule, ButtonModule],
 })
 export class FavouriteListComponent implements OnInit {
   public favourites$!: Observable<Game[]>;
@@ -21,8 +22,7 @@ export class FavouriteListComponent implements OnInit {
   public selectedGame$!: Observable<Game>;
   public error$!: Observable<string>;
   
-  private facade = inject(FavouritesFacadeService);
-  private searchFacade = inject(SearchGameFacadeService);
+  private facade = inject(SearchGameFacadeService);
   private router = inject(Router);
   private messageService = inject(MessageService);
 
@@ -30,7 +30,7 @@ export class FavouriteListComponent implements OnInit {
     this.facade.getFavouriteList();
     this.favourites$ = this.facade.favourites$;
     this.isLoading$ = this.facade.isLoading$;
-    this.selectedGame$ = this.searchFacade.selectedGame$;
+    this.selectedGame$ = this.facade.selectedGame$;
     this.error$ = this.facade.error$.pipe(
       tap(error => {
         this.messageService.add({
@@ -44,8 +44,21 @@ export class FavouriteListComponent implements OnInit {
 
   public openGameOverview(game: Game, selectedGameName?: string): void {
     if (game.name !== selectedGameName) {
-      this.searchFacade.selectGame(game);
+      this.facade.selectGame(game);
     }
     this.router.navigate(['home','game-details']);
+  }
+
+  public onFavourize(game: Game): void {
+    console.log(game);
+    if (game.isFavourite) {
+      this.facade.deleteFromFavourites(game.name);
+    } else {
+      this.facade.addToFavourite(game);
+    }
+  }
+
+  public onBack(): void {
+    this.router.navigate(['home']);
   }
 }

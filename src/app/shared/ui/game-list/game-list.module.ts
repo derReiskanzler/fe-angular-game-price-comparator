@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameListComponent } from './game-list.component';
-import { GameProviderDetailsModule } from '../game-provider-details/game-provider-details.module';
-import { GameOsSupportedModule } from '../game-os-supported/game-os-supported.module';
 import { SkeletonModule } from 'primeng/skeleton';
+import { GameModule } from '../game/game.module';
 
 
 
@@ -11,9 +10,8 @@ import { SkeletonModule } from 'primeng/skeleton';
   declarations: [ GameListComponent ],
   imports: [
     CommonModule,
-    GameProviderDetailsModule,
-    GameOsSupportedModule,
     SkeletonModule,
+    GameModule,
   ],
   exports: [ GameListComponent ],
 })

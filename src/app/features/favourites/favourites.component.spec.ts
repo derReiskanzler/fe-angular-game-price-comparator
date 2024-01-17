@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FavouriteListComponent } from './favourites.component';
 import { GameListModule } from '../../shared/ui/game-list/game-list.module';
 import { provideMockStore } from '@ngrx/store/testing';
-import { initialFavouritesState } from '../../shared/state/reducers/favourites.reducer';
 import { MessageService } from 'primeng/api';
+import { initialSearchGameState } from '../../shared/state/reducers/search-game.reducer';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 describe('FavouriteListComponent', () => {
   let component: FavouriteListComponent;
@@ -12,12 +13,12 @@ describe('FavouriteListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FavouriteListComponent],
       imports: [
+        NgIf,
+        AsyncPipe,
+        FavouriteListComponent,
         GameListModule,
-      ],
-      providers: [
-        provideMockStore({ initialState: initialFavouritesState }),
+        provideMockStore({ initialState: initialSearchGameState }),
         MessageService,
       ],
     });

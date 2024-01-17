@@ -62,7 +62,6 @@ export class AuthComponent {
         label: 'Favourites',
         icon: 'pi pi-heart-fill',
         command: () => {
-          console.log('favourites route call')
           this.router.navigate(['/favourites']);
         },
       },
@@ -70,7 +69,6 @@ export class AuthComponent {
         label: 'Settings',
         icon: 'pi pi-cog',
         command: () => {
-          console.log('favourites route call')
           this.router.navigate(['/settings']);
         },
       },
