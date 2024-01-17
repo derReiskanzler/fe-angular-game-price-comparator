@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameDetailsComponent } from './game-details.component';
-import { initialSearchGameState } from '../../../../shared/state/reducers/search-game.reducer';
+import { initialSearchGameState } from '../../shared/state/reducers/search-game.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
 
 describe('GameDetailsComponent', () => {

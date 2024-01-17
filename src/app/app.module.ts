@@ -43,7 +43,7 @@ registerLocaleData(localeDe);
     {
       provide: LOCALE_ID,
       useValue: 'de-DE'
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

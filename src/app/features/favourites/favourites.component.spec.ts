@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FavouriteListComponent } from './favourite-list.component';
-import { GameListModule } from '../../../../shared/ui/game-list/game-list.module';
+import { FavouriteListComponent } from './favourites.component';
+import { GameListModule } from '../../shared/ui/game-list/game-list.module';
 import { provideMockStore } from '@ngrx/store/testing';
-import { initialFavouritesState } from '../../../../shared/state/reducers/favourites.reducer';
+import { initialFavouritesState } from '../../shared/state/reducers/favourites.reducer';
 import { MessageService } from 'primeng/api';
 
 describe('FavouriteListComponent', () => {

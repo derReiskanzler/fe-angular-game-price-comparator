@@ -1,14 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { SearchGameFacadeService } from '../../../../shared/state/facade/search-game.facade.service';
+import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
 import { Observable, tap } from 'rxjs';
-import { Game } from '../../../../shared/models/game.interface';
+import { Game } from '../../shared/models/game.interface';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { GameListModule } from '../../shared/ui/game-list/game-list.module';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [ NgIf, AsyncPipe, GameListModule, ],
 })
 export class HomeComponent implements OnInit {
   public results$!: Observable<Game[]>;

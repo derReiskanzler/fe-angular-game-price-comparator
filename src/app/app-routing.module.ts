@@ -4,13 +4,18 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () =>
-      import('./features/home/home-shell.module').then((m) => m.HomeShellModule),
+    loadComponent: () =>
+      import('./features/home/home.component').then((c) => c.HomeComponent),
+  },
+  {
+    path: 'home/game-details',
+    loadComponent: () =>
+      import('./features/game-details/game-details.component').then((c) => c.GameDetailsComponent),
   },
   {
     path: 'favourites',
-    loadChildren: () =>
-      import('./features/favourites/favourites-shell.module').then((m) => m.FavouritesShellModule),
+    loadComponent: () =>
+      import('./features/favourites/favourites.component').then((c) => c.FavouriteListComponent),
   },
   {
     path: '**',

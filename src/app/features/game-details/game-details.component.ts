@@ -1,14 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Game } from '../../../../shared/models/game.interface';
-import { GameProviderTypes } from '../../../../shared/models/game-provider-types.enum';
-import { SearchGameFacadeService } from '../../../../shared/state/facade/search-game.facade.service';
+import { Game } from '../../shared/models/game.interface';
+import { GameProviderTypes } from '../../shared/models/game-provider-types.enum';
+import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
 import { Observable, tap } from 'rxjs';
-import { Location } from '@angular/common';
+import { AsyncPipe, Location, NgIf } from '@angular/common';
+import { TabViewModule } from 'primeng/tabview';
+import { ButtonModule } from 'primeng/button';
+import { GameProviderDetailsModule } from '../../shared/ui/game-provider-details/game-provider-details.module';
+import { GameOsSupportedModule } from '../../shared/ui/game-os-supported/game-os-supported.module';
 
 @Component({
   selector: 'app-game-details',
   templateUrl: './game-details.component.html',
-  styleUrls: ['./game-details.component.scss']
+  styleUrls: ['./game-details.component.scss'],
+  standalone: true,
+  imports: [ NgIf, AsyncPipe, TabViewModule, ButtonModule, GameProviderDetailsModule, GameOsSupportedModule, ],
 })
 export class GameDetailsComponent implements OnInit {
   public activeIndex: number = GameProviderTypes.STEAM;

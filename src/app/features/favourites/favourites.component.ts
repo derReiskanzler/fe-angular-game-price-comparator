@@ -1,15 +1,19 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FavouritesFacadeService } from '../../../../shared/state/facade/favourites.facade.service';
-import { Game } from '../../../../shared/models/game.interface';
+import { FavouritesFacadeService } from '../../shared/state/facade/favourites.facade.service';
+import { Game } from '../../shared/models/game.interface';
 import { Observable, tap } from 'rxjs';
-import { SearchGameFacadeService } from '../../../../shared/state/facade/search-game.facade.service';
+import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { GameListModule } from '../../shared/ui/game-list/game-list.module';
 
 @Component({
-  selector: 'app-favourite-list',
-  templateUrl: './favourite-list.component.html',
-  styleUrls: ['./favourite-list.component.scss']
+  selector: 'app-favourites',
+  templateUrl: './favourites.component.html',
+  styleUrls: ['./favourites.component.scss'],
+  standalone: true,
+  imports: [NgIf, GameListModule, AsyncPipe],
 })
 export class FavouriteListComponent implements OnInit {
   public favourites$!: Observable<Game[]>;
