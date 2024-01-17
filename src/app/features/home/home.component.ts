@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
     if (game.name !== selectedGameName) {
       this.facade.selectGame(game);
     }
-    this.router.navigate(['home','game-details']);
+    this.router.navigate(['home','game-details'], { queryParams: { name: game.name } });
   }
 
   public resetSelectedGame(): void {

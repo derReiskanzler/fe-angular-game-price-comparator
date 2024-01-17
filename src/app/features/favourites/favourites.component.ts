@@ -46,11 +46,10 @@ export class FavouriteListComponent implements OnInit {
     if (game.name !== selectedGameName) {
       this.facade.selectGame(game);
     }
-    this.router.navigate(['home','game-details']);
+    this.router.navigate(['home','game-details'], { queryParams: { name: game.name } });
   }
 
   public onFavourize(game: Game): void {
-    console.log(game);
     if (game.isFavourite) {
       this.facade.deleteFromFavourites(game.name);
     } else {

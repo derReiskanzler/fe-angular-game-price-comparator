@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IsLoggedIn } from './shared/utils/guards/auth.guard';
+import { IsLoggedIn } from './shared/utils/guards/is-logged-in.guard';
+import { hasGameSelected } from './shared/utils/guards/has-game-selected.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'home/game-details',
+    canMatch: [hasGameSelected],
     loadComponent: () =>
       import('./features/game-details/game-details.component').then((c) => c.GameDetailsComponent),
   },

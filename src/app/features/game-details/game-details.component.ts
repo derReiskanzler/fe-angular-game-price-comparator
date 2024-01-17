@@ -8,6 +8,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
 import { GameProviderDetailsModule } from '../../shared/ui/game-provider-details/game-provider-details.module';
 import { GameOsSupportedModule } from '../../shared/ui/game-os-supported/game-os-supported.module';
+import { FavouriteIconModule } from '../../shared/ui/favourite-icon/favourite-icon.module';
 
 @Component({
   selector: 'app-game-details',
@@ -15,7 +16,14 @@ import { GameOsSupportedModule } from '../../shared/ui/game-os-supported/game-os
   styleUrls: ['./game-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ NgIf, AsyncPipe, TabViewModule, ButtonModule, GameProviderDetailsModule, GameOsSupportedModule, ],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TabViewModule,
+    ButtonModule,
+    GameProviderDetailsModule,
+    GameOsSupportedModule,
+  ],
 })
 export class GameDetailsComponent implements OnInit {
   public activeIndex: number = GameProviderTypes.STEAM;
@@ -27,14 +35,7 @@ export class GameDetailsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.isLoading$ = this.facade.isLoading$;
-    this.selectedGame$ = this.facade.selectedGame$
-      .pipe(
-        tap(game => {
-          if (!game.name) {
-            this.onBack();
-          }
-        })
-      );
+    this.selectedGame$ = this.facade.selectedGame$;
   }
 
   public onBack(): void {
