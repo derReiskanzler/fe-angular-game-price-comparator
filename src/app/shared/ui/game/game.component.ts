@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Game, GameInfo, GamePlatforms } from '../../models/game.interface';
+import { GameInfo, GamePlatforms } from '../../models/game.interface';
 
 @Component({
   selector: 'app-game',
@@ -16,11 +16,4 @@ export class GameComponent {
   @Input() isFavourite: boolean|undefined;
   @Output() selectGame = new EventEmitter<void>();
   @Output() favourize = new EventEmitter<void>();
-
-  public mouseEntered = false;
-
-  public onFavourize(event: Event): void {
-    event.stopPropagation();
-    this.favourize.emit();
-  }
 }

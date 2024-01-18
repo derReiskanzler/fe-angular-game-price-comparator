@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GameComponent } from './game.component';
 import { GameOsSupportedModule } from '../game-os-supported/game-os-supported.module';
 import { GameProviderDetailsModule } from '../game-provider-details/game-provider-details.module';
+import { FavouriteIconModule } from '../favourite-icon/favourite-icon.module';
 
 @NgModule({
   declarations: [ GameComponent ],
@@ -10,6 +11,7 @@ import { GameProviderDetailsModule } from '../game-provider-details/game-provide
     CommonModule,
     GameProviderDetailsModule,
     GameOsSupportedModule,
+    FavouriteIconModule,
   ],
   exports: [ GameComponent ],
 })

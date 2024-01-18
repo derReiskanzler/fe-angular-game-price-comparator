@@ -6,20 +6,10 @@
     <div class="w-full h-full p-3 flex flex-column gap-4 justify-content-between">
         <div class="flex justify-content-between">
             <span>{{ name }}</span>
-            <div
-                class="p-1"
-                (mouseenter)="mouseEntered = !mouseEntered"
-                (mouseleave)="mouseEntered = !mouseEntered"
-                (click)="onFavourize($event)"
-            >
-                <div *ngIf="!isFavourite">
-                    <i *ngIf="mouseEntered === false" class="pi pi-heart" style="font-size: 1.2rem"></i>
-                    <i *ngIf="mouseEntered === true && !isFavourite" class="pi pi-heart-fill" style="font-size: 1.2rem"></i>
-                </div>
-                <div *ngIf="isFavourite">
-                    <i class="pi pi-heart-fill" style="font-size: 1.2rem"></i>
-                </div>
-            </div>
+            <app-favourite-icon
+                [isFavourite]="isFavourite"
+                (favourize)="favourize.emit()"
+            ></app-favourite-icon>
         </div>
         <div class="flex justify-content-between">
             <div class="flex">
