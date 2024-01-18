@@ -6,6 +6,7 @@ export const searchGameFeatureStateMock: SearchGameFeatureState = {
   results: [
     gameMock,
   ],
+  favourites: [ gameMock ],
   isLoading: false,
   error: 'error',
   selectedGame: gameMock,

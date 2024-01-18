@@ -1,0 +1,14 @@
+<div
+    class="p-1 cursor-pointer"
+    (mouseenter)="mouseEntered = !mouseEntered"
+    (mouseleave)="mouseEntered = !mouseEntered"
+    (click)="onFavourize($event)"
+>
+    <div *ngIf="!isFavourite">
+        <i *ngIf="mouseEntered === false" class="pi pi-heart" [style]="{ 'font-size': size }"></i>
+        <i *ngIf="mouseEntered === true && !isFavourite" class="pi pi-heart-fill" [style]="{ 'font-size': size }"></i>
+    </div>
+    <div *ngIf="isFavourite">
+        <i class="pi pi-heart-fill" [style]="{ 'font-size': size }"></i>
+    </div>
+</div>

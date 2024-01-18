@@ -27,3 +27,8 @@ export const selectError = createSelector(
     selectSearchGameFeature,
     (state: SearchGameFeatureState) => state.error
 );
+
+export const selectFavourites = createSelector(
+    selectSearchGameFeature,
+    (state: SearchGameFeatureState) => state.favourites
+);

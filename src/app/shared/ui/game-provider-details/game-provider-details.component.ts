@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { GamePrice } from '../../models/game.interface';
 
 @Component({
   selector: 'app-game-provider-details',
   templateUrl: './game-provider-details.component.html',
-  styleUrls: ['./game-provider-details.component.scss']
+  styleUrls: ['./game-provider-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameProviderDetailsComponent {
   @Input() id?: number|null;

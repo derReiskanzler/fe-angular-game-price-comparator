@@ -3,16 +3,7 @@
 <p-menubar>
     <ng-template pTemplate="start">
         <div class="flex align-items-center gap-4">
-            <img src="../../../../assets/video-game-controller.png" height="60"/>
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                    [formControl]="searchControl"
-                    type="text"
-                    placeholder="Title of a game..."
-                    pInputText
-                />
-            </span>
+            <img (click)="onLogoClick()" class="cursor-pointer" src="../../../../assets/video-game-controller.png" height="60"/>
         </div>
     </ng-template>
     <ng-template pTemplate="end">

@@ -1,5 +1,6 @@
 import { SearchGameFeatureState, initialSearchGameState, searchGameReducer } from './search-game.reducer';
-import * as Actions from '../actions/search-game.actions';
+import * as SearchGameActions from '../actions/search-game.actions';
+import * as FavouritesActions from '../actions/favourites.actions';
 import { gameMock } from '../../testing/search/game.mock';
 
 describe('unknown action', () => {
@@ -20,7 +21,7 @@ describe('search actions', () => {
       isLoading: true,
     };
 
-    const action = Actions.searchGameAction({ search });
+    const action = SearchGameActions.searchGameAction({ search });
     const state = searchGameReducer(initialSearchGameState, action);
 
     expect(state).toEqual(newState);
@@ -35,7 +36,7 @@ describe('search actions', () => {
       isLoading: false,
     };
 
-    const action = Actions.searchGameSuccessAction({ results });
+    const action = SearchGameActions.searchGameSuccessAction({ results });
     const state = searchGameReducer(initialSearchGameState, action);
 
     expect(state).toEqual(newState);
@@ -50,7 +51,7 @@ describe('search actions', () => {
       isLoading: false,
     };
 
-    const action = Actions.searchGameFailAction({ error });
+    const action = SearchGameActions.searchGameFailAction({ error });
     const state = searchGameReducer(initialSearchGameState, action);
 
     expect(state).toEqual(newState);
@@ -64,7 +65,7 @@ describe('search actions', () => {
       search: '',
     };
 
-    const action = Actions.resetSearchAction();
+    const action = SearchGameActions.resetSearchAction();
     const state = searchGameReducer(oldState, action);
 
     expect(state).toEqual(newState);
@@ -77,7 +78,7 @@ describe('search actions', () => {
       selectedGame: gameMock,
     };
 
-    const action = Actions.selectGameAction({ game: gameMock });
+    const action = SearchGameActions.selectGameAction({ game: gameMock });
     const state = searchGameReducer(initialSearchGameState, action);
 
     expect(state).toEqual(newState);
@@ -88,10 +89,157 @@ describe('search actions', () => {
     const oldState = { ...initialSearchGameState, selectedGame: {...gameMock, name: 'Some Title'} };
     const newState: SearchGameFeatureState = { ...initialSearchGameState };
 
-    const action = Actions.resetSelectedGameAction();
+    const action = SearchGameActions.resetSelectedGameAction();
     const state = searchGameReducer(oldState, action);
 
     expect(state).toEqual(newState);
     expect(state).not.toBe(oldState);
   });
+});
+
+
+describe('favourites actions', () => {
+  it('should change state on load favourite list action', () => {
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      isLoading: true,
+      error: '',
+    };
+
+    const action = FavouritesActions.loadFavouriteListAction();
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should change state on load favourite list success action', () => {
+    const favourites = [ gameMock ];
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      favourites,
+      isLoading: false,
+    };
+
+    const action = FavouritesActions.loadFavouriteListSuccessAction({ favourites });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should change state on load favourite list fail action', () => {
+    const error = 'some error';
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      isLoading: false,
+      error,
+    };
+
+    const action = FavouritesActions.loadFavouriteListFailAction({ error });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should add a game to state on add to favourites action', () => {
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      error: '',
+    };
+
+    const action = FavouritesActions.addToFavouritesAction({ game: gameMock });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should add a single game to favourites on favourites success action', () => {
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      favourites: [...initialSearchGameState.favourites, gameMock],
+    };
+
+    const action = FavouritesActions.addToFavouritesSuccessAction({ game: gameMock });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+
+  it('should add game to existing favourites on favourites success action', () => {
+    const existingGames = [ gameMock, gameMock ];
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      favourites: [...existingGames, gameMock],
+      error: '',
+    };
+
+    const action = FavouritesActions.addToFavouritesSuccessAction({ game: gameMock });
+    const state = searchGameReducer({...initialSearchGameState, favourites: existingGames }, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should change state on add to favourites fail action', () => {
+    const error = 'some error';
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      error,
+    };
+
+    const action = FavouritesActions.addToFavouritesFailAction({ error });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should change state on delete from favourites action', () => {
+    const name = gameMock.name;
+    const oldState = { ...initialSearchGameState, favourites: [gameMock] };
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      error: '',
+    };
+
+    const action = FavouritesActions.deleteFromFavouritesAction({ name });
+    const state = searchGameReducer(oldState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(oldState);
+  });
+
+  it('should change state on delete from favourites success action', () => {
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+    };
+
+    const action = FavouritesActions.deleteFromFavouritesSuccessAction({ name: gameMock.name });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
+  it('should change state on delete from favourites fail action', () => {
+    const error = 'some error';
+    const newState: SearchGameFeatureState = {
+      ...initialSearchGameState,
+      results: [],
+      favourites: [],
+      error,
+    };
+
+    const action = FavouritesActions.deleteFromFavouritesFailAction({ error });
+    const state = searchGameReducer(initialSearchGameState, action);
+
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(initialSearchGameState);
+  });
+
 });

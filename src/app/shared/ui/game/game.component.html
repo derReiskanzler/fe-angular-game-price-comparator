@@ -1,0 +1,45 @@
+<div
+    class="flex align-items-center gap-2 border-round shadow-2 border-0 border-1 surface-100 hover:border-2 hover:border-400 hover:shadow-4 cursor-pointer"
+    (click)="selectGame.emit()"
+>
+    <img [src]="image" [alt]="name" width="250"/>
+    <div class="w-full h-full p-3 flex flex-column gap-4 justify-content-between">
+        <div class="flex justify-content-between">
+            <span>{{ name }}</span>
+            <app-favourite-icon
+                [isFavourite]="isFavourite"
+                (favourize)="favourize.emit()"
+            ></app-favourite-icon>
+        </div>
+        <div class="flex justify-content-between">
+            <div class="flex">
+                <app-game-provider-details
+                    [id]="steam?.id"
+                    [link]="steam?.link"
+                    [price]="steam?.price"
+                    imagePath="/assets/steam.png"
+                    [showPriceLabel]="false"
+                    [showWebsiteLabel]="false"
+                    styleClass="mr-4 flex gap-1 align-items-center"
+                ></app-game-provider-details>
+                <app-game-provider-details
+                    [id]="gog?.id"
+                    [link]="gog?.link"
+                    [price]="gog?.price"
+                    imagePath="/assets/gog.png"
+                    [showPriceLabel]="false"
+                    [showWebsiteLabel]="false"
+                    styleClass="mr-4 flex gap-1 align-items-center"
+                ></app-game-provider-details>
+            </div>
+            <div>
+                <app-game-os-supported
+                    [windows]="platforms?.windows"
+                    [mac]="platforms?.mac"
+                    [linux]="platforms?.linux"
+                    styleClass="flex gap-2 align-items-center"
+                ></app-game-os-supported>
+            </div>
+        </div>
+    </div>
+</div>

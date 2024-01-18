@@ -8,6 +8,7 @@ export interface Game {
     shortDescription: string|null;
     detailedDescription: string|null;
     aboutTheGame: string|null;
+    isFavourite: boolean;
 }
 
 export type GameType = 'game' | 'dlc';

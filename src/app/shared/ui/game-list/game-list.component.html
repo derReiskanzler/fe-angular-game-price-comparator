@@ -1,0 +1,17 @@
+<div *ngIf="!isLoading; else loadingResults" class="flex flex-column gap-3">
+    <app-game
+        *ngFor="let game of games"
+        [image]="game?.image"
+        [name]="game?.name"
+        [steam]="game?.steam"
+        [gog]="game?.gog"
+        [platforms]="game?.platforms"
+        [isFavourite]="game.isFavourite"
+        (selectGame)="selectGame.emit(game)"
+        (favourize)="favourize.emit(game)"
+    ></app-game>
+</div>
+
+<ng-template #loadingResults>
+    <p-skeleton height="7rem" *ngFor="let load of [1,2,3,4,5]" styleClass="mb-3"></p-skeleton>
+</ng-template>

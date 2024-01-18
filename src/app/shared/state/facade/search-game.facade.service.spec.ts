@@ -2,7 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { SearchGameFacadeService } from './search-game.facade.service';
 import { SearchGameFeatureState, initialSearchGameState } from '../reducers/search-game.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import * as Actions from '../actions/search-game.actions';
+import * as SearchGameActions from '../actions/search-game.actions';
+import * as FavouritesActions from '../actions/favourites.actions';
 import { gameMock } from '../../testing/search/game.mock';
 
 describe('SearchGameFacadeService', () => {
@@ -30,25 +31,43 @@ describe('SearchGameFacadeService', () => {
     const search = 'the witcher';
     facade.searchGame(search);
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.searchGameAction({ search }));
+    expect(storeSpy).toHaveBeenCalledWith(SearchGameActions.searchGameAction({ search }));
   });
 
   it('should dispatch a reset search action', () => {
     facade.resetSearch();
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.resetSearchAction());
+    expect(storeSpy).toHaveBeenCalledWith(SearchGameActions.resetSearchAction());
   });
 
   it('should dispatch a select game action', () => {
     facade.selectGame(gameMock);
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.selectGameAction({ game: gameMock }));
+    expect(storeSpy).toHaveBeenCalledWith(SearchGameActions.selectGameAction({ game: gameMock }));
   });
 
   it('should dispatch a reset selected game action', () => {
     facade.resetSelectedGame();
 
-    expect(storeSpy).toHaveBeenCalledWith(Actions.resetSelectedGameAction());
+    expect(storeSpy).toHaveBeenCalledWith(SearchGameActions.resetSelectedGameAction());
+  });
+
+  it('should dispatch a load favourite list action', () => {
+    facade.getFavouriteList();
+
+    expect(storeSpy).toHaveBeenCalledWith(FavouritesActions.loadFavouriteListAction());
+  });
+
+  it('should dispatch a add to favourite action', () => {
+    facade.addToFavourite(gameMock);
+
+    expect(storeSpy).toHaveBeenCalledWith(FavouritesActions.addToFavouritesAction({game: gameMock}));
+  });
+
+  it('should dispatch a select game action', () => {
+    facade.deleteFromFavourites(gameMock.name);
+
+    expect(storeSpy).toHaveBeenCalledWith(FavouritesActions.deleteFromFavouritesAction({ name: gameMock.name }));
   });
 });
 

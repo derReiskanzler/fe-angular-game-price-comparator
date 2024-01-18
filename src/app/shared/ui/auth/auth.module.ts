@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { AuthComponent } from './auth.component';
@@ -15,14 +14,12 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { AvatarModule } from 'primeng/avatar';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
 
     // PrimeNg
     InputTextModule,
@@ -39,6 +36,6 @@ import { MenuModule } from 'primeng/menu';
   ],
   declarations: [ AuthComponent, AuthDialogComponent ],
   exports: [ AuthComponent, AuthDialogComponent ],
-  providers: [ DialogService, MessageService ],
+  providers: [ DialogService ],
 })
 export class AuthModule { }

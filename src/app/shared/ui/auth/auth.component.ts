@@ -6,6 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../models/user.interface';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +27,10 @@ export class AuthComponent {
 
   public ngOnInit(): void {
     // what if I'm logged in but close the tab and create new tab
-    this.auth.getLoggedInUser().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+    this.auth.getLoggedInUser().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap(user => this.auth.currentUserSig.set(user)),
+    ).subscribe();
   }
 
   public showAuthDialog(): void {
@@ -62,7 +66,6 @@ export class AuthComponent {
         label: 'Favourites',
         icon: 'pi pi-heart-fill',
         command: () => {
-          console.log('favourites route call')
           this.router.navigate(['/favourites']);
         },
       },
@@ -70,7 +73,6 @@ export class AuthComponent {
         label: 'Settings',
         icon: 'pi pi-cog',
         command: () => {
-          console.log('favourites route call')
           this.router.navigate(['/settings']);
         },
       },
