@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderModule } from './features/header/header.module';
 import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './shared/utils/interceptors/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
@@ -15,6 +14,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { FavouritesEffects } from './shared/state/effects/favourites.effects';
 import { MessageService } from 'primeng/api';
+import { HeaderComponent } from './features/header/header.component';
 
 registerLocaleData(localeDe);
 
@@ -34,8 +34,7 @@ registerLocaleData(localeDe);
       maxAge: 25, // Retains last 25 states
     }),
 
-    // Features
-    HeaderModule,
+    HeaderComponent,
   ],
   providers: [
     provideHttpClient(withInterceptors([ AuthInterceptor ])),
