@@ -14,6 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { FavouritesEffects } from './shared/state/effects/favourites.effects';
+import { MessageService } from 'primeng/api';
 
 registerLocaleData(localeDe);
 
@@ -42,6 +43,7 @@ registerLocaleData(localeDe);
       provide: LOCALE_ID,
       useValue: 'de-DE'
     },
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

@@ -39,6 +39,6 @@ import { MenuModule } from 'primeng/menu';
   ],
   declarations: [ AuthComponent, AuthDialogComponent ],
   exports: [ AuthComponent, AuthDialogComponent ],
-  providers: [ DialogService, MessageService ],
+  providers: [ DialogService ],
 })
 export class AuthModule { }
