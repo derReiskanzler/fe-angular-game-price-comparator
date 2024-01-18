@@ -59,10 +59,12 @@ export class HomeComponent implements OnInit {
         map(value => {
           if (!value) {
             this.facade.resetSearch();
+            this.router.navigate(['home']);
   
             return;
           }
   
+          this.router.navigate(['home'], { queryParams: { search: value }})
           this.facade.searchGame(value);
         }),
       ).subscribe();
