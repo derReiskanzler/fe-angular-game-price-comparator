@@ -43,6 +43,10 @@ export class HomeComponent implements OnInit {
       this.results$ = this.facade.results$;
       this.isLoading$ = this.facade.isLoading$;
       this.selectedGame$ = this.facade.selectedGame$;
+      this.facade.search$.pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap(search => this.searchControl.setValue(search)),
+      ).subscribe();
       this.error$ = this.facade.error$.pipe(
         tap(error => {
           this.messageService.add({
@@ -81,7 +85,6 @@ export class HomeComponent implements OnInit {
     this.facade.resetSelectedGame();
   }
 
-  // TOOD: show message - cant add to favourite when user is not logged in
   public onFavourize(game: Game): void {
     if (game.isFavourite) {
       this.facade.deleteFromFavourites(game.name);
@@ -89,5 +92,4 @@ export class HomeComponent implements OnInit {
       this.facade.addToFavourite(game);
     }
   }
-
 }
