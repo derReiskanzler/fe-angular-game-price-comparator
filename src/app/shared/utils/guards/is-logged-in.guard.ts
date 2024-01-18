@@ -2,14 +2,19 @@
 import { inject } from '@angular/core';
 import { CanMatchFn } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { of, switchMap } from 'rxjs';
 
 export const IsLoggedIn: CanMatchFn = (route, state) => {
   const auth = inject(AuthService);
   const token = localStorage.getItem('token') ?? '';
 
-  if (!token || token !== auth.currentUserSig()?.token) {
-    return false;
-  } else {
-    return true;
-  }
+  return auth.getLoggedInUser().pipe(
+    switchMap(user => {
+      if (user.token !== token) {
+        return of(false);
+      } else {
+        return of(true);
+      }
+    }),
+  );
 };
