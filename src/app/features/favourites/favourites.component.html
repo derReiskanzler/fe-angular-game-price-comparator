@@ -6,19 +6,21 @@
         error: error$ | async
     } as obs"
 >
-    <div>
-        <button pButton class="flex gap-2 shadow-4" (click)="onBack()">
-            <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
-            <span>Back</span>
-        </button>
+    <div class="flex flex-column gap-4">
+        <div>
+            <button pButton class="flex gap-2 shadow-4" (click)="onBack()">
+                <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
+                <span>Back</span>
+            </button>
+        </div>
+        <app-game-list
+            *ngIf="obs.favourites?.length !== 0; else noFavourites"
+            [games]="obs.favourites"
+            [isLoading]="obs.isLoading"
+            (selectGame)="openGameOverview($event, obs.selectedGame?.name)"
+            (favourize)="onFavourize($event)"
+        ></app-game-list>
     </div>
-    <app-game-list
-        *ngIf="obs.favourites?.length !== 0; else noFavourites"
-        [games]="obs.favourites"
-        [isLoading]="obs.isLoading"
-        (selectGame)="openGameOverview($event, obs.selectedGame?.name)"
-        (favourize)="onFavourize($event)"
-    ></app-game-list>
 
     <ng-template #noFavourites>
         <div class="w-full flex justify-content-center">
