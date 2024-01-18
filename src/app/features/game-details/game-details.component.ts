@@ -60,7 +60,7 @@ export class GameDetailsComponent implements OnInit {
       return;
     }
 
-    if ( game.isFavourite) {
+    if (game.isFavourite) {
       this.facade.deleteFromFavourites(game.name);
     } else {
       this.facade.addToFavourite(game);

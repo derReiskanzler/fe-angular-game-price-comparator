@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { LoginApiResponse } from '../../api/models/login-api-response.interface';
 import { RegisterApiResponse } from '../../api/models/reigster-api-response.interface';
-import { UserResponse } from '../../api/models/user-response.interface';
+import { UserResponse } from '../../api/models/user-api-response.interface';
 
 export class MockAuthWebService {
     public login(email: string, password: string): Observable<LoginApiResponse> {
@@ -11,6 +11,6 @@ export class MockAuthWebService {
         return of({ enail:'email', token: 'token', nickname: 'nickname'});
     }
     public getLoggedInUser(): Observable<UserResponse> {
-        return of({ email: 'email', nickname: 'nickname'});
+        return of({ email: 'email', nickname: 'nickname', token: 'token', success: true });
     }
 }
