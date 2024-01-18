@@ -4,11 +4,13 @@ import * as FavouritesActions from '../actions/favourites.actions';
 import { catchError, of, switchMap } from 'rxjs';
 import { FavouriteService } from '../../services/favourites/favourites.service';
 import { Game } from '../../models/game.interface';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class FavouritesEffects {
     private actions$ = inject(Actions);
     private api = inject(FavouriteService);
+    private messageService = inject(MessageService)
 
     public getFavouriteList$ = createEffect(() =>
         this.actions$.pipe(
@@ -37,12 +39,14 @@ export class FavouritesEffects {
             switchMap(({ game }) => {
                 return this.api.addToFavourites(game.name, game.steam?.id, game.gog?.id).pipe(
                     switchMap(_success => {
+                        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game has been added to your favourites!' });
+
                         return of(
                             FavouritesActions.addToFavouritesSuccessAction({ game })
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.addToFavouritesFailAction({ error: error?.message }));
+                        return of(FavouritesActions.addToFavouritesFailAction({ error: error?.status === 0 || error?.status === 403 ? 'You need to login or register first.' : error?.message }));
                     })
                 );
             })
@@ -55,12 +59,14 @@ export class FavouritesEffects {
             switchMap(({ name }) => {
                 return this.api.deleteFromFavourites(name).pipe(
                     switchMap(_success => {
+                        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game has been removed from your favourites.' });
+
                         return of(
                             FavouritesActions.deleteFromFavouritesSuccessAction({ name })
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.deleteFromFavouritesFailAction({ error: error?.message }));
+                        return of(FavouritesActions.deleteFromFavouritesFailAction({ error: error?.status === 0 || error?.status === 403 ? 'You need to login or register first.' : error?.message }));
                     })
                 );
             })
