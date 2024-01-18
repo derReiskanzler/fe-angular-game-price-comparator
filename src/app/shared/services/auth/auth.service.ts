@@ -71,9 +71,10 @@ export class AuthService {
 
     return this.api.getLoggedInUser()
       .pipe(
-        map(({ email, nickname }) => ({
+        map(({ email, nickname, token, success }) => ({
           email,
           nickname,
+          token,
         } as User)),
         tap(user => {
           this.currentUserSig.set(user);
