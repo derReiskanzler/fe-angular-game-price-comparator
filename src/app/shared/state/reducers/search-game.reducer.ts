@@ -18,7 +18,7 @@ export interface SearchGameFeatureState {
 export const initialSearchGameState: SearchGameFeatureState = {
     search: '',
     results: [
-        gameMock,
+        // gameMock,
         // {...gameMock, name: 'Test', platforms: {windows: true, linux: true, mac: true} },
         // {...gameMock, steam: {...gameMock.steam, price: {...gameMock.steam?.price, isFree: true} as GamePrice} as GameInfo},
         // {...gameMock, steam: null},
@@ -27,8 +27,9 @@ export const initialSearchGameState: SearchGameFeatureState = {
     favourites: [
         // gameMock,
     ],
-    // selectedGame: gameMock,
-    selectedGame: {} as Game,
+    selectedGame: {
+        // ...gameMock
+    } as Game,
     isLoading: false,
     error: '',
 };
@@ -53,6 +54,7 @@ export const searchGameReducer = createReducer(
     on(SearchGameActions.resetSearchAction, (state, _action) => ({
         ...state,
         search: '',
+        results: [],
     })),
     on(SearchGameActions.selectGameAction, (state, { game }) => ({
         ...state,
@@ -80,35 +82,37 @@ export const searchGameReducer = createReducer(
     })),
     on(FavouritesActions.addToFavouritesAction, (state, { game }) => ({
         ...state,
-        isLoading: true,
         error: '',
     })),
     on(FavouritesActions.addToFavouritesSuccessAction, (state, { game }) => ({
         ...state,
         results: [...state.results.map(result => result.name === game.name ? {...result, isFavourite: true} : result)],
-        favourites: state.favourites ? [...state.favourites, {...game, isFavourite: true}] : [{...game, isFavourite: true}],
-        isLoading: false,
+        favourites: state.favourites ? addToFavourites(game, state.favourites) : [{...game, isFavourite: true}],
+        selectedGame: state.selectedGame.name === game.name ? {...state.selectedGame, isFavourite: true} : state.selectedGame,
     })),
     on(FavouritesActions.addToFavouritesFailAction, (state, { error }) => ({
         ...state,
-        isLoading: false,
         error,
     })),
     on(FavouritesActions.deleteFromFavouritesAction, (state, { name }) => ({
         ...state,
-        isLoading: true,
         error: '',
     })),
     on(FavouritesActions.deleteFromFavouritesSuccessAction, (state, { name }) => ({
         ...state,
         results: [...state.results.map(result => result.name === name ? {...result, isFavourite: false} : result)],
-        favourites: [...state.favourites.filter(favourite => favourite.name !== name)],
-        isLoading: false,
+        favourites: [...state.favourites.map(favourite => favourite.name === name ? {...favourite, isFavourite: false} : favourite)],
+        selectedGame: state.selectedGame.name === name ? {...state.selectedGame, isFavourite: false } : state.selectedGame,
     })),
     on(FavouritesActions.deleteFromFavouritesFailAction, (state, { error }) => ({
         ...state,
-        isLoading: false,
         error,
     })),
-
 );
+
+function addToFavourites(game: Game, favourites: Game[]): Game[] {
+    if (favourites.find(favourite => favourite.name === game.name)?.name) {
+        return favourites.map(favourite => favourite.name === game.name ? {...favourite, isFavourite: true} : favourite);
+    }
+    return [...favourites, {...game, isFavourite: true}];
+}
