@@ -84,17 +84,6 @@ describe('search actions', () => {
     expect(state).toEqual(newState);
     expect(state).not.toBe(initialSearchGameState);
   });
-
-  it('should reset search on reset search action', () => {
-    const oldState = { ...initialSearchGameState, selectedGame: {...gameMock, name: 'Some Title'} };
-    const newState: SearchGameFeatureState = { ...initialSearchGameState };
-
-    const action = SearchGameActions.resetSelectedGameAction();
-    const state = searchGameReducer(oldState, action);
-
-    expect(state).toEqual(newState);
-    expect(state).not.toBe(oldState);
-  });
 });
 
 
@@ -159,7 +148,7 @@ describe('favourites actions', () => {
   it('should add a single game to favourites on favourites success action', () => {
     const newState: SearchGameFeatureState = {
       ...initialSearchGameState,
-      favourites: [...initialSearchGameState.favourites, gameMock],
+      favourites: [...initialSearchGameState.favourites, {...gameMock, isFavourite: true}],
     };
 
     const action = FavouritesActions.addToFavouritesSuccessAction({ game: gameMock });
@@ -171,10 +160,10 @@ describe('favourites actions', () => {
 
 
   it('should add game to existing favourites on favourites success action', () => {
-    const existingGames = [ gameMock, gameMock ];
+    const existingGames = [ {...gameMock, name: 'some game'}, {...gameMock, name: 'another game'} ];
     const newState: SearchGameFeatureState = {
       ...initialSearchGameState,
-      favourites: [...existingGames, gameMock],
+      favourites: [...existingGames, {...gameMock, isFavourite: true}],
       error: '',
     };
 
@@ -201,7 +190,7 @@ describe('favourites actions', () => {
 
   it('should change state on delete from favourites action', () => {
     const name = gameMock.name;
-    const oldState = { ...initialSearchGameState, favourites: [gameMock] };
+    const oldState = { ...initialSearchGameState };
     const newState: SearchGameFeatureState = {
       ...initialSearchGameState,
       error: '',

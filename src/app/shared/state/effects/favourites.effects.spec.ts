@@ -12,6 +12,7 @@ import { MockFavouriteService } from '../../testing/favourites/favourites.servic
 import { gameMock } from '../../testing/search/game.mock';
 import { Game } from '../../models/game.interface';
 import { initialSearchGameState } from '../reducers/search-game.reducer';
+import { MessageService } from 'primeng/api';
 
 describe('Favourite Effects', () => {
     let actions$ = new Observable<Action>();
@@ -32,6 +33,7 @@ describe('Favourite Effects', () => {
                 },
                 provideMockActions(() => actions$),
                 provideMockStore({ initialState: initialSearchGameState }),
+                MessageService,
             ],
         });
         api = TestBed.inject(FavouriteService);

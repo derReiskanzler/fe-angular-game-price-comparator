@@ -1,17 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { HeaderModule } from './features/header/header.module';
 import { initialSearchGameState } from './shared/state/reducers/search-game.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
+import { HeaderComponent } from './features/header/header.component';
+import { MessageService } from 'primeng/api';
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        HeaderComponent,
         RouterTestingModule,
-        HeaderModule,
         provideMockStore({ initialState: initialSearchGameState }),
+      ],
+      providers: [
+        MessageService,
       ],
       declarations: [
         AppComponent

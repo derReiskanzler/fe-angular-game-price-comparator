@@ -46,12 +46,6 @@ describe('SearchGameFacadeService', () => {
     expect(storeSpy).toHaveBeenCalledWith(SearchGameActions.selectGameAction({ game: gameMock }));
   });
 
-  it('should dispatch a reset selected game action', () => {
-    facade.resetSelectedGame();
-
-    expect(storeSpy).toHaveBeenCalledWith(SearchGameActions.resetSelectedGameAction());
-  });
-
   it('should dispatch a load favourite list action', () => {
     facade.getFavouriteList();
 

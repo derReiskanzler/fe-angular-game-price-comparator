@@ -9,6 +9,7 @@ import { MockAuthWebService } from '../../shared/testing/auth/auth.web.service.m
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -16,10 +17,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
       providers: [
         provideMockStore({ initialState: initialSearchGameState }),
         { provide: AuthWebService, useClass: MockAuthWebService },
+        MessageService,
       ],
       imports: [
         AuthModule,
