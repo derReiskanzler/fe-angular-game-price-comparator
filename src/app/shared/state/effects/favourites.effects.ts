@@ -25,8 +25,7 @@ export class FavouritesEffects {
                         );
                     }),
                     catchError(error => {
-                        return of(FavouritesActions.loadFavouriteListFailAction({ error: '' }));
-                        // return of(FavouritesActions.loadFavouriteListFailAction({ error: error?.message }));
+                        return of(FavouritesActions.loadFavouriteListFailAction({ error: error?.message }));
                     })
                 );
             })
