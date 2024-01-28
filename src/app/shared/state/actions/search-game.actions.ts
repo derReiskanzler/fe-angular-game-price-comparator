@@ -22,5 +22,3 @@ export const selectGameAction = createAction(
     '[SEARCH] select game',
     props<{ game: Game }>(),
 );
-
-export const resetSelectedGameAction = createAction('[GAME PAGE] reset selected game');

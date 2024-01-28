@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
-import { Observable, debounceTime, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Game } from '../../shared/models/game.interface';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -29,7 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export class HomeComponent implements OnInit {
   public results$!: Observable<Game[]>;
   public isLoading$!: Observable<boolean>;
-  public selectedGame$!: Observable<Game>;
+  public search$!: Observable<string>;
   public error$!: Observable<string>;
 
   private facade = inject(SearchGameFacadeService);
@@ -42,8 +42,8 @@ export class HomeComponent implements OnInit {
   public ngOnInit(): void {
       this.results$ = this.facade.results$;
       this.isLoading$ = this.facade.isLoading$;
-      this.selectedGame$ = this.facade.selectedGame$;
-      this.facade.search$.pipe(
+      this.facade.search$
+      .pipe(
         takeUntilDestroyed(this.destroyRef),
         tap(search => this.searchControl.setValue(search)),
       ).subscribe();
@@ -56,33 +56,11 @@ export class HomeComponent implements OnInit {
           })
         })
       );
-
-      this.searchControl.valueChanges.pipe(
-        takeUntilDestroyed(this.destroyRef),
-        debounceTime(1000),
-        map(value => {
-          if (!value) {
-            this.facade.resetSearch();
-            this.router.navigate(['home']);
-  
-            return;
-          }
-  
-          this.router.navigate(['home'], { queryParams: { search: value }})
-          this.facade.searchGame(value);
-        }),
-      ).subscribe();
   }
 
-  public openGameOverview(game: Game, selectedGameName?: string): void {
-    if (game.name !== selectedGameName) {
-      this.facade.selectGame(game);
-    }
+  public openGameOverview(game: Game): void {
+    this.facade.selectGame(game);
     this.router.navigate(['home','game-details'], { queryParams: { name: game.name } });
-  }
-
-  public resetSelectedGame(): void {
-    this.facade.resetSelectedGame();
   }
 
   public onFavourize(game: Game): void {
@@ -91,5 +69,17 @@ export class HomeComponent implements OnInit {
     } else {
       this.facade.addToFavourite(game);
     }
+  }
+
+  public searchGame(): void {
+    const value = this.searchControl.getRawValue();
+    if (!value) {
+      this.facade.resetSearch();
+      this.router.navigate(['home']);
+
+      return;
+    }
+    this.facade.searchGame(value);
+    this.router.navigate(['home'], { queryParams: { search: value }});
   }
 }

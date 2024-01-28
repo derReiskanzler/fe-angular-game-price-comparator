@@ -1,25 +1,22 @@
-<span class="p-input-icon-left mb-4">
-    <i class="pi pi-search"></i>
+<span class="p-input-icon-right mb-4">
     <input
         [formControl]="searchControl"
         type="text"
         placeholder="Title of a game..."
         pInputText
+        (keyup.enter)="searchGame()"
     />
+    <i class="pi pi-search cursor-pointer" (click)="searchGame()"></i>
 </span>
 <div
     *ngIf="{
-        isLoading: isLoading$ | async,
-        results: results$ | async,
-        selectedGame: selectedGame$ | async,
         error: error$ | async
     } as obs"
 >
     <app-game-list
-        *ngIf="obs.results?.length !== 0"
-        [games]="obs.results"
-        [isLoading]="obs.isLoading"
-        (selectGame)="openGameOverview($event, obs.selectedGame?.name)"
+        [games]="results$ | async"
+        [isLoading]="isLoading$ | async"
+        (selectGame)="openGameOverview($event)"
         (favourize)="onFavourize($event)"
     ></app-game-list>
 </div>

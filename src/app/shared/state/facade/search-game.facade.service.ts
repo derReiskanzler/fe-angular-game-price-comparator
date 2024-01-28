@@ -28,10 +28,6 @@ export class SearchGameFacadeService {
   public selectGame(game: Game): void {
     this.store.dispatch(SearchGameActions.selectGameAction({ game }));
   }
-  
-  public resetSelectedGame(): void {
-    this.store.dispatch(SearchGameActions.resetSelectedGameAction());
-  }
 
   public getFavouriteList(): void {
     this.store.dispatch(FavouritesActions.loadFavouriteListAction());
