@@ -3,6 +3,7 @@ export interface Game {
     type: GameType|null;
     steam: GameInfo|null;
     gog: GameInfo|null;
+    egs: EgsGameInfo|null;
     image: string;
     platforms: GamePlatforms;
     shortDescription: string|null;
@@ -21,6 +22,10 @@ export interface GameInfo {
     id?: number;
     price: GamePrice;
     link: string;
+}
+
+export type EgsGameInfo = Omit<GameInfo, 'id'> & {
+    id?: string;
 }
 
 export interface GamePrice {

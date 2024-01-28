@@ -3,6 +3,7 @@ export interface ApiGame {
     type: ApiGameType|null;
     steam: ApiGameInfo|null;
     gog: ApiGameInfo|null;
+    egs: ApiEgsGameInfo|null;
     image: string;
     platforms: ApiGamePlatforms;
     short_description: string|null;
@@ -21,6 +22,10 @@ export interface ApiGameInfo {
     id?: number;
     price: ApiGamePrice;
     link: string;
+}
+
+export type ApiEgsGameInfo = Omit<ApiGameInfo, 'id'> & {
+    id?: string;
 }
 
 export interface ApiGamePrice {

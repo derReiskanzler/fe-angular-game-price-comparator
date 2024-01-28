@@ -65,6 +65,21 @@
                                 [price]="obs.game?.gog?.price"
                             ></app-game-provider-details>
                         </p-tabPanel>
+                
+                        <!-- EGS Panel -->
+                        <p-tabPanel *ngIf="obs.game?.egs">
+                            <ng-template pTemplate="header">
+                                <div class="flex gap-2 align-items-center">
+                                    <img src="/assets/egs.png" alt="epic games icon" width="22">
+                                    <span>EGS</span>
+                                </div> 
+                            </ng-template>
+                            <app-game-provider-details
+                                [id]="obs.game?.egs?.id"
+                                [link]="obs.game?.egs?.link"
+                                [price]="obs.game?.egs?.price"
+                            ></app-game-provider-details>
+                        </p-tabPanel>
                     </p-tabView>
                 
                     <app-game-os-supported

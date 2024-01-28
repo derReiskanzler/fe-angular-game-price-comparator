@@ -52,7 +52,7 @@ export class GameDetailsComponent implements OnInit {
   }
 
   public onBack(): void {
-    this.location.back()
+    this.location.back();
   }
 
   public onFavourize(game: Game|null): void {

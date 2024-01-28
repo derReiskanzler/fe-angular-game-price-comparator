@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ApiGame, ApiGameInfo, ApiGamePrice } from '../models/api-game.interface';
-import { Game, GameInfo, GamePrice } from '../../models/game.interface';
+import { ApiGame, ApiGameInfo, ApiGamePrice, ApiEgsGameInfo } from '../models/api-game.interface';
+import { EgsGameInfo, Game, GameInfo, GamePrice } from '../../models/game.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GameTransformerService {
@@ -10,6 +10,7 @@ export class GameTransformerService {
       type: apiGame.type,
       steam: apiGame.steam ? this.transformGameInfo(apiGame.steam) : null,
       gog: apiGame.gog ? this.transformGameInfo(apiGame.gog) : null,
+      egs: apiGame.egs ? this.transformEgsGameInfo(apiGame.egs) : null,
       image: apiGame.image,
       platforms: apiGame.platforms,
       shortDescription: apiGame.short_description,
@@ -25,6 +26,14 @@ export class GameTransformerService {
       link: apiGameInfo.link,
       price: this.transformGamePrice(apiGameInfo.price),
     } as GameInfo;
+  }
+
+  public transformEgsGameInfo(apiGameInfo: ApiEgsGameInfo): EgsGameInfo {
+    return {
+      id: apiGameInfo.id,
+      link: apiGameInfo.link,
+      price: this.transformGamePrice(apiGameInfo.price),
+    } as EgsGameInfo;
   }
 
   public transformGamePrice(apiGamePrice: ApiGamePrice): GamePrice {

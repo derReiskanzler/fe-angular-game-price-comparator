@@ -16,8 +16,8 @@ export class FavouriteService {
       );
   }
 
-  public addToFavourites(name: string, steamId?: number, gogId?: number): Observable<void> {
-    return this.api.addToFavourites(name, steamId, gogId);
+  public addToFavourites(name: string, steamId?: number, gogId?: number, egsId?: string): Observable<void> {
+    return this.api.addToFavourites(name, steamId, gogId, egsId);
   }
 
   public deleteFromFavourites(name: string): Observable<void> {

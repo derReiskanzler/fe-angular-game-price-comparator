@@ -25,6 +25,17 @@ export const gameMock: Game = {
         },
         link: 'https://embed.gog.com/en/game/the_witcher_3_wild_hunt',
     },
+    egs: {
+        id: '802321',
+        price: {
+            intital: 40,
+            final: 50,
+            discountPercent: 0.34,
+            currency: 'EUR',
+            isFree: false,
+        },
+        link: 'https://embed.gog.com/en/game/the_witcher_3_wild_hunt',
+    },
     image: 'https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg?t=1693590732',
     platforms: {
         windows: true,
