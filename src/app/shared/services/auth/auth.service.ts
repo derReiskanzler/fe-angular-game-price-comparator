@@ -71,7 +71,7 @@ export class AuthService {
 
     return this.api.getLoggedInUser()
       .pipe(
-        map(({ email, nickname, token, success }) => ({
+        map(({ email, nickname, token }) => ({
           email,
           nickname,
           token,
@@ -84,6 +84,7 @@ export class AuthService {
           this.isLoadingSig.set(false);
           this.currentUserSig.set(null);
           this.errorMessage.set(err.error?.message);
+          localStorage.removeItem('token');
           
           return NEVER;
         }),

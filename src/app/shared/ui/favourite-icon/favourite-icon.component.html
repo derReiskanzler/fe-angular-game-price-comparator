@@ -1,7 +1,7 @@
 <div
     class="p-1 cursor-pointer"
-    (mouseenter)="mouseEntered = !mouseEntered"
-    (mouseleave)="mouseEntered = !mouseEntered"
+    (mouseenter)="mouseEntered = true"
+    (mouseleave)="mouseEntered = false"
     (click)="onFavourize($event)"
 >
     <div *ngIf="!isFavourite">

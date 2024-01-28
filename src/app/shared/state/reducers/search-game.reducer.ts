@@ -40,6 +40,7 @@ export const searchGameReducer = createReducer(
         ...state,
         search,
         isLoading: true,
+        error: '',
     })),
     on(SearchGameActions.searchGameSuccessAction, (state, { results }) => ({
         ...state,
@@ -58,11 +59,8 @@ export const searchGameReducer = createReducer(
     })),
     on(SearchGameActions.selectGameAction, (state, { game }) => ({
         ...state,
-        selectedGame: game,
-    })),
-    on(SearchGameActions.resetSelectedGameAction, (state, _action) => ({
-        ...state,
-        selectedGame: {} as Game,
+        selectedGame: game.name !== state.selectedGame.name ? game : state.selectedGame,
+        error: '',
     })),
     // favourites
     on(FavouritesActions.loadFavouriteListAction, (state) => ({
