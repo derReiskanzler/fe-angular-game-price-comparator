@@ -4,9 +4,10 @@ import { Observable, tap } from 'rxjs';
 import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, Location, NgIf, NgTemplateOutlet } from '@angular/common';
 import { GameListModule } from '../../shared/ui/game-list/game-list.module';
 import { ButtonModule } from 'primeng/button';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-favourites',
@@ -14,7 +15,14 @@ import { ButtonModule } from 'primeng/button';
   styleUrls: ['./favourites.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, AsyncPipe, NgTemplateOutlet, GameListModule, ButtonModule],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgTemplateOutlet,
+    GameListModule,
+    ButtonModule,
+    SkeletonModule,
+  ],
 })
 export class FavouriteListComponent implements OnInit {
   public favourites$!: Observable<Game[]>;
@@ -25,6 +33,7 @@ export class FavouriteListComponent implements OnInit {
   private facade = inject(SearchGameFacadeService);
   private router = inject(Router);
   private messageService = inject(MessageService);
+  private location = inject(Location);
 
   public ngOnInit(): void {
     this.facade.getFavouriteList();
@@ -58,6 +67,6 @@ export class FavouriteListComponent implements OnInit {
   }
 
   public onBack(): void {
-    this.router.navigate(['home']);
+    this.location.back();
   }
 }

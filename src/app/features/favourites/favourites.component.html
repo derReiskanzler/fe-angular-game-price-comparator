@@ -14,7 +14,7 @@
             </button>
         </div>
         <app-game-list
-            *ngIf="obs.favourites?.length !== 0; else noFavourites"
+            *ngIf="obs.favourites?.length !== 0 || obs.isLoading; else noFavourites"
             [games]="obs.favourites"
             [isLoading]="obs.isLoading"
             (selectGame)="openGameOverview($event, obs.selectedGame?.name)"
