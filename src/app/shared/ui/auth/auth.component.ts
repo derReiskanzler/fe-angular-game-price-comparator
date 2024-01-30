@@ -69,13 +69,13 @@ export class AuthComponent {
           this.router.navigate(['/favourites']);
         },
       },
-      {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-        command: () => {
-          this.router.navigate(['/settings']);
-        },
-      },
+      // {
+      //   label: 'Settings',
+      //   icon: 'pi pi-cog',
+      //   command: () => {
+      //     this.router.navigate(['/settings']);
+      //   },
+      // },
     ];
   }
 }
