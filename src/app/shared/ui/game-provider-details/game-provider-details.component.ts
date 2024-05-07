@@ -9,6 +9,7 @@ import { GamePrice } from '../../models/game.interface';
 })
 export class GameProviderDetailsComponent {
   @Input() id?: number|string|null;
+  @Input() name?: string|null;
   @Input() link?: string|null;
   @Input() price?: GamePrice|null;
   @Input() imagePath?: string= '';

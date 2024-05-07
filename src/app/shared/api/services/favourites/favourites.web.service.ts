@@ -12,7 +12,7 @@ export class FavouriteWebService {
     return this.http.get<ApiGame[]>(`${this.basePath}/v1/favorite/get-list`);
   }
 
-  public addToFavourites(name: string, steamId?: number, gogId?: number, egsId?: string): Observable<void> {
+  public addToFavourites(name: string, steamId?: string, gogId?: string, egsId?: string): Observable<void> {
     return this.http.post<void>(`${this.basePath}/v1/favorite/add`, { name, steamId, gogId, egsId });
   }
 

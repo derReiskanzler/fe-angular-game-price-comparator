@@ -14,28 +14,12 @@
         <div class="flex justify-content-between">
             <div class="flex">
                 <app-game-provider-details
-                    [id]="steam?.id"
-                    [link]="steam?.link"
-                    [price]="steam?.price"
-                    imagePath="/assets/steam.png"
-                    [showPriceLabel]="false"
-                    [showWebsiteLabel]="false"
-                    styleClass="mr-4 flex gap-1 align-items-center"
-                ></app-game-provider-details>
-                <app-game-provider-details
-                    [id]="gog?.id"
-                    [link]="gog?.link"
-                    [price]="gog?.price"
-                    imagePath="/assets/gog.png"
-                    [showPriceLabel]="false"
-                    [showWebsiteLabel]="false"
-                    styleClass="mr-4 flex gap-1 align-items-center"
-                ></app-game-provider-details>
-                <app-game-provider-details
-                    [id]="egs?.id"
-                    [link]="egs?.link"
-                    [price]="egs?.price"
-                    imagePath="/assets/egs.png"
+                    *ngFor="let provider of gameProviders"
+                    [id]="provider?.id"
+                    [name]="provider?.name"
+                    [link]="provider?.link"
+                    [price]="provider?.price"
+                    [imagePath]="provider.name | gameProviderLogo"
                     [showPriceLabel]="false"
                     [showWebsiteLabel]="false"
                     styleClass="mr-4 flex gap-1 align-items-center"

@@ -36,48 +36,18 @@
             <div class="flex gap-4">
                 <div class="flex flex-column gap-2">
                     <p-tabView [(activeIndex)]="activeIndex" styleClass="tabview flex flex-column">
-                        <!-- Steam Panel -->
-                        <p-tabPanel *ngIf="obs.game?.steam">
+                        <p-tabPanel *ngFor="let provider of obs.game?.gameProviders">
                             <ng-template pTemplate="header">
                                 <div class="flex gap-2 align-items-center">
-                                    <img src="/assets/steam.png" alt="steam icon" width="25">
-                                    <span>Steam</span>
+                                    <img [src]="provider.name | gameProviderLogo" alt="steam icon" width="25">
+                                    <span>{{ provider.name | gameProviderName }}</span>
                                 </div>
                             </ng-template>
                             <app-game-provider-details
-                                [id]="obs.game?.steam?.id"
-                                [link]="obs.game?.steam?.link"
-                                [price]="obs.game?.steam?.price"
-                            ></app-game-provider-details>
-                        </p-tabPanel>
-                
-                        <!-- GoG Panel -->
-                        <p-tabPanel *ngIf="obs.game?.gog">
-                            <ng-template pTemplate="header">
-                                <div class="flex gap-2 align-items-center">
-                                    <img src="/assets/gog.png" alt="gog icon" width="25">
-                                    <span>GoG</span>
-                                </div>
-                            </ng-template>
-                            <app-game-provider-details
-                                [id]="obs.game?.gog?.id"
-                                [link]="obs.game?.gog?.link"
-                                [price]="obs.game?.gog?.price"
-                            ></app-game-provider-details>
-                        </p-tabPanel>
-                
-                        <!-- EGS Panel -->
-                        <p-tabPanel *ngIf="obs.game?.egs">
-                            <ng-template pTemplate="header">
-                                <div class="flex gap-2 align-items-center">
-                                    <img src="/assets/egs.png" alt="epic games icon" width="22">
-                                    <span>EGS</span>
-                                </div> 
-                            </ng-template>
-                            <app-game-provider-details
-                                [id]="obs.game?.egs?.id"
-                                [link]="obs.game?.egs?.link"
-                                [price]="obs.game?.egs?.price"
+                                [id]="provider?.id"
+                                [name]="provider.name | gameProviderName"
+                                [link]="provider?.link"
+                                [price]="provider?.price"
                             ></app-game-provider-details>
                         </p-tabPanel>
                     </p-tabView>

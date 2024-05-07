@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { FavouriteWebService } from '../../api/services/favourites/favourites.web.service';
 import { Game } from '../../models/game.interface';
-import { GameTransformerService } from '../../api/transformer/game-transformer.service';
+import { GameTransformerService } from '../../api/transformers/game-transformer.service';
 
 @Injectable({ providedIn: 'root' })
 export class FavouriteService {
@@ -16,7 +16,7 @@ export class FavouriteService {
       );
   }
 
-  public addToFavourites(name: string, steamId?: number, gogId?: number, egsId?: string): Observable<void> {
+  public addToFavourites(name: string, steamId?: string, gogId?: string, egsId?: string): Observable<void> {
     return this.api.addToFavourites(name, steamId, gogId, egsId);
   }
 

@@ -8,16 +8,23 @@ export class GameTransformerService {
     return apiGames.map(apiGame => ({
       name: apiGame.name,
       type: apiGame.type,
-      steam: apiGame.steam ? this.transformGameInfo(apiGame.steam) : null,
-      gog: apiGame.gog ? this.transformGameInfo(apiGame.gog) : null,
-      egs: apiGame.egs ? this.transformEgsGameInfo(apiGame.egs) : null,
+      gameProviders: apiGame.game_providers ? this.transformGameProvider(apiGame.game_providers) : [],
       image: apiGame.image,
       platforms: apiGame.platforms,
       shortDescription: apiGame.short_description,
       detailedDescription: apiGame.detailed_description,
       aboutTheGame: apiGame.about_the_game,
-      isFavourite: apiGame.isFavorite,
+      isFavourite: apiGame.is_favorite,
     } as Game));
+  }
+
+  public transformGameProvider(apiGameInfos: ApiGameInfo[]): GameInfo[] {
+    return apiGameInfos.map(info => ({
+      id: info.id,
+      link: info.link,
+      name: info.name,
+      price: this.transformGamePrice(info.price),
+    }));
   }
 
   public transformGameInfo(apiGameInfo: ApiGameInfo): GameInfo {

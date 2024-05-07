@@ -1,15 +1,13 @@
 export interface ApiGame {
     name: string;
     type: ApiGameType|null;
-    steam: ApiGameInfo|null;
-    gog: ApiGameInfo|null;
-    egs: ApiEgsGameInfo|null;
+    game_providers: ApiGameInfo[];
     image: string;
     platforms: ApiGamePlatforms;
     short_description: string|null;
     detailed_description: string|null;
     about_the_game: string|null;
-    isFavorite: boolean;
+    is_favorite: boolean;
 }
 
 export type ApiGameType = 'game' | 'dlc';
@@ -20,6 +18,7 @@ export const ApiGameTypes = {
 
 export interface ApiGameInfo {
     id?: number;
+    name: string;
     price: ApiGamePrice;
     link: string;
 }

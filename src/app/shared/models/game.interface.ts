@@ -1,9 +1,7 @@
 export interface Game {
     name: string;
     type: GameType|null;
-    steam: GameInfo|null;
-    gog: GameInfo|null;
-    egs: EgsGameInfo|null;
+    gameProviders: GameInfo[];
     image: string;
     platforms: GamePlatforms;
     shortDescription: string|null;
@@ -19,7 +17,8 @@ export const GameTypes = {
 }
 
 export interface GameInfo {
-    id?: number;
+    id?: number|string;
+    name: string;
     price: GamePrice;
     link: string;
 }
