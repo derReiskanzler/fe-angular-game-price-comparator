@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { SearchGameWebService } from '../../api/services/search-game/search-game.web.service';
 import { Observable, map } from 'rxjs';
 import { Game } from '../../models/game.interface';
-import { GameTransformerService } from '../../api/transformer/game-transformer.service';
+import { GameTransformerService } from '../../api/transformers/game-transformer.service';
 
 @Injectable({ providedIn: 'root' })
 export class SearchGameService {

@@ -3,39 +3,44 @@ import { Game, GameTypes } from '../../models/game.interface';
 export const gameMock: Game = {
     name: 'The Witcher 3: Wild Hunt',
     type: GameTypes.GAME,
-    steam: {
-        id: 13243,
-        price: {
-            intital: 50,
-            final: 60,
-            discountPercent: 0.2,
-            currency: 'EUR',
-            isFree: false,
+    gameProviders: [
+        {
+            id: 13243,
+            name: 'STEAM',
+            price: {
+                intital: 50,
+                final: 60,
+                discountPercent: 0.2,
+                currency: 'EUR',
+                isFree: false,
+            },
+            link: 'https://store.steampowered.com/app/292030',
         },
-        link: 'https://store.steampowered.com/app/292030',
-    },
-    gog: {
-        id: 802321,
-        price: {
-            intital: 40,
-            final: 50,
-            discountPercent: 0.34,
-            currency: 'EUR',
-            isFree: false,
+        {
+            id: 802321,
+            name: 'GOG',
+            price: {
+                intital: 40,
+                final: 50,
+                discountPercent: 0.34,
+                currency: 'EUR',
+                isFree: false,
+            },
+            link: 'https://embed.gog.com/en/game/the_witcher_3_wild_hunt',
         },
-        link: 'https://embed.gog.com/en/game/the_witcher_3_wild_hunt',
-    },
-    egs: {
-        id: '802321',
-        price: {
-            intital: 40,
-            final: 50,
-            discountPercent: 0.34,
-            currency: 'EUR',
-            isFree: false,
+        {
+            id: 802321,
+            name: 'EGS',
+            price: {
+                intital: 40,
+                final: 50,
+                discountPercent: 0.34,
+                currency: 'EUR',
+                isFree: false,
+            },
+            link: 'https://embed.gog.com/en/game/the_witcher_3_wild_hunt',
         },
-        link: 'https://embed.gog.com/en/game/the_witcher_3_wild_hunt',
-    },
+    ],
     image: 'https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg?t=1693590732',
     platforms: {
         windows: true,

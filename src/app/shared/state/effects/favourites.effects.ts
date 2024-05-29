@@ -36,7 +36,11 @@ export class FavouritesEffects {
         this.actions$.pipe(
             ofType(FavouritesActions.addToFavouritesAction),
             switchMap(({ game }) => {
-                return this.api.addToFavourites(game.name, game.steam?.id, game.gog?.id, game.egs?.id).pipe(
+                const steamId = game.gameProviders.filter(provider => provider.name === 'STEAM')[0]?.id;
+                const gogId = game.gameProviders.filter(provider => provider.name === 'GOG')[0]?.id;
+                const egsId = game.gameProviders.filter(provider => provider.name === 'EGS')[0]?.id;
+
+                return this.api.addToFavourites(game.name, steamId?.toString(), gogId?.toString(), egsId?.toString()).pipe(
                     switchMap(_success => {
                         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game has been added to your favourites!' });
 
