@@ -15,11 +15,24 @@ Wir haben eine App bestehend aus:
 
 Frontend und Backend befinden sich aktuell in verschiedenen GitHub Repositories.
 
+### Verteilte Umgebungen
 Das Frontend und Backend sollen jeweils über eine URL erreichbar sein und remote in der Cloud laufen. Dementsprechend soll es drei verschiedene Umgebungen geben: `develop`, `staging` und `production`.
 
-Develop soll als Testumgebung dienen, um features und bugfixes zu testen, die ggf. zurück gerollt werden können.
-Staging dient als 'Generalprobe' bevor die App auf die production Umgebung verteilt werden darf, um nochmal in einer neuen Umgebung zu gewährleisten, dass die neuen features oder bugfixes funktionieren.
-Production ist die Live Umgebung, die die App für den Endverbraucher zugänglich macht und reale Daten enthält bzw. damit agiert.
+<strong>Develop</strong> soll als Testumgebung dienen, um features und bugfixes zu testen, die ggf. zurück gerollt werden können.
+<strong>Staging</strong> dient als 'Generalprobe' bevor die App auf die production Umgebung verteilt werden darf, um nochmal in einer neuen Umgebung zu gewährleisten, dass die neuen features oder bugfixes funktionieren.
+<strong>Production</strong> ist die Live Umgebung, die die App für den Endverbraucher zugänglich macht und reale Daten enthält bzw. damit agiert.
+
+### Stack
+
+- GitHub (+ Actions)
+- Kaniko für image build
+- Infra Repository mit Kubernetes & Cloud VM
+    - K8 übernimmt TLS & DNS
+    - develop, staging, production namespace
+
+<strong>TBD</strong>
+- Monitoring (Grafana, Sentry oder Prometheus)
+- CodeSniffer/Quality Gate (Sonar)
 
 ### Software Lifecycle
 
@@ -48,27 +61,34 @@ Das Ausführen der push stage soll immer gewährleisten, dass das aktuellste Ima
 
 Der `deploy` auf die entsprechende Umgebung abh. vom Branch Namen soll immer `manuell` sein - mit der Ausnahme bei einem push auf den main branch, wie z.B. nach einem Merge auf main. Hier soll immer ein automatischer Deploy auf die develop Umgebung stattfinden, damit - egal was gemerged wird - die develop Umgebung immer aktuell ist.
 
+#### Cloud VM & Kubernetes
 
-### Nice To Have/Tooling:
-<!-- - Dependency Bot (Dependabot für GitHub) -->
-- Monitoring (Grafana, Sentry oder Prometheus)
-- CodeSniffer/Quality Gate (Sonar)
+Es soll ein Infratructure Repository geben, welches eine Cloud VM eines Cloud Providers alloziert (AWS oder GCP). Diese VM soll als Deployment Umgebung dienen, auf der die entsprechenden Kubernetes Cluster laufen sollen.
+Es gibt develop, staging, production namespaces, die die K8 ressourcen enthalten, um die cluster zu definieren. Jeder namespace bzw. cluster soll mehrere replicas eines pods laufen lassen (develop - 1, staging - 3, production - 3). Es soll services wie load-balancer geben und TLS sowie FQDN in den entsprechenden ressourcen konfiguriert sein.
+
+Da der App Lifecycle getrennt vom Infrastructure Lifecycle ist, werden die app images aus der docker registry für die K8 ressourcen heruntergeladen werden.
+
 
 ### Offene Fragen
-Wir wissen, wie man Images baut und über die Pipeline in eine entfernte Registry pusht, von wo man es theoretisch wieder herunterladen kann, um daraus Container/Pods zu bauen, die dann konstant auf einer Maschine laufen sollen. Unser Wissen geht leider nicht darüber hinaus bzw. wir wissen nicht wie der letzere Teil funktioniert (Wo man aus Images Container/Pods baut, die auf einem Server/einer Maschine konstant laufen und orchestriert werden müssen).
 
-Deswegen können wir folgende Fragen noch nicht beantworten:
-* Where is your infrastructure hosted?
-    - die Umgebungen müssen per URL zugänglich sein bzw. eine eigene Domain haben, dewegen nehmen wir an, dass es technisch nicht möglich ist die Umgebungen lokal aufzusetzen - daher denken wir, dass es wohl besser ist, die 3 Umgebungen in der Cloud über Google (oder im Edu-Cluster?) laufen zu lassen
-* How do you allocate the underlying resources hosting your environments?
-* How is everything provisioned?
-* How do you set up all your services? Which of them do you actually need to set up? If some of them don’t need to be set up, why?
-    - Secrets von Github werden verwendet, um Umgebungsvariablen zu definieren
-    - Kubernetes wird zur Konfiguration von Clustern verwendet
+* Eine VM für jede deployment Umgebung? Soll eine VM eine verteilte Umgebung darstellen?
+* Wie werden die Tools wie Prometheus, Grafana und Sonar angebunden?
 * What about the persistence layer (database)?
 
-### Stack
 
-- GitHub (+ Actions)
-- Kubernetes
-- Docker
+* Muss deployment von Front- und Backend irgendwie choreografiert werden?
+Es gibt keine Abhängigkeit zueinander. Frontend und Backend können getrennt voneinander oder parallel deployed werden
+
+* Da Front- und Backend separat sind, wie soll der
+CORS-Sachverhalt gelöst werden?
+CORS sollte leicht zu konfigurieren sein im Backend
+
+* Wo soll das monitoring laufen und wie kommt es dort hin?
+Wird vermutlich separat deployed als K8 ressource
+
+* Wo soll der Codesniffer laufen und wie kommt er dort hin?
+Soll für FE & BE in der Pipeline laufen, muss entweder in den App Repos konfiguriert werden oder als K8 ressource konfiguriert werden
+
+* Wie kommt traffic zum Front- und Backend?
+
+* Welche GCP services wollt ihr nutzen? wie waeren diese zu provisionieren?
