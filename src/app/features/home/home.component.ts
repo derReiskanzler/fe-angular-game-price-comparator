@@ -5,7 +5,7 @@ import { Game } from '../../shared/models/game.interface';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { GameListModule } from '../../shared/ui/game-list/game-list.module';
+import { GameListComponent } from '../../shared/ui/game-list/game-list.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     NgIf,
     AsyncPipe,
-    GameListModule,
+    GameListComponent,
     
     FormsModule,
     ReactiveFormsModule,

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
@@ -5,6 +6,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './game-os-supported.component.html',
   styleUrls: ['./game-os-supported.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+  ],
 })
 export class GameOsSupportedComponent {
   @Input() styleClass = 'px-1 py-2 flex gap-2 align-items-center';

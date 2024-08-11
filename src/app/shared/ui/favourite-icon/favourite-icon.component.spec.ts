@@ -8,7 +8,7 @@ describe('FavouriteIconComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FavouriteIconComponent]
+      imports: [FavouriteIconComponent]
     });
     fixture = TestBed.createComponent(FavouriteIconComponent);
     component = fixture.componentInstance;
