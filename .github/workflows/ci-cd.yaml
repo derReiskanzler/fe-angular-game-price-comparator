@@ -1,0 +1,69 @@
+name: Frontend Angular Game Price Comparator CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+      - fix/*
+      - release/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  cache-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: package.json
+          cache: npm
+      - name: Clean install deps
+        run: npm ci
+
+  build:
+    needs: cache-dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: package.json
+          cache: npm
+      - name: Build app
+        run: npm run build
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: package.json
+          cache: npm
+      - name: Lint code
+        run: npm run lint
+
+  unit-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version-file: package.json
+          cache: npm
+      - name: Run tests with Jest
+        run: npm run test:coverage
