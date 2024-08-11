@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Action, Store } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { cold, hot } from 'jest-marbles';
 import * as FavouriteActions from '../actions/favourites.actions';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -18,7 +18,6 @@ describe('Favourite Effects', () => {
     let actions$ = new Observable<Action>();
     let api: FavouriteService;
     let effects: FavouritesEffects;
-    let store: Store;
 
     const favourites: Game[] = [ gameMock ];
 
@@ -38,7 +37,6 @@ describe('Favourite Effects', () => {
         });
         api = TestBed.inject(FavouriteService);
         effects = TestBed.inject(FavouritesEffects);
-        store = TestBed.inject(Store);
     });
 
     describe('load favourite list effect', () => {

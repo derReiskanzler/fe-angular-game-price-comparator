@@ -15,5 +15,5 @@ export class GameProviderDetailsComponent {
   @Input() imagePath?: string= '';
   @Input() showWebsiteLabel = true;
   @Input() showPriceLabel = true;
-  @Input() styleClass: string = 'flex flex-column gap-2';
+  @Input() styleClass = 'flex flex-column gap-2';
 }

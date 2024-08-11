@@ -41,7 +41,7 @@ export class FavouritesEffects {
                 const egsId = game.gameProviders.filter(provider => provider.name === 'EGS')[0]?.id;
 
                 return this.api.addToFavourites(game.name, steamId?.toString(), gogId?.toString(), egsId?.toString()).pipe(
-                    switchMap(_success => {
+                    switchMap(() => {
                         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game has been added to your favourites!' });
 
                         return of(
@@ -61,7 +61,7 @@ export class FavouritesEffects {
             ofType(FavouritesActions.deleteFromFavouritesAction),
             switchMap(({ name }) => {
                 return this.api.deleteFromFavourites(name).pipe(
-                    switchMap(_success => {
+                    switchMap(() => {
                         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game has been removed from your favourites.' });
 
                         return of(

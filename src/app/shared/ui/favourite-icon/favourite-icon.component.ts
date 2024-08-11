@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class FavouriteIconComponent {
   @Input() isFavourite: boolean|undefined;
-  @Input() size: string = '1.2rem';
+  @Input() size = '1.2rem';
   @Output() favourize = new EventEmitter<void>();
 
   public mouseEntered = false;

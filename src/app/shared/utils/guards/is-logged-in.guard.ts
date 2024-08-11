@@ -4,7 +4,7 @@ import { CanMatchFn } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { of, switchMap } from 'rxjs';
 
-export const IsLoggedIn: CanMatchFn = (route, state) => {
+export const IsLoggedIn: CanMatchFn = () => {
   const auth = inject(AuthService);
   const token = localStorage.getItem('token') ?? '';
 
