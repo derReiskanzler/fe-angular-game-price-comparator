@@ -40,5 +40,9 @@
     "jest-marbles": "^3.0.5",
     "jest-preset-angular": "^13.1.4",
     "typescript": "~4.9.5"
+  },
+  "engines": {
+    "node": "21.7.3",
+    "npm": "10.7.0"
   }
 }
