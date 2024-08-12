@@ -28,3 +28,5 @@ Run `npm run test` to execute the unit tests via [Jest](https://github.com/jestj
 Linting has been set up via [Angular-ESLint](https://github.com/angular-eslint/angular-eslint).
 Run `npm run lint` to execute linting.
 
+## Node & NPM engines in package.json
+Always check your [node version](https://nodejs.org/en/about/previous-releases) and keep it consistent in the package.json
