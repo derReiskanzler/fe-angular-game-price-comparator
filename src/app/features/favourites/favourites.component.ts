@@ -4,10 +4,9 @@ import { Observable, tap } from 'rxjs';
 import { SearchGameFacadeService } from '../../shared/state/facade/search-game.facade.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AsyncPipe, Location, NgIf, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, Location, NgIf } from '@angular/common';
 import { GameListComponent } from '../../shared/ui/game-list/game-list.component';
 import { ButtonModule } from 'primeng/button';
-import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-favourites',
@@ -18,10 +17,8 @@ import { SkeletonModule } from 'primeng/skeleton';
   imports: [
     NgIf,
     AsyncPipe,
-    NgTemplateOutlet,
     GameListComponent,
     ButtonModule,
-    SkeletonModule,
   ],
 })
 export class FavouriteListComponent implements OnInit {

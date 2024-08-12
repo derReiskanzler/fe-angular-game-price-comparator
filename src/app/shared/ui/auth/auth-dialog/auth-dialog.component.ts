@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthType } from '../../../models/auth-type.enum';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -7,12 +7,28 @@ import { LoginUserDto } from '../../../dtos/login-user.dto';
 import { RegisterUserDto } from '../../../dtos/register-user.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from 'primeng/api';
+import { NgIf } from '@angular/common';
+import { TabViewModule } from 'primeng/tabview';
+import { AutoFocusModule } from 'primeng/autofocus';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-auth-dialog',
   templateUrl: './auth-dialog.component.html',
   styleUrls: ['./auth-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+
+    // PrimeNg
+    InputTextModule,
+    TabViewModule,
+    ButtonModule,
+    AutoFocusModule,
+  ],
 })
 export class AuthDialogComponent implements OnInit {
   private destroyRef = inject(DestroyRef);

@@ -1,8 +1,7 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-import { AuthModule } from '../../shared/ui/auth/auth.module';
+import { AuthComponent } from '../../shared/ui/auth/auth.component';
 import { MenubarModule } from 'primeng/menubar';
 
 @Component({
@@ -12,10 +11,9 @@ import { MenubarModule } from 'primeng/menubar';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgTemplateOutlet,
+    AuthComponent,
     ToastModule,
     MenubarModule,
-    AuthModule,
   ],
 })
 export class HeaderComponent {

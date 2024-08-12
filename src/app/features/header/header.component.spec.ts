@@ -3,13 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialSearchGameState } from '../../shared/state/reducers/search-game.reducer';
-import { AuthModule } from '../../shared/ui/auth/auth.module';
 import { AuthWebService } from '../../shared/api/services/auth/auth.web.service';
 import { MockAuthWebService } from '../../shared/testing/auth/auth.web.service.mock';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { AuthComponent } from '../../shared/ui/auth/auth.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -21,12 +21,12 @@ describe('HeaderComponent', () => {
         provideMockStore({ initialState: initialSearchGameState }),
         { provide: AuthWebService, useClass: MockAuthWebService },
         MessageService,
+        DialogService,
       ],
       imports: [
-        AuthModule,
+        AuthComponent,
         ToastModule,
         MenubarModule,
-        ReactiveFormsModule,
       ],
     })
     .compileComponents();

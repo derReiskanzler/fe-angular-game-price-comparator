@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { GameListComponent } from '../../shared/ui/game-list/game-list.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
@@ -21,7 +21,6 @@ import { InputTextModule } from 'primeng/inputtext';
     AsyncPipe,
     GameListComponent,
     
-    FormsModule,
     ReactiveFormsModule,
     InputTextModule,
   ],

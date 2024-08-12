@@ -7,12 +7,25 @@ import { User } from '../../models/user.interface';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { AvatarModule } from 'primeng/avatar';
+import { MenuModule } from 'primeng/menu';
+import { TooltipModule } from 'primeng/tooltip';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+    AvatarModule,
+    TooltipModule,
+    RippleModule,
+    MenuModule,
+  ],
 })
 export class AuthComponent implements OnInit, OnDestroy {
   private auth = inject(AuthService);
