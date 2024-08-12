@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FavouriteListComponent } from './favourites.component';
-import { GameListModule } from '../../shared/ui/game-list/game-list.module';
+import { GameListComponent } from '../../shared/ui/game-list/game-list.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MessageService } from 'primeng/api';
 import { initialSearchGameState } from '../../shared/state/reducers/search-game.reducer';
@@ -17,9 +17,11 @@ describe('FavouriteListComponent', () => {
         NgIf,
         AsyncPipe,
         FavouriteListComponent,
-        GameListModule,
-        provideMockStore({ initialState: initialSearchGameState }),
+        GameListComponent,
+      ],
+      providers: [
         MessageService,
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
     });
     fixture = TestBed.createComponent(FavouriteListComponent);

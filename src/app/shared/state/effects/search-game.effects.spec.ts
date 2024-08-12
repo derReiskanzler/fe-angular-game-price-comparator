@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Action, Store } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { cold, hot } from 'jest-marbles';
 import * as SearchGameActions from '../actions/search-game.actions';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -17,7 +17,6 @@ describe('SearchGame Effects', () => {
     let actions$ = new Observable<Action>();
     let api: SearchGameService;
     let effects: SearchGameEffects;
-    let store: Store;
 
     const results: Game[] = [ gameMock ];
 
@@ -36,7 +35,6 @@ describe('SearchGame Effects', () => {
         });
         api = TestBed.inject(SearchGameService);
         effects = TestBed.inject(SearchGameEffects);
-        store = TestBed.inject(Store);
     });
 
     describe('search game effect', () => {

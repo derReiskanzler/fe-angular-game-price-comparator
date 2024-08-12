@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthService } from '../../services/auth/auth.service';
@@ -14,7 +14,7 @@ import { tap } from 'rxjs';
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit, OnDestroy {
   private auth = inject(AuthService);
   private dialogService = inject(DialogService);
   private messageService = inject(MessageService);

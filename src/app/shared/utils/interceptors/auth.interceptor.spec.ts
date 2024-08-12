@@ -6,53 +6,28 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 
 
 describe('AuthInterceptor', () => {
-  // const localStorageMock = (function () {
-  //   let store:any = {};
-  
-  //   return {
-  //     getItem(key: string) {
-  //       return token;
-  //     },
-  
-  //     setItem(key:string, value: string) {
-  //       store[key] = value;
-  //     },
-  
-  //     clear() {
-  //       store = {};
-  //     },
-  
-  //     removeItem(key:string) {
-  //       delete store[key];
-  //     },
-  
-  //     getAll() {
-  //       return store;
-  //     },
-  //   };
-  // })();
-  
-  // Object.defineProperty(window, "localStorage", { value: localStorageMock });
+  const localStorageMock = (function () {
+    return {
+      getItem() {
+        return token;
+      },
+    };
+  })();
 
   let httpTestingController: HttpTestingController;
   let httpClient: HttpClient;
 
   const token = 'token';
-  // let store: any = {};
-  // const mockLocalStorage = {
-  //   getItem: (key: string): string|null => {
-  //     return token;
-  //   },
-  // };
-
   beforeEach(() => {
-      TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptors([AuthInterceptor])),
         provideHttpClientTesting(),
-        // { provide: localStorage, useValue: mockLocalStorage }
+        { provide: localStorage, useValue: localStorageMock }
       ],
     })
+    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
     httpTestingController = TestBed.inject(HttpTestingController);
     httpClient = TestBed.inject(HttpClient);
   });
@@ -61,18 +36,23 @@ describe('AuthInterceptor', () => {
     httpTestingController.verify();
   });
 
-  it.skip('should add auth headers ', () => {
-    // jest.spyOn(localStorage, 'getItem').mockImplementation(mockLocalStorage.getItem);
-    //arrange
-    const url = '/mockendpoint';
+  it('should add auth headers ', () => {
+    const url = '/api/v1/auth/user';
 
-    //act
     httpClient.get(url).subscribe();
 
-    // assert
     const req = httpTestingController.expectOne(url);
     expect(req.request.headers.get('Authorization')).toEqual(
       `Bearer ${token}`
     );
+  });
+
+  it('should not add auth headers ', () => {
+    const url = '/some-endpoint';
+
+    httpClient.get(url).subscribe();
+
+    const req = httpTestingController.expectOne(url);
+    expect(req.request.headers.get('Authorization')).toEqual(null);
   });
 });

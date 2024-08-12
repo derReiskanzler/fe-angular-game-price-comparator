@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialSearchGameState } from '../../shared/state/reducers/search-game.reducer';
-import { GameListModule } from '../../shared/ui/game-list/game-list.module';
+import { GameListComponent } from '../../shared/ui/game-list/game-list.component';
 import { MessageService } from 'primeng/api';
 import { AsyncPipe, NgIf } from '@angular/common';
 
@@ -15,9 +15,11 @@ describe('HomeComponent', () => {
       imports: [
         NgIf, AsyncPipe,
         HomeComponent,
-        GameListModule,
-        provideMockStore({ initialState: initialSearchGameState }),
+        GameListComponent,
+      ],
+      providers: [
         MessageService,
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
     })
     .compileComponents();

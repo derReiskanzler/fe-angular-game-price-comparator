@@ -8,7 +8,7 @@ describe('FavouriteIconComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FavouriteIconComponent]
+      imports: [FavouriteIconComponent]
     });
     fixture = TestBed.createComponent(FavouriteIconComponent);
     component = fixture.componentInstance;
@@ -17,5 +17,16 @@ describe('FavouriteIconComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit favourize event', () => {
+    const event = new Event('some-event');
+    const spy = jest.spyOn(component.favourize, 'emit');
+    const eventSpy = jest.spyOn(event, 'stopPropagation');
+
+    component.onFavourize(event);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenCalledTimes(1);
   });
 });

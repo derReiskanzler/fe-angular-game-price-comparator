@@ -6,9 +6,9 @@ import { Observable, tap } from 'rxjs';
 import { AsyncPipe, Location, NgFor, NgIf } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
-import { GameProviderDetailsModule } from '../../shared/ui/game-provider-details/game-provider-details.module';
-import { GameOsSupportedModule } from '../../shared/ui/game-os-supported/game-os-supported.module';
-import { FavouriteIconModule } from '../../shared/ui/favourite-icon/favourite-icon.module';
+import { GameProviderDetailsComponent } from '../../shared/ui/game-provider-details/game-provider-details.component';
+import { GameOsSupportedComponent } from '../../shared/ui/game-os-supported/game-os-supported.component';
+import { FavouriteIconComponent } from '../../shared/ui/favourite-icon/favourite-icon.component';
 import { MessageService } from 'primeng/api';
 import { GameProviderLogoPipe } from '../../shared/utils/pipes/game-provider-logo.pipe';
 import { GameProviderNamePipe } from '../../shared/utils/pipes/game-provider-name.pipe';
@@ -25,9 +25,9 @@ import { GameProviderNamePipe } from '../../shared/utils/pipes/game-provider-nam
     AsyncPipe,
     TabViewModule,
     ButtonModule,
-    GameProviderDetailsModule,
-    GameOsSupportedModule,
-    FavouriteIconModule,
+    GameProviderDetailsComponent,
+    GameOsSupportedComponent,
+    FavouriteIconComponent,
     GameProviderLogoPipe,
     GameProviderNamePipe,
   ],

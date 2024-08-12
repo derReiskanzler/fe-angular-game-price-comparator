@@ -5,7 +5,7 @@ import { SearchGameFacadeService } from '../../shared/state/facade/search-game.f
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AsyncPipe, Location, NgIf, NgTemplateOutlet } from '@angular/common';
-import { GameListModule } from '../../shared/ui/game-list/game-list.module';
+import { GameListComponent } from '../../shared/ui/game-list/game-list.component';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 
@@ -19,7 +19,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     NgIf,
     AsyncPipe,
     NgTemplateOutlet,
-    GameListModule,
+    GameListComponent,
     ButtonModule,
     SkeletonModule,
   ],

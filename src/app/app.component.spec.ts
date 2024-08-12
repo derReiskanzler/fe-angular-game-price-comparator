@@ -10,21 +10,18 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppComponent,
         HeaderComponent,
         RouterTestingModule,
-        provideMockStore({ initialState: initialSearchGameState }),
       ],
       providers: [
         MessageService,
-      ],
-      declarations: [
-        AppComponent
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
     }).compileComponents();
   });
 
-  // TODO: fix test
-  it.skip('should create the app', () => {
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();

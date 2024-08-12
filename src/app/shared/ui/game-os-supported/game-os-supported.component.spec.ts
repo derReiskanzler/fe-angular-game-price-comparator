@@ -8,7 +8,7 @@ describe('GameOsSupportedComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GameOsSupportedComponent]
+      imports: [GameOsSupportedComponent]
     });
     fixture = TestBed.createComponent(GameOsSupportedComponent);
     component = fixture.componentInstance;

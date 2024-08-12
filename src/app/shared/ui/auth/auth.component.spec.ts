@@ -9,6 +9,7 @@ import { AuthWebService } from '../../api/services/auth/auth.web.service';
 import { MockAuthWebService } from '../../testing/auth/auth.web.service.mock';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -23,6 +24,7 @@ describe('AuthComponent', () => {
         RippleModule,
         ToastModule,
         DynamicDialogModule,
+        MenuModule,
       ],
       providers: [
         { provide: AuthWebService, useClass: MockAuthWebService },

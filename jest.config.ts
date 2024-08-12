@@ -147,6 +147,10 @@ const config: Config = {
 
   // The test environment that will be used for testing
   // testEnvironment: "jest-environment-node",
+  
+  // Enable testEnvironment to fix "Could not parse CSS stylesheet" Error form unit tests occurring in header.component.spec.ts
+  // Solution from https://github.com/primefaces/primeng/issues/14085
+  testEnvironment: '@happy-dom/jest-environment'
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -193,7 +197,7 @@ const config: Config = {
   // watchPathIgnorePatterns: [],
 
   // Whether to use watchman for file crawling
-  // watchman: true,
+  // watchman: true,  
 };
 
 export default config;
