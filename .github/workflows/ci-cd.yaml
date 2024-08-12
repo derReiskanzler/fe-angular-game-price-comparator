@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
+      - release/**
   pull_request:
     branches:
       - main
 
 jobs:
-
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -33,3 +33,93 @@ jobs:
 
       - name: Run unit tests
         run: npm run test:coverage
+
+  docker-build-and-push-develop:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.ref == 'main') || (github.event_name == 'pull_request' && github.base_ref == 'main')
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./.ops/Dockerfile
+          push: true
+          tags:
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-develop:latest
+      
+  docker-build-and-push-staging:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    # if: github.event_name == 'push' && startsWith(github.ref, 'release/') || github.event_name == 'create' && startsWith(github.ref, 'release/')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./.ops/Dockerfile
+          push: true
+          tags:
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:latest
+      
+  docker-build-and-push-production:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    # if: github.event_name == 'create' && startsWith(github.ref, 'tag/')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/tag/')
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./.ops/Dockerfile
+          push: true
+          tags:
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:v1
