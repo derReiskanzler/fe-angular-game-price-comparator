@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import { GameOsSupportedComponent } from '../../shared/ui/game-os-supported/game-os-supported.component';
 import { GameProviderDetailsComponent } from '../../shared/ui/game-provider-details/game-provider-details.component';
+import { MessageService } from 'primeng/api';
 
 describe('GameDetailsComponent', () => {
   let component: GameDetailsComponent;
@@ -22,8 +23,10 @@ describe('GameDetailsComponent', () => {
         GameProviderDetailsComponent,
         GameOsSupportedComponent,
         GameDetailsComponent,
+      ],
+      providers: [
+        MessageService,
         provideMockStore({ initialState: initialSearchGameState }),
-        
       ],
     });
     fixture = TestBed.createComponent(GameDetailsComponent);
@@ -31,7 +34,7 @@ describe('GameDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

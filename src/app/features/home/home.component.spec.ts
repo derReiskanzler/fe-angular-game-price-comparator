@@ -16,8 +16,10 @@ describe('HomeComponent', () => {
         NgIf, AsyncPipe,
         HomeComponent,
         GameListComponent,
-        provideMockStore({ initialState: initialSearchGameState }),
+      ],
+      providers: [
         MessageService,
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
     })
     .compileComponents();
@@ -27,7 +29,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

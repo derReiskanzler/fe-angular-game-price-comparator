@@ -18,8 +18,10 @@ describe('FavouriteListComponent', () => {
         AsyncPipe,
         FavouriteListComponent,
         GameListComponent,
-        provideMockStore({ initialState: initialSearchGameState }),
+      ],
+      providers: [
         MessageService,
+        provideMockStore({ initialState: initialSearchGameState }),
       ],
     });
     fixture = TestBed.createComponent(FavouriteListComponent);
@@ -27,7 +29,7 @@ describe('FavouriteListComponent', () => {
     fixture.detectChanges();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
