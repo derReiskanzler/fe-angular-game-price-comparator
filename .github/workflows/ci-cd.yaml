@@ -92,11 +92,10 @@ jobs:
           context: .
           file: ./.ops/Dockerfile
           push: true
-          tags:
+          tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:${{ env.IMAGE_VERSION }}
 
-      
   docker-build-and-push-production:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -126,6 +125,6 @@ jobs:
           context: .
           file: ./.ops/Dockerfile
           push: true
-          tags:
+          tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:${{ env.IMAGE_VERSION }}
