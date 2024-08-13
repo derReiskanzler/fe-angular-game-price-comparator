@@ -83,6 +83,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Extract version from branch name
+        run: echo "IMAGE_VERSION=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_ENV
+  
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -91,7 +94,7 @@ jobs:
           push: true
           tags:
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:${{ env.IMAGE_VERSION }}
 
       
   docker-build-and-push-production:
@@ -114,6 +117,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Extract version from branch name
+        run: echo "IMAGE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -122,4 +128,4 @@ jobs:
           push: true
           tags:
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:${{ env.IMAGE_VERSION }}
