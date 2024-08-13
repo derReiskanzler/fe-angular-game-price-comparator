@@ -66,7 +66,7 @@ jobs:
   docker-build-and-push-staging:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/v')
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -100,7 +100,7 @@ jobs:
   docker-build-and-push-production:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
