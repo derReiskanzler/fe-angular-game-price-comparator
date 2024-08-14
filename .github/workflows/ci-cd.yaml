@@ -114,7 +114,7 @@ jobs:
   push-develop:
     needs: [lint, unit-test]
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.ref == 'main')
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'main')
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
