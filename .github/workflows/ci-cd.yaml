@@ -1,4 +1,4 @@
-name: Frontend Angular Game Price Comparator CI/CD
+name: CI/CD
 
 on:
   push:
