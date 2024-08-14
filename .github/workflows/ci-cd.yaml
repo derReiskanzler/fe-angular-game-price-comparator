@@ -100,7 +100,6 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:latest
 
   docker-build-and-push-production:
-    needs: build-and-test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tag/v')
     steps:
