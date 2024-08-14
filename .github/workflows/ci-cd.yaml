@@ -12,31 +12,6 @@ on:
       - main
 
 jobs:
-  # build-and-test:
-  #   runs-on: ubuntu-latest
-  #   if: (!startsWith(github.ref, 'refs/tags/v'))
-  #   steps:
-  #     - name: Checkout Repo
-  #       uses: actions/checkout@v4
-
-  #     - name: Set up Node
-  #       uses: actions/setup-node@v4.0.3
-  #       with:
-  #         node-version-file: package.json
-  #         cache: npm
-
-  #     - name: Install dependencies
-  #       run: npm ci
-
-  #     - name: Build app
-  #       run: npm run build
-
-  #     - name: Lint code
-  #       run: npm run lint
-
-  #     - name: Run unit tests
-  #       run: npm run test:coverage
-
   cache-dependencies:
     runs-on: ubuntu-latest
     if: (!startsWith(github.ref, 'refs/tags/v'))
@@ -136,10 +111,39 @@ jobs:
       - name: Run unit tests
         run: npm run test:coverage
 
-  docker-build-and-push-develop:
+  push-develop-manual:
     needs: [lint, unit-test]
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.ref == 'main') || (github.event_name == 'pull_request' && github.base_ref == 'main')
+    if: github.event_name == 'pull_request' && github.ref == 'main' && github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./.ops/Dockerfile
+          push: true
+          tags:
+            ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-develop:latest
+
+  push-develop:
+    needs: [lint, unit-test]
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.ref == 'main')
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -165,10 +169,10 @@ jobs:
           tags:
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-develop:latest
       
-  docker-build-and-push-staging:
+  push-staging:
     needs: [lint, unit-test]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/v')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/v') && github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -198,9 +202,9 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:${{ env.IMAGE_VERSION }}
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:latest
 
-  docker-build-and-push-production:
+  push-production:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
