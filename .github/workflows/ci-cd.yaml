@@ -137,6 +137,7 @@ jobs:
           context: .
           file: ./.ops/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags:
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-develop:latest
       
@@ -169,6 +170,7 @@ jobs:
           context: .
           file: ./.ops/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:${{ env.IMAGE_VERSION }}
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-staging:latest
@@ -201,6 +203,7 @@ jobs:
           context: .
           file: ./.ops/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:${{ env.IMAGE_VERSION }}
             ${{ secrets.DOCKERHUB_USERNAME }}/fe-angular-game-price-comparator-production:latest
