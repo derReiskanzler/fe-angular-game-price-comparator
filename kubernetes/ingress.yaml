@@ -1,0 +1,17 @@
+apiVersion: 'networking.k8s.io/v1'
+kind: 'Ingress'
+metadata:
+  name: fe-game-price-comparator-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: fe-angular-game-price-comparator.192.168.49.2.nip.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: '/'
+            backend:
+              service:
+                name: fe-angular-game-price-comparator-service
+                port:
+                  number: 80
