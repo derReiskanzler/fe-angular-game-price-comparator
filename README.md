@@ -30,3 +30,24 @@ Run `npm run lint` to execute linting.
 
 ## Node & NPM engines in package.json
 Always check your [node version](https://nodejs.org/en/about/previous-releases) and keep it consistent in the package.json
+
+## Kubernetes
+
+```bash
+minikube start \
+    --cpus=2 --memory=4096m \
+    --container-runtime=cri-o \
+    --driver=docker \
+    --addons=ingress \
+
+kubectl apply -f <K8-files>
+
+# "Real-time" check on ressources
+watch --exec kubectl get [pods,services,ingress,etc] --output wide
+
+# For checking pods
+kubectl describe pods
+
+# For checking within the container
+kubectl logs  <container-name>
+```
