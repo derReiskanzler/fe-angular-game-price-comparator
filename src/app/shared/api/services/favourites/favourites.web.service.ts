@@ -2,10 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiGame } from '../../models/api-game.interface';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class FavouriteWebService {
-  private basePath = 'http://localhost:8080/api';
+  private basePath = environment.API_BASE_URL;
   private http = inject(HttpClient);
 
   public getFavouriteList(): Observable<ApiGame[]> {

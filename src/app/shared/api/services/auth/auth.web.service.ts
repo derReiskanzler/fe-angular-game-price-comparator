@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { LoginApiResponse } from '../../models/login-api-response.interface';
 import { RegisterApiResponse } from '../../models/reigster-api-response.interface';
 import { UserResponse } from '../../models/user-api-response.interface';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthWebService {
-  private basePath = 'http://localhost:8080/api';
+  private basePath = environment.API_BASE_URL;
   private http = inject(HttpClient);
 
   public login(email: string, password: string): Observable<LoginApiResponse> {
