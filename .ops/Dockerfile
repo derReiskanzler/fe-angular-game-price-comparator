@@ -12,6 +12,13 @@ COPY .ops/nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build /app/dist/ /usr/share/nginx/html
 
+
+# Create a config file with placeholders
+RUN echo "window.ENV = { API_BASE_URL: '${API_BASE_URL}' }" > /usr/share/nginx/html/env-vars.js
+
+COPY .ops/entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
