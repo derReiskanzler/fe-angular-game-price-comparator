@@ -5,6 +5,9 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+# Debug
+RUN ls -R /app/dist  # This will list the contents of your dist folder
+
 
 FROM nginx:alpine
 
