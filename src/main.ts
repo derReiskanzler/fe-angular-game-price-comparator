@@ -16,6 +16,9 @@ import { provideRouter } from '@angular/router';
 import { HasGameSelectedMatchGuard } from './app/shared/utils/guards/has-game-selected.guard';
 import { IsLoggedInMatchGuard } from './app/shared/utils/guards/is-logged-in.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './app/features/home/home.component';
+import { GameDetailsComponent } from './app/features/game-details/game-details.component';
+import { FavouriteListComponent } from './app/features/favourites/favourites.component';
 
 registerLocaleData(localeDe);
 
@@ -24,20 +27,23 @@ bootstrapApplication(AppComponent, {
     provideRouter([
       {
         path: 'home',
-        loadComponent: () =>
-          import('./app/features/home/home.component').then((c) => c.HomeComponent),
+        component: HomeComponent,
+        // loadComponent: () =>
+        //   import('./app/features/home/home.component').then((c) => c.HomeComponent),
       },
       {
         path: 'home/game-details',
         canMatch: [HasGameSelectedMatchGuard],
-        loadComponent: () =>
-          import('./app/features/game-details/game-details.component').then((c) => c.GameDetailsComponent),
+        component: GameDetailsComponent,
+        // loadComponent: () =>
+        //   import('./app/features/game-details/game-details.component').then((c) => c.GameDetailsComponent),
       },
       {
         path: 'favourites',
         canMatch: [IsLoggedInMatchGuard],
-        loadComponent: () =>
-          import('./app/features/favourites/favourites.component').then((c) => c.FavouriteListComponent),
+        component: FavouriteListComponent,
+        // loadComponent: () =>
+        //   import('./app/features/favourites/favourites.component').then((c) => c.FavouriteListComponent),
       },
       {
         path: '**',
