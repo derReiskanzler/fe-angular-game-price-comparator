@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './app/features/home/home.component';
 import { GameDetailsComponent } from './app/features/game-details/game-details.component';
 import { FavouriteListComponent } from './app/features/favourites/favourites.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 registerLocaleData(localeDe);
 
@@ -62,6 +63,7 @@ bootstrapApplication(AppComponent, {
       useValue: 'de-DE'
     },
     MessageService,
+    DialogService,
     provideStore({
       [searchGameReducerKey]: searchGameReducer,
     }),
