@@ -31,12 +31,12 @@ export class HomeComponent implements OnInit {
   public search$!: Observable<string>;
   public error$!: Observable<string>;
 
-  private facade = inject(SearchGameFacadeService);
-  private router = inject(Router);
-  private messageService = inject(MessageService);
+  private readonly facade = inject(SearchGameFacadeService);
+  private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
 
-  private destroyRef = inject(DestroyRef);
-  public searchControl = new FormControl();
+  private readonly destroyRef = inject(DestroyRef);
+  public readonly searchControl = new FormControl();
 
   public ngOnInit(): void {
       this.results$ = this.facade.results$;

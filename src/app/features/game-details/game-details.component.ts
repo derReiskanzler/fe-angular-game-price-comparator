@@ -38,9 +38,9 @@ export class GameDetailsComponent implements OnInit {
   public isLoading$!: Observable<boolean>;
   public error$!: Observable<string>;
   
-  private facade = inject(SearchGameFacadeService);
-  private location = inject(Location);
-  private messageService = inject(MessageService);
+  private readonly facade = inject(SearchGameFacadeService);
+  private readonly location = inject(Location);
+  private readonly messageService = inject(MessageService);
 
   public ngOnInit(): void {
     this.isLoading$ = this.facade.isLoading$;

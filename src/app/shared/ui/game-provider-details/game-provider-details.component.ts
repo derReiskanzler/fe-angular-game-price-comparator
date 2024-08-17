@@ -16,12 +16,12 @@ import { SplitPipe } from '../../utils/pipes/split.pipe';
   ],
 })
 export class GameProviderDetailsComponent {
-  @Input() id?: number|string|null;
-  @Input() name?: string|null;
-  @Input() link?: string|null;
-  @Input() price?: GamePrice|null;
-  @Input() imagePath?: string= '';
-  @Input() showWebsiteLabel = true;
-  @Input() showPriceLabel = true;
-  @Input() styleClass = 'flex flex-column gap-2';
+  @Input() public id?: number|string|null;
+  @Input() public name?: string|null;
+  @Input() public link?: string|null;
+  @Input() public price?: GamePrice|null;
+  @Input() public imagePath?: string= '';
+  @Input() public showWebsiteLabel = true;
+  @Input() public showPriceLabel = true;
+  @Input() public styleClass = 'flex flex-column gap-2';
 }

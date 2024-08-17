@@ -7,8 +7,8 @@ import { SearchGameService } from '../../services/search-game/search-game.servic
 
 @Injectable()
 export class SearchGameEffects {
-    private actions$ = inject(Actions);
-    private api = inject(SearchGameService);
+    private readonly actions$ = inject(Actions);
+    private readonly api = inject(SearchGameService);
 
     public searchGame$ = createEffect(() =>
         this.actions$.pipe(

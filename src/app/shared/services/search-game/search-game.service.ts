@@ -6,8 +6,8 @@ import { GameTransformerService } from '../../api/transformers/game-transformer.
 
 @Injectable({ providedIn: 'root' })
 export class SearchGameService {
-  private api = inject(SearchGameWebService);
-  private transformer = inject(GameTransformerService);
+  private readonly api = inject(SearchGameWebService);
+  private readonly transformer = inject(GameTransformerService);
 
   public searchGame(search: string): Observable<Game[]> {
     return this.api.searchGame(search)

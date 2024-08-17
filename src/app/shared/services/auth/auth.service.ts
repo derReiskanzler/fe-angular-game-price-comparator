@@ -9,12 +9,12 @@ import { MessageService } from 'primeng/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public currentUserSig = signal<Partial<User> | null>(null);
-  public isLoadingSig = signal<boolean>(false);
-  public errorMessage = signal<string|null>(null);
+  public readonly currentUserSig = signal<Partial<User> | null>(null);
+  public readonly isLoadingSig = signal<boolean>(false);
+  public readonly errorMessage = signal<string|null>(null);
 
-  private api = inject(AuthWebService);
-  private messageService = inject(MessageService);
+  private readonly api = inject(AuthWebService);
+  private readonly messageService = inject(MessageService);
 
   public login({ email, password }: LoginUserDto): Observable<User> {
     this.isLoadingSig.set(true);

@@ -22,11 +22,11 @@ import { NgFor } from '@angular/common';
   ],
 })
 export class GameComponent {
-  @Input() image: string|undefined;
-  @Input() name: string|undefined;
-  @Input() gameProviders: GameInfo[]|undefined|null;
-  @Input() platforms: GamePlatforms|undefined;
-  @Input() isFavourite: boolean|undefined;
-  @Output() selectGame = new EventEmitter<void>();
-  @Output() favourize = new EventEmitter<void>();
+  @Input() public image: string|undefined;
+  @Input() public name: string|undefined;
+  @Input() public gameProviders: GameInfo[]|undefined|null;
+  @Input() public platforms: GamePlatforms|undefined;
+  @Input() public isFavourite: boolean|undefined;
+  @Output() public selectGame = new EventEmitter<void>();
+  @Output() public favourize = new EventEmitter<void>();
 }

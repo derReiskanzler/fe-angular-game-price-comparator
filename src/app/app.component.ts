@@ -14,7 +14,7 @@ import { RouterOutlet } from '@angular/router';
   ],
 })
 export class AppComponent implements OnInit {
-  private primengConfig = inject(PrimeNGConfig);
+  private readonly primengConfig = inject(PrimeNGConfig);
 
   public ngOnInit(): void {
     this.primengConfig.ripple = true;

@@ -27,10 +27,10 @@ export class FavouriteListComponent implements OnInit {
   public selectedGame$!: Observable<Game>;
   public error$!: Observable<string>;
   
-  private facade = inject(SearchGameFacadeService);
-  private router = inject(Router);
-  private messageService = inject(MessageService);
-  private location = inject(Location);
+  private readonly facade = inject(SearchGameFacadeService);
+  private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
+  private readonly location = inject(Location);
 
   public ngOnInit(): void {
     this.facade.getFavouriteList();

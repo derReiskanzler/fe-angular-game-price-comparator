@@ -31,15 +31,15 @@ import { InputTextModule } from 'primeng/inputtext';
   ],
 })
 export class AuthDialogComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
-  private dialogRef = inject(DynamicDialogRef);
-  private messageService = inject(MessageService);
-  private auth = inject(AuthService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly dialogRef = inject(DynamicDialogRef);
+  private readonly messageService = inject(MessageService);
+  private readonly auth = inject(AuthService);
 
   public activeIndex: number = AuthType.LOGIN;
   public loginFormGroup!: FormGroup;
   public registerFormGroup!: FormGroup;
-  public isLoading = this.auth.isLoadingSig;
+  public readonly isLoading = this.auth.isLoadingSig;
 
   public ngOnInit(): void {
     this.loginFormGroup = new FormGroup({
