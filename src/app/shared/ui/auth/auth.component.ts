@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthService } from '../../services/auth/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../models/user.interface';
@@ -25,6 +25,7 @@ import { RippleModule } from 'primeng/ripple';
     TooltipModule,
     RippleModule,
     MenuModule,
+    DynamicDialogModule,
   ],
 })
 export class AuthComponent implements OnInit, OnDestroy {
