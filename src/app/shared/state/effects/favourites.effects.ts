@@ -8,9 +8,9 @@ import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class FavouritesEffects {
-    private actions$ = inject(Actions);
-    private api = inject(FavouriteService);
-    private messageService = inject(MessageService)
+    private readonly actions$ = inject(Actions);
+    private readonly api = inject(FavouriteService);
+    private readonly messageService = inject(MessageService)
 
     public getFavouriteList$ = createEffect(() =>
         this.actions$.pipe(

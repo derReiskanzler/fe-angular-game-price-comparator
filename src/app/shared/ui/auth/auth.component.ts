@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthService } from '../../services/auth/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../models/user.interface';
@@ -25,18 +25,19 @@ import { RippleModule } from 'primeng/ripple';
     TooltipModule,
     RippleModule,
     MenuModule,
+    DynamicDialogModule,
   ],
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  private auth = inject(AuthService);
-  private dialogService = inject(DialogService);
-  private messageService = inject(MessageService);
-  private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
+  private readonly auth = inject(AuthService);
+  private readonly dialogService = inject(DialogService);
+  private readonly messageService = inject(MessageService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   private dialogRef: DynamicDialogRef|undefined;
-  public isLoggedIn = this.auth.currentUserSig;
-  public isLoading = this.auth.isLoadingSig;
+  public readonly isLoggedIn = this.auth.currentUserSig;
+  public readonly isLoading = this.auth.isLoadingSig;
 
   public ngOnInit(): void {
     // what if I'm logged in but close the tab and create new tab

@@ -8,14 +8,14 @@ import { Game } from '../../models/game.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SearchGameFacadeService {
-  private store = inject(Store);
+  private readonly store = inject(Store);
 
-  public search$: Observable<string> = this.store.select(Selectors.selectSearch);
-  public results$: Observable<Game[]> = this.store.select(Selectors.selectResults);
-  public favourites$: Observable<Game[]> = this.store.select(Selectors.selectFavourites);
-  public isLoading$: Observable<boolean> = this.store.select(Selectors.selectIsLoading);
-  public selectedGame$: Observable<Game> = this.store.select(Selectors.selectSelectedGame);
-  public error$: Observable<string> = this.store.select(Selectors.selectError).pipe(filter(error => !!error));
+  public readonly search$: Observable<string> = this.store.select(Selectors.selectSearch);
+  public readonly results$: Observable<Game[]> = this.store.select(Selectors.selectResults);
+  public readonly favourites$: Observable<Game[]> = this.store.select(Selectors.selectFavourites);
+  public readonly isLoading$: Observable<boolean> = this.store.select(Selectors.selectIsLoading);
+  public readonly selectedGame$: Observable<Game> = this.store.select(Selectors.selectSelectedGame);
+  public readonly error$: Observable<string> = this.store.select(Selectors.selectError).pipe(filter(error => !!error));
 
   public searchGame(search: string): void {
     this.store.dispatch(SearchGameActions.searchGameAction({ search }));

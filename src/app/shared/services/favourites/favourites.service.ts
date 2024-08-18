@@ -6,8 +6,8 @@ import { GameTransformerService } from '../../api/transformers/game-transformer.
 
 @Injectable({ providedIn: 'root' })
 export class FavouriteService {
-  private api = inject(FavouriteWebService);
-  private transformer = inject(GameTransformerService);
+  private readonly api = inject(FavouriteWebService);
+  private readonly transformer = inject(GameTransformerService);
 
   public getFavouriteList(): Observable<Game[]> {
     return this.api.getFavouriteList()

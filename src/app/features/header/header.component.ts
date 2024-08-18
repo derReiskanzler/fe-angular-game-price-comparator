@@ -17,7 +17,7 @@ import { MenubarModule } from 'primeng/menubar';
   ],
 })
 export class HeaderComponent {
-  private router = inject(Router);
+  private readonly router = inject(Router);
 
   public onLogoClick(): void {
     this.router.navigate(['home']);
