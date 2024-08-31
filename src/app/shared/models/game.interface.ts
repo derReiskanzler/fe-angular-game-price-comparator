@@ -19,12 +19,8 @@ export const GameTypes = {
 export interface GameInfo {
     id?: number|string;
     name: string;
-    price: GamePrice;
+    price: GamePrice|null;
     link: string;
-}
-
-export type EgsGameInfo = Omit<GameInfo, 'id'> & {
-    id?: string;
 }
 
 export interface GamePrice {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ApiGame, ApiGameInfo, ApiGamePrice, ApiEgsGameInfo } from '../models/api-game.interface';
-import { EgsGameInfo, Game, GameInfo, GamePrice } from '../../models/game.interface';
+import { ApiGame, ApiGameInfo, ApiGamePrice } from '../models/api-game.interface';
+import { Game, GameInfo, GamePrice } from '../../models/game.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GameTransformerService {
@@ -23,24 +23,8 @@ export class GameTransformerService {
       id: info.id,
       link: info.link,
       name: info.name,
-      price: this.transformGamePrice(info.price),
+      price: info.price ? this.transformGamePrice(info.price) : null,
     }));
-  }
-
-  public transformGameInfo(apiGameInfo: ApiGameInfo): GameInfo {
-    return {
-      id: apiGameInfo.id,
-      link: apiGameInfo.link,
-      price: this.transformGamePrice(apiGameInfo.price),
-    } as GameInfo;
-  }
-
-  public transformEgsGameInfo(apiGameInfo: ApiEgsGameInfo): EgsGameInfo {
-    return {
-      id: apiGameInfo.id,
-      link: apiGameInfo.link,
-      price: this.transformGamePrice(apiGameInfo.price),
-    } as EgsGameInfo;
   }
 
   public transformGamePrice(apiGamePrice: ApiGamePrice): GamePrice {

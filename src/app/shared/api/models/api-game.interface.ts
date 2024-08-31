@@ -23,10 +23,6 @@ export interface ApiGameInfo {
     link: string;
 }
 
-export type ApiEgsGameInfo = Omit<ApiGameInfo, 'id'> & {
-    id?: string;
-}
-
 export interface ApiGamePrice {
     initial_value: number;
     final_value: number;
