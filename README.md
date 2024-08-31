@@ -4,29 +4,17 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Its corresponding Backend can be found [here](https://github.com/kirdreamer/GamePriceComparator).
 
 ## Concept
+[↗︎ concept link](./docs/concept.md)
 
-[→ concept link](./docs/concept.md)
+## CI/CD
 
-## Development server
+[↗︎ ci/cd link](./.github/docs/ci.md)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Dockerfile & Env Vars
 
-## Code scaffolding
+Regarding dynamic environment variables that can be passed down to this frontend application, Angular only supports file replacement when running `ng build` commands with different [configuration flags](https://v17.angular.io/guide/build#configure-target-specific-file-replacements). This does not apply to our use case of having a different `API_BASE_URL` in different environments when the App is deployed in different remote environments.
 
-Run `ng generate component component-name --standalone` to generate a new component. Accordingly you can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+As Angular does not support dynamic substitution of environment variables the [Dockerfile had to be adjusted to use a entrypoint script](https://medium.com/@sushil.singh56/read-dynamic-environment-variables-in-angular-621e3ba38eb4) that dynamically replaces a `env-vars.js` file in the `src/assets` folder, which is the only folder being copied during build time and put into the /dist folder. This enables us to confidently use the `env-vars.js` as a global variables file (by adding a script to the `index.html`) that can receive environment variables from outside which are passed down to the App. 
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Unit tests
-
-Run `npm run test` to execute the unit tests via [Jest](https://github.com/jestjs/jest).
-
-## Linting
-
-Linting has been set up via [Angular-ESLint](https://github.com/angular-eslint/angular-eslint).
-Run `npm run lint` to execute linting.
-
-## Node & NPM engines in package.json
+### Node & NPM engines in package.json
 Always check your [node version](https://nodejs.org/en/about/previous-releases) and keep it consistent in the package.json
